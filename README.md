@@ -24,7 +24,7 @@ And also 3 types of supporting branches:
 
   
 
-For each issue that you will be working on, you to create a branch named with the short description of that issue.
+For each issue that you will be working on, you need to create a branch named with the short description of that issue.
 
 The format of the branch naming is the : `<your-name>/<issue-type>/<issue-description>`
 
