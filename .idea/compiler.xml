@@ -10,6 +10,7 @@
         <module name="config-server" />
         <module name="streaming-service" />
         <module name="discovery-server" />
+        <module name="user-service" />
         <module name="api-gateway-service" />
       </profile>
     </annotationProcessing>
@@ -18,6 +19,7 @@
       <module name="config-server" target="11" />
       <module name="discovery-server" target="11" />
       <module name="streaming-service" target="11" />
+      <module name="user-service" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -26,6 +28,7 @@
       <module name="config-server" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
       <module name="streaming-service" options="-parameters" />
+      <module name="user-service" options="-parameters" />
     </option>
   </component>
 </project>
