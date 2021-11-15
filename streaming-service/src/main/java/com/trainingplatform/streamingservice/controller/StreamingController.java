@@ -15,6 +15,12 @@ public class StreamingController {
         return "Deneme1";
     };
 
+    @GetMapping("/getVideoStreamSecure")
+    @ResponseStatus(HttpStatus.OK)
+    public String getVideoStreamSecure(){
+        return "Deneme1 Secure";
+    };
+
     @GetMapping("/getSomething")
     @ResponseStatus(HttpStatus.OK)
     public String getSomething(){
