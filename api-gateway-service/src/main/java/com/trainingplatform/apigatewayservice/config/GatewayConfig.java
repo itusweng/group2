@@ -24,9 +24,9 @@ public class GatewayConfig {
                         .filters(f -> f.filter(filter))
                         .uri("lb://streaming-service"))
 
-                .route("auth-service", r -> r.path("/auth/**")
+                .route("user-service", r -> r.path("/api/user/**")
                         .filters(f -> f.filter(filter))
-                        .uri("lb://auth-service"))
+                        .uri("lb://user-service"))
                 .build();
     }
 

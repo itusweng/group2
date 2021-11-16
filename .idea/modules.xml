@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/discovery-server/discovery-server.iml" filepath="$PROJECT_DIR$/discovery-server/discovery-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/streaming-service/streaming-service.iml" filepath="$PROJECT_DIR$/streaming-service/streaming-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/training-service/training-service.iml" filepath="$PROJECT_DIR$/training-service/training-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trainingplatform-web-backend.iml" filepath="$PROJECT_DIR$/.idea/trainingplatform-web-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/user-service/user-service.iml" filepath="$PROJECT_DIR$/user-service/user-service.iml" />
     </modules>

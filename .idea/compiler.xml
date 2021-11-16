@@ -12,6 +12,7 @@
         <module name="discovery-server" />
         <module name="user-service" />
         <module name="api-gateway-service" />
+        <module name="training-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -19,6 +20,7 @@
       <module name="config-server" target="11" />
       <module name="discovery-server" target="11" />
       <module name="streaming-service" target="11" />
+      <module name="training-service" target="11" />
       <module name="user-service" target="11" />
     </bytecodeTargetLevel>
   </component>
@@ -28,6 +30,7 @@
       <module name="config-server" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
       <module name="streaming-service" options="-parameters" />
+      <module name="training-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>
