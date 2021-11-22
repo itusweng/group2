@@ -1,13 +1,13 @@
-package com.trainingplatform.userservice.user;
+package com.trainingplatform.userservice.repository;
 
+import com.trainingplatform.userservice.model.User;
 import org.springframework.data.repository.CrudRepository;
-import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    User findbyId(Long ID);
+    /*User findbyId(Long ID);
 
-    List<User> findbyFirstName(String first_name);
+    List<User> findByFirst_name(String first_name);
 
     List<User> findbyLastName(String last_name);
 
@@ -17,6 +17,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     boolean deletebyId(Long ID);
 
-    boolean deletebyEmail(String email);
+    boolean deletebyEmail(String email);*/
 
 }

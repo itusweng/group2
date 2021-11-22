@@ -1,4 +1,4 @@
-package com.trainingplatform.userservice.user;
+package com.trainingplatform.userservice.model;
 
 import javax.persistence.*;
 import lombok.Getter;
