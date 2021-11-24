@@ -17,10 +17,10 @@ public class SecurityConfig  {
                 .pathMatchers("/api/auth/*").permitAll()
 
                 // Specify api endpoints that requires authentication
+                .pathMatchers("/api/user/*").authenticated()
                 .pathMatchers("/api/streaming/*").authenticated()
 
-                // TODO: make user endpoint -> .authenticated()
-                .pathMatchers("/api/user/*").permitAll()
+
                 // Authentication is required for remaining endpoints
                 .anyExchange().authenticated()
                 .and()
