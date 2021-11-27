@@ -4,6 +4,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
@@ -13,17 +18,32 @@ public class SecurityConfig  {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
                 .authorizeExchange()
-                // User can access register and login pages without access token
-                .pathMatchers("/api/auth/*").permitAll()
 
                 // Specify api endpoints that requires authentication
+                .pathMatchers("/api/user/*").authenticated()
                 .pathMatchers("/api/streaming/*").authenticated()
 
                 // Authentication is required for remaining endpoints
                 .anyExchange().authenticated()
                 .and()
                 .csrf().disable()
-                .oauth2Login();
+                .oauth2Login()
+                .and()
+                .oauth2ResourceServer()
+                .jwt();
         return http.build();
     }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
 }

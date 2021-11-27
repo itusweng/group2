@@ -1,0 +1,32 @@
+package com.trainingplatform.userservice.service;
+
+import com.trainingplatform.userservice.model.User;
+import com.trainingplatform.userservice.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+
+
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    // Inject required instances
+    private final UserRepository userRepo;
+    private final KeycloakService keycloakService;
+    private final PasswordEncoder passwordEncoder;
+
+    public void createUser(User newUser) {
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+
+        keycloakService.createKeycloakUser(newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
+        userRepo.save(newUser);
+    }
+
+    public User getUserByUsername(String username) throws EntityNotFoundException {
+        return userRepo.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException(username));
+    }
+}
