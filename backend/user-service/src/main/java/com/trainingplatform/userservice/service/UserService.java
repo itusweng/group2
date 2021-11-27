@@ -16,7 +16,7 @@ public class UserService {
     private final KeycloakService keycloakService;
     private final PasswordEncoder passwordEncoder;
 
-    public void createUser(User newUser){
+    public void createUser(User newUser) {
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 
         keycloakService.createKeycloakUser(newUser.getUsername(), newUser.getEmail(), newUser.getPassword());

@@ -21,7 +21,7 @@ public class KeycloakClientConfig {
     private String realm;
 
     @Bean
-    public Keycloak keycloak(){
+    public Keycloak keycloak() {
         return KeycloakBuilder.builder()
                 .grantType(CLIENT_CREDENTIALS)
                 .serverUrl(authUrl)

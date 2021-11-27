@@ -1,4 +1,5 @@
 package com.trainingplatform.userservice.config;
+
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
@@ -13,8 +14,7 @@ import org.springframework.security.web.authentication.session.NullAuthenticated
 
 @KeycloakConfiguration
 @Import({KeycloakSpringBootConfigResolver.class})
-public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
-{
+public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     /**
      * Registers the KeycloakAuthenticationProvider with the authentication manager.
      */
@@ -35,8 +35,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
+    protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http
                 .authorizeRequests()
