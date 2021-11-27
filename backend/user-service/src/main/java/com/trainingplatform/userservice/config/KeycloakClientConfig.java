@@ -1,4 +1,4 @@
-package com.trainingplatform.userservice;
+package com.trainingplatform.userservice.config;
 
 
 import org.keycloak.admin.client.Keycloak;
