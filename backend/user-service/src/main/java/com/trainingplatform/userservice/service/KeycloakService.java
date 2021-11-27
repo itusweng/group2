@@ -6,9 +6,12 @@ import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Collections;
 
+@Service
 @RequiredArgsConstructor
 public class KeycloakService {
 
@@ -18,7 +21,12 @@ public class KeycloakService {
     @Value("${keycloak.realm}")
     private String realm;
 
-    private UsersResource usersResource = keycloak.realm(realm).users();
+    private UsersResource usersResource;
+
+    @PostConstruct
+    public void initUserResource(){
+         this.usersResource = this.keycloak.realm(realm).users();
+    }
 
     private CredentialRepresentation createCredential(String password){
         CredentialRepresentation newCred = new CredentialRepresentation();
