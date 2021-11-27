@@ -1,24 +1,25 @@
 package com.trainingplatform.userservice.service;
 
+import com.trainingplatform.userservice.model.User;
+import com.trainingplatform.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.admin.client.Keycloak;
-
-import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
-    private final Keycloak keycloak;
+    // Inject required instances
+    private final UserRepository userRepo;
+    private final KeycloakService keycloakService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Value("${keycloak.realm}")
-    private String realm;
+    public void createUser(User newUser){
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 
-    public List<UserRepresentation> findAll(){
-        return keycloak.realm(this.realm).users().list();
+        keycloakService.createKeycloakUser(newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
+        userRepo.save(newUser);
     }
 }
