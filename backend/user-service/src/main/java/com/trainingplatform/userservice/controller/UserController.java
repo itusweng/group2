@@ -1,5 +1,4 @@
 package com.trainingplatform.userservice.controller;
-import com.trainingplatform.userservice.repository.UserProvider;
 import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.UserRepresentation;

@@ -1,8 +1,15 @@
 package com.trainingplatform.userservice.model;
+
+import javax.persistence.*;
+
 import lombok.*;
 
-import java.util.List;
+@Entity
+@Table (name="User", schema = "tp-userservice",  uniqueConstraints = {
+        @UniqueConstraint(name = "user_email_unique", columnNames = "email"),
+        @UniqueConstraint(name = "username_unique", columnNames = "username")
 
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -10,11 +17,49 @@ import java.util.List;
 @ToString
 public class User {
 
+    @Id
     private Long id;
+
+    @Column(
+            name = "username",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String username;
-    private String firstName;
-    private String lastName;
+
+    @Column(
+            name = "password",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String password;
+
+    @Column(
+            name = "first_name",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String first_name;
+
+    @Column(
+            name = "last_name",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String last_name;
+
+    @Column(
+            name = "email",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String email;
-    private List<String> roles;
+
+    @Column(
+            name = "role_id",
+            nullable = false,
+            columnDefinition = "BIGINT"
+    )
+    private Long role_id;
 
 }
