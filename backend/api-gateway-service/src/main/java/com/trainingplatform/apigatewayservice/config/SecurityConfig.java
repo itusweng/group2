@@ -18,8 +18,7 @@ public class SecurityConfig  {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
                 .authorizeExchange()
-
-                // Specify api endpoints that requires authentication
+                .pathMatchers("/api/user/login").permitAll()
                 .pathMatchers("/api/user/*").authenticated()
                 .pathMatchers("/api/streaming/*").authenticated()
 
