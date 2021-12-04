@@ -27,7 +27,7 @@ CREATE TABLE `REALM_LOCALIZATIONS` (
   `LOCALE` varchar(255) NOT NULL,
   `TEXTS` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`REALM_ID`,`LOCALE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

@@ -28,7 +28,7 @@ CREATE TABLE `RESOURCE_SERVER` (
   `POLICY_ENFORCE_MODE` varchar(15) NOT NULL,
   `DECISION_STRATEGY` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
