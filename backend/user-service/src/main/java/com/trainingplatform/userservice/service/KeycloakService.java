@@ -2,6 +2,7 @@ package com.trainingplatform.userservice.service;
 
 import com.trainingplatform.userservice.config.KeycloakClientConfig;
 import com.trainingplatform.userservice.model.User;
+import com.trainingplatform.userservice.model.UserCredentials;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.UsersResource;
@@ -66,10 +67,10 @@ public class KeycloakService {
         usersResource.get(user.getId()).update(user);
     }
 
-    public ResponseEntity loginToKeycloak(User user) {
+    public ResponseEntity loginToKeycloak(UserCredentials userCredentials) {
         HttpEntity<MultiValueMap<String, String>> httpEntity = restUtil.createHttpEntityForTokenRequest();
-        httpEntity.getBody().put("username", Collections.singletonList(user.getUsername()));
-        httpEntity.getBody().put("password", Collections.singletonList(user.getPassword()));
+        httpEntity.getBody().put("username", Collections.singletonList(userCredentials.getUsername()));
+        httpEntity.getBody().put("password", Collections.singletonList(userCredentials.getPassword()));
         ResponseEntity<Object> result = restTemplate.exchange(restUtil.getTokenEndpoint(), HttpMethod.POST, httpEntity, Object.class);
         return result;
     }

@@ -26,7 +26,7 @@ CREATE TABLE `FED_USER_CONSENT_CL_SCOPE` (
   `USER_CONSENT_ID` varchar(36) NOT NULL,
   `SCOPE_ID` varchar(36) NOT NULL,
   PRIMARY KEY (`USER_CONSENT_ID`,`SCOPE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

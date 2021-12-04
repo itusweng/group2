@@ -19,7 +19,7 @@ public class SecurityConfig  {
         http
                 .authorizeExchange()
                 .pathMatchers("/api/user/login").permitAll()
-                .pathMatchers("/api/user/register").permitAll()
+                .pathMatchers("/api/user/login/*").permitAll()
                 .pathMatchers("/api/user/*").authenticated()
                 .pathMatchers("/api/streaming/*").authenticated()
 

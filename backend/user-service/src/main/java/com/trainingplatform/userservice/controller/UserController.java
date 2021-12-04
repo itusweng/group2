@@ -1,6 +1,7 @@
 package com.trainingplatform.userservice.controller;
 
 import com.trainingplatform.userservice.model.User;
+import com.trainingplatform.userservice.model.UserCredentials;
 import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class UserController extends BaseController {
         }
     }
 
-    @GetMapping("")
+    @PostMapping("")
     public ResponseEntity createUser() {
         try {
             User user = new User();
@@ -46,20 +47,21 @@ public class UserController extends BaseController {
         }
     }
 
-    @GetMapping("/login")
-    public ResponseEntity loginWithPassword() {
-
-        // TODO: fix post request problem then delete dummy user below
-        User user = new User();
-        user.setUsername("test1");
-        user.setPassword("test1");
-
+    @PostMapping("/login")
+    public ResponseEntity loginWithPassword(@RequestBody UserCredentials userCredentials) {
+        System.out.println("here here");
         try {
-            ResponseEntity responseEntity = userService.login(user);
+            ResponseEntity responseEntity = userService.login(userCredentials);
             return responseEntity;
         } catch (Exception e) {
+            System.out.println("here");
             return exceptionHandler(e);
         }
+    }
+
+    @PostMapping("/login/deneme")
+    public void deneme(){
+        System.out.println("deneme post");
     }
 
 }

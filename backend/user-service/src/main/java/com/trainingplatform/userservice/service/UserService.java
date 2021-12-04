@@ -2,6 +2,7 @@ package com.trainingplatform.userservice.service;
 
 import com.trainingplatform.userservice.exceptions.UserNotCreatedException;
 import com.trainingplatform.userservice.model.User;
+import com.trainingplatform.userservice.model.UserCredentials;
 import com.trainingplatform.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.HttpStatus;
@@ -45,7 +46,7 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(username));
     }
 
-    public ResponseEntity login(User user) {
-        return keycloakService.loginToKeycloak(user);
+    public ResponseEntity login(UserCredentials userCredentials) {
+        return keycloakService.loginToKeycloak(userCredentials);
     }
 }

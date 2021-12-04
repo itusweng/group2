@@ -31,7 +31,7 @@ CREATE TABLE `offlinelesson` (
   PRIMARY KEY (`id`),
   KEY `FKa2yqfitw6xqd2rbtpjt0opjsj` (`training_id`),
   CONSTRAINT `FKa2yqfitw6xqd2rbtpjt0opjsj` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
