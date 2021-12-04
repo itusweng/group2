@@ -30,7 +30,7 @@ CREATE TABLE `FED_USER_ROLE_MAPPING` (
   PRIMARY KEY (`ROLE_ID`,`USER_ID`),
   KEY `IDX_FU_ROLE_MAPPING` (`USER_ID`,`ROLE_ID`),
   KEY `IDX_FU_ROLE_MAPPING_RU` (`REALM_ID`,`USER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
