@@ -2,7 +2,7 @@
   <div>
     <b-row class="mb-4">
       <b-col xs="12">
-        <h2>Kurs Listesi</h2>
+        <h2>Required Trainings</h2>
 
       </b-col>
     </b-row>
@@ -20,9 +20,9 @@
           <b-card-text> Bitiş: {{ training.endDate }} </b-card-text>
 
           <b-button v-if="training.started" href="#" variant="primary"
-            >Devam Et</b-button
+            >Continue</b-button
           >
-          <b-button v-else href="#" variant="success">Başla</b-button>
+          <b-button v-else href="#" variant="success">Start</b-button>
         </b-card>
       </b-col>
     </b-row>
