@@ -3,6 +3,7 @@ package com.trainingplatform.userservice.controller;
 import com.trainingplatform.userservice.exceptions.UserNotCreatedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -37,6 +38,10 @@ public abstract class BaseController {
                     .body(createReturnObj(e.getMessage()));
         }
         else if(e instanceof HttpClientErrorException.Unauthorized){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(createReturnObj(e.getMessage()));
+        }
+        else if(e instanceof OAuth2AccessDeniedException){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(createReturnObj(e.getMessage()));
         }
