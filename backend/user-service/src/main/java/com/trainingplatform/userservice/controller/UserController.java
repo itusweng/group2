@@ -1,7 +1,7 @@
 package com.trainingplatform.userservice.controller;
 
-import com.trainingplatform.userservice.model.User;
-import com.trainingplatform.userservice.model.UserCredentials;
+import com.trainingplatform.userservice.model.user.User;
+import com.trainingplatform.userservice.model.user.UserCredentials;
 import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,17 +29,8 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("")
-    public ResponseEntity createUser() {
+    public ResponseEntity createUser(User user) {
         try {
-            User user = new User();
-            user.setId(2L);
-            user.setUsername("test3");
-            user.setFirst_name("test name");
-            user.setLast_name("test last name");
-            user.setEmail("test3@gmail.com");
-            user.setRole_id(1L);
-            user.setPassword(passwordEncoder.encode("test1"));
-
             ResponseEntity accessToken = userService.createUser(user);
             return ResponseEntity.status(HttpStatus.OK).body(accessToken);
         } catch (Exception e) {

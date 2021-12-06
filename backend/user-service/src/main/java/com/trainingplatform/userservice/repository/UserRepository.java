@@ -1,6 +1,6 @@
 package com.trainingplatform.userservice.repository;
 
-import com.trainingplatform.userservice.model.User;
+import com.trainingplatform.userservice.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package com.trainingplatform.userservice.service;
 
 import com.trainingplatform.userservice.exceptions.UserNotCreatedException;
-import com.trainingplatform.userservice.model.User;
-import com.trainingplatform.userservice.model.UserCredentials;
+import com.trainingplatform.userservice.model.user.User;
+import com.trainingplatform.userservice.model.user.UserCredentials;
 import com.trainingplatform.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
