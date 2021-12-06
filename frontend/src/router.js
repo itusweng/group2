@@ -13,7 +13,7 @@ export default new Router({
         {
           path: '/dashboard',
           name: 'dashboard',
-          component: () => import('@/view/pages/Dashboard2.vue')
+          component: () => import('@/view/pages/Dashboard.vue')
         },
         {
           path: '/builder',

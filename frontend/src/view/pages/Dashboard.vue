@@ -1,98 +1,35 @@
 <template>
   <div>
     <!--begin::Dashboard-->
-    <b-button @click="hello"> {{ user.name }} {{ user.surname }} </b-button>
     <div class="row">
-      <div class="col-xl-8">
-        <ListWidget1></ListWidget1>
+      <div class="col-xl-9">
+        <TrainingList></TrainingList>
       </div>
-      <div class="col-xl-4">
-        <EngageWidget1></EngageWidget1>
+      <div class="col-xl-3">
+        <profile></profile>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-xl-8">
-        <ListWidget5></ListWidget5>
-      </div>
-      <div class="col-xl-4">
-        <AdvancedTableWidget2></AdvancedTableWidget2>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xl-8">
-        <ListWidget3></ListWidget3>
-      </div>
-      <div class="col-xl-4">
-        <ListWidget10></ListWidget10>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xl-4">
-        <ListWidget11></ListWidget11>
-      </div>
-      <div class="col-xl-8">
-        <ListWidget12></ListWidget12>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-8">
-        <ListWidget8></ListWidget8>
-      </div>
-      <div class="col-lg-4">
-        <ListWidget2></ListWidget2>
-      </div>
-    </div>
-    <!--end::Dashboard-->
   </div>
 </template>
 
 <script>
 import { SET_BREADCRUMB } from '@/core/store/breadcrumbs.module';
-import AdvancedTableWidget2 from '@/view/components/widgets/advance-table/Widget2.vue';
-import EngageWidget1 from '@/view/components/widgets/engage/Widget1.vue';
-import ListWidget1 from '@/view/components/widgets/list/Widget1.vue';
-import ListWidget2 from '@/view/components/widgets/list/Widget2.vue';
-import ListWidget3 from '@/view/components/widgets/list/Widget3.vue';
-import ListWidget5 from '@/view/components/widgets/list/Widget5.vue';
-import ListWidget8 from '@/view/components/widgets/list/Widget8.vue';
-import ListWidget10 from '@/view/components/widgets/list/Widget10.vue';
-import ListWidget11 from '@/view/components/widgets/list/Widget11.vue';
-import ListWidget12 from '@/view/components/widgets/list/Widget12.vue';
+import Profile from '@/view/components/widgets/Profile.vue';
+import TrainingList from '@/view/components/TrainingList';
 
 export default {
   name: 'dashboard',
   components: {
-    AdvancedTableWidget2,
-    EngageWidget1,
-    ListWidget1,
-    ListWidget2,
-    ListWidget3,
-    ListWidget5,
-    ListWidget8,
-    ListWidget10,
-    ListWidget11,
-    ListWidget12
+    Profile,
+    TrainingList,
   },
   data() {
-    return {
-      user: {
-        name: 'fsdf',
-        surname: 'dsfsdf'
-      }
-    };
+    return {};
   },
   mounted() {
-    console.log('sdfsdf');
     this.$store.dispatch(SET_BREADCRUMB, [{ title: 'Dashboard' }]);
   },
   methods: {
-    hello() {
-      console.log('Hello');
-    },
     setActiveTab1(event) {
       this.tabIndex = this.setActiveTab(event);
     },
