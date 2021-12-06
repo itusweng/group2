@@ -40,7 +40,7 @@ public class UserController extends BaseController {
             user.setRole_id(1L);
             user.setPassword(passwordEncoder.encode("test1"));
 
-            String accessToken = userService.createUser(user);
+            ResponseEntity accessToken = userService.createUser(user);
             return ResponseEntity.status(HttpStatus.OK).body(accessToken);
         } catch (Exception e) {
             return exceptionHandler(e);
@@ -49,19 +49,12 @@ public class UserController extends BaseController {
 
     @PostMapping("/login")
     public ResponseEntity loginWithPassword(@RequestBody UserCredentials userCredentials) {
-        System.out.println("here here");
         try {
             ResponseEntity responseEntity = userService.login(userCredentials);
             return responseEntity;
         } catch (Exception e) {
-            System.out.println("here");
             return exceptionHandler(e);
         }
-    }
-
-    @PostMapping("/login/deneme")
-    public void deneme(){
-        System.out.println("deneme post");
     }
 
 }

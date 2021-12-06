@@ -17,10 +17,10 @@ public class SecurityConfig  {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
+                .cors().and()
                 .authorizeExchange()
                 .pathMatchers("/api/user/login").permitAll()
                 .pathMatchers("/api/user/login/*").permitAll()
-                .pathMatchers("/api/user/*").authenticated()
                 .pathMatchers("/api/streaming/*").authenticated()
 
                 // Authentication is required for remaining endpoints

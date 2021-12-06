@@ -5,10 +5,7 @@ import com.trainingplatform.userservice.model.User;
 import com.trainingplatform.userservice.model.UserCredentials;
 import com.trainingplatform.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,20 +22,25 @@ public class UserService {
     private final KeycloakService keycloakService;
     private final PasswordEncoder passwordEncoder;
 
-    public String createUser(User newUser) throws UserNotCreatedException {
-        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    public ResponseEntity createUser(User newUser) throws UserNotCreatedException {
+        UserCredentials userCredentials = new UserCredentials();
+        userCredentials.setUsername(newUser.getUsername());
+        userCredentials.setPassword(newUser.getPassword());
 
+        ResponseEntity responseWithAccessToken;
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         Response response = keycloakService.createKeycloakUser(newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
+
         switch (response.getStatus()) {
-            case HttpStatus.SC_CREATED: // Successful case
+            case 200: // Successful case
                 userRepo.save(newUser);
                 break;
-            case HttpStatus.SC_CONFLICT:
+            case 409: // Conflict case
                 throw new UserNotCreatedException("This username is already in use!");
         }
 
-        return "token";
+        responseWithAccessToken = keycloakService.loginToKeycloak(userCredentials);
+        return responseWithAccessToken;
     }
 
     public User getUserByUsername(String username) throws EntityNotFoundException {
