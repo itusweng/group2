@@ -29,17 +29,14 @@
                 {{ i + 1 }}
               </td>
               <td class="pl-0">
-                <a
-                  href="#"
-                  class="
-                    text-dark
+                <router-link :to="'/lessons/'+item.id"  tag="a" class="text-dark
                     font-weight-bolder
                     text-hover-primary
                     mb-1
-                    font-size-lg
-                  "
-                  >{{ item.title }}</a
-                >
+                    font-size-lg">
+                  {{ item.title }}
+                </router-link>
+
               </td>
               <td class="text-right">
                 <span class="text-muted font-weight-bold">{{
@@ -85,70 +82,66 @@ export default {
       completionStatuses,
       list: [
         {
+          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'Yapikredi Mobil Uygulaması iOS/Android Aktarım-Giriş',
           duration: '20 min',
           completionStatus: completionStatuses.NOT_STARTED
         },
         {
+          id: '084970b3-6be2-4e73-aef7-ba34d483370f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         },
         {
+          id: '083450b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         },
         {
+          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         },
         {
+          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         },
         {
+          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         },
         {
+          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         },
         {
+          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         },
         {
+          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         },
         {
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.STARTED
-        },
-        {
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.STARTED
-        },
-        {
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.STARTED
-        },
-        {
+          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         }
+
       ]
     };
   },
