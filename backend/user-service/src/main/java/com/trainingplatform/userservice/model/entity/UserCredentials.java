@@ -1,4 +1,4 @@
-package com.trainingplatform.userservice.model.user;
+package com.trainingplatform.userservice.model.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

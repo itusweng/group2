@@ -1,6 +1,6 @@
 package com.trainingplatform.userservice;
 
-import com.trainingplatform.userservice.model.user.User;
+import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;

@@ -1,7 +1,7 @@
 package com.trainingplatform.userservice.controller;
 
-import com.trainingplatform.userservice.model.user.User;
-import com.trainingplatform.userservice.model.user.UserCredentials;
+import com.trainingplatform.userservice.model.entity.User;
+import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

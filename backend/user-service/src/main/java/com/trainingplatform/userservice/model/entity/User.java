@@ -1,4 +1,4 @@
-package com.trainingplatform.userservice.model.user;
+package com.trainingplatform.userservice.model.entity;
 
 import javax.persistence.*;
 
