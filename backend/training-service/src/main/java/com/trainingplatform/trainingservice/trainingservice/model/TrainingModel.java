@@ -1,4 +1,4 @@
-package com.trainingplatform.trainingservice.trainingservice.training;
+package com.trainingplatform.trainingservice.trainingservice.model;
 
 import lombok.*;
 
@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Training implements Serializable {
+public class TrainingModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +49,7 @@ public class Training implements Serializable {
     )
     private Integer capacity;
 
-    public Training(boolean is_online, long user_created_id, long trainer_id, int capacity) {
+    public TrainingModel(boolean is_online, long user_created_id, long trainer_id, int capacity) {
         this.is_online = is_online;
         this.user_created_id = user_created_id;
         this.trainer_id = trainer_id;

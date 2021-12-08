@@ -1,6 +1,5 @@
-package com.trainingplatform.trainingservice.trainingservice.offlinelesson;
+package com.trainingplatform.trainingservice.trainingservice.model;
 
-import com.trainingplatform.trainingservice.trainingservice.training.Training;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +7,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Entity
 @Table(name="offlinelesson", schema = "tp-trainingservice")
@@ -16,7 +14,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @ToString
-public class OfflineLesson implements Serializable {
+public class OfflineLessonModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,7 +36,7 @@ public class OfflineLesson implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "training_id", nullable = false)
-    private Training training;
+    private TrainingModel training;
 
     @Column(
             name="files",
@@ -47,13 +45,13 @@ public class OfflineLesson implements Serializable {
     )
     private String files;
 
-    public OfflineLesson(String description, String video_link, Training training) {
+    public OfflineLessonModel(String description, String video_link, TrainingModel training) {
         this.description = description;
         this.video_link = video_link;
         this.training = training;
     }
 
-    public OfflineLesson(String description, String video_link, Training training, String files) {
+    public OfflineLessonModel(String description, String video_link, TrainingModel training, String files) {
         this.description = description;
         this.video_link = video_link;
         this.training = training;

@@ -1,6 +1,4 @@
-package com.trainingplatform.trainingservice.trainingservice.onlinelesson;
-
-import com.trainingplatform.trainingservice.trainingservice.training.Training;
+package com.trainingplatform.trainingservice.trainingservice.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @ToString
-public class OnlineLesson implements Serializable {
+public class OnlineLessonModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,9 +37,9 @@ public class OnlineLesson implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "training_id", nullable = false)
-    private Training training;
+    private TrainingModel training;
 
-    public OnlineLesson(LocalDate meeting_date, String zoom_link) {
+    public OnlineLessonModel(LocalDate meeting_date, String zoom_link) {
         this.meeting_date = meeting_date;
         this.zoom_link = zoom_link;
     }
