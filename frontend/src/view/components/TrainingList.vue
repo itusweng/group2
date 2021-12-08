@@ -16,13 +16,13 @@
           tag="article"
           class="mb-2 mt-2"
         >
-          <b-card-text> Başlangıç: {{ training.startDate }} </b-card-text>
-          <b-card-text> Bitiş: {{ training.endDate }} </b-card-text>
+          <b-card-text> Start Date: {{ training.startDate }} </b-card-text>
+          <b-card-text> End Date: {{ training.endDate }} </b-card-text>
 
           <b-button v-if="training.started" href="#" variant="primary"
             >Continue</b-button
           >
-          <b-button v-else href="#" variant="success">Start</b-button>
+          <b-button v-else :to="'/trainings/'+training.id" variant="success">Start</b-button>
         </b-card>
       </b-col>
     </b-row>
@@ -35,18 +35,21 @@ export default {
     return {
       trainingList: [
         {
+          id: 'f6b706eb-5e12-4c01-8821-155452239a21',
           name: 'İş Sağlığı ve Güvenliği-UE/001-20',
           startDate: '9 NİS 2020 00:00',
           endDate: '31 ARA 2021 00:00',
           started: false
         },
         {
+          id: 'b36bd5ad-7dad-48d6-98a8-39db9ea37abc',
           name: 'YAS 117 Bilgi Güvenliği HTML 2021-UE/001-21',
           startDate: '24 ŞUB 2021 00:00',
           endDate: '31 ARA 2021 00:00',
           started: true
         },
         {
+          id: '3d5de70c-0b5b-420b-886e-ebfbf9be41eb',
           name: 'Etik Kurallar ve Çalışma İlkeleri 2020-UE/001-20',
           startDate: '29 EYL 2020 00:00',
           endDate: '31 ARA 2021 00:00',

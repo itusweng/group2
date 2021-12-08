@@ -16,6 +16,14 @@ export default new Router({
           component: () => import('@/view/pages/Dashboard.vue')
         },
         {
+          path: '/trainings/:id',
+          component: () => import('@/view/pages/trainings/TrainingDetails')
+        },
+        {
+          path: '/lessons/:id',
+          component: () => import('@/view/pages/trainings/LessonDetails')
+        },
+        {
           path: '/builder',
           name: 'builder',
           component: () => import('@/view/pages/Builder.vue')
