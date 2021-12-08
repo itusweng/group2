@@ -29,24 +29,29 @@
                 {{ i + 1 }}
               </td>
               <td class="pl-0">
-                <router-link :to="'/lessons/'+item.id"  tag="a" class="text-dark
+                <router-link
+                  :to="'/lessons/' + item.id"
+                  tag="a"
+                  class="
+                    text-dark
                     font-weight-bolder
                     text-hover-primary
                     mb-1
-                    font-size-lg">
+                    font-size-lg
+                  "
+                >
                   {{ item.title }}
                 </router-link>
-
-              </td>
-              <td class="text-right">
-                <span class="text-muted font-weight-bold">{{
-                  item.duration
-                }}</span>
               </td>
               <td class="text-right">
                 <span class="text-muted font-weight-bold">
-                  {{ item.completionStatus }}</span
-                >
+                  {{ item.duration }}
+                </span>
+              </td>
+              <td class="text-right">
+                <span class="text-muted font-weight-bold">
+                  {{ item.completionStatus }}
+                </span>
               </td>
               <td class="text-right pr-0">
                 <button
@@ -141,7 +146,6 @@ export default {
           duration: '18 min',
           completionStatus: completionStatuses.STARTED
         }
-
       ]
     };
   },

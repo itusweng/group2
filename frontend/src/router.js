@@ -6,6 +6,23 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
+      path: '/admin',
+      redirect: '/trainings',
+      component: () => import('@/view/layout/Layout'),
+      children: [
+        {
+          path: 'trainings',
+          component: () => import('@/view/pages/admin/trainings'),
+          children: [
+            {
+              path: 'list',
+              component: () => import('@/view/pages/admin/trainings/TrainingList'),
+            }
+          ]
+        }
+      ]
+    },
+    {
       path: '/',
       redirect: '/dashboard',
       component: () => import('@/view/layout/Layout'),
@@ -308,6 +325,7 @@ export default new Router({
         }
       ]
     },
+
     {
       path: '/custom-error',
       name: 'error',
