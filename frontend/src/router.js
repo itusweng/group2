@@ -35,6 +35,22 @@ export default new Router({
                 import('@/view/pages/admin/trainings/TrainingDetails')
             }
           ]
+        },
+        {
+          path: 'onlineLessons',
+          component: () => import('@/view/pages/admin/onlineLessons'),
+          children: [
+            {
+              path: 'create',
+              component: () =>
+                import('@/view/pages/admin/onlineLessons/CreateOnlineLesson')
+            },
+            {
+              path: ':id/update',
+              component: () =>
+                import('@/view/pages/admin/trainings/UpdateTraining')
+            }
+          ]
         }
       ]
     },

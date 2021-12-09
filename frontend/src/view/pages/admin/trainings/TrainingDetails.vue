@@ -197,7 +197,9 @@
               </span>
             </h3>
             <div class="card-toolbar">
-              <b-button variant="light-info">Add Lesson</b-button>
+              <b-button to="/admin/onlineLessons/create" variant="light-info">
+                Add Lesson
+              </b-button>
             </div>
           </div>
           <!--end::Header-->
@@ -242,7 +244,10 @@
                             />
                           </span>
                         </b-button>
-                        <b-button @click="deleteLesson(item)" class="btn btn-icon btn-light btn-sm">
+                        <b-button
+                          @click="deleteLesson(item)"
+                          class="btn btn-icon btn-light btn-sm"
+                        >
                           <span class="svg-icon svg-icon-md svg-icon-primary">
                             <inline-svg
                               src="media/svg/icons/General/Trash.svg"
