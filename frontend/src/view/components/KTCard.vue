@@ -23,7 +23,7 @@
         'body-fluid': bodyFluid
       }"
     >
-      <slot></slot>
+      <slot name="body"></slot>
     </div>
     <div class="card-footer" v-if="hasFootSlot">
       <slot name="foot"></slot>
