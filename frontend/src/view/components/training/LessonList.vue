@@ -25,20 +25,14 @@
         <tbody>
           <template v-for="(item, i) in list">
             <tr v-bind:key="i">
-              <td class="pl-0 py-5">
+              <td class="pl-0 py-5 font-weight-bolder">
                 {{ i + 1 }}
               </td>
               <td class="pl-0">
                 <router-link
                   :to="'/lessons/' + item.id"
                   tag="a"
-                  class="
-                    text-dark
-                    font-weight-bolder
-                    text-hover-primary
-                    mb-1
-                    font-size-lg
-                  "
+                  class="text-dark text-hover-primary mb-1 font-size-lg"
                 >
                   {{ item.title }}
                 </router-link>
@@ -54,12 +48,30 @@
                 </span>
               </td>
               <td class="text-right pr-0">
-                <button
-                  type="button"
-                  class="btn btn-light-success font-weight-bold btn-sm"
+                <b-button
+                    v-if="item.completionStatus === completionStatuses.NOT_STARTED"
+                  :to="'/lessons/' + item.id"
+                  variant="light-success"
+                  size="sm"
                 >
                   Start
-                </button>
+                </b-button>
+                <b-button
+                    v-if="item.completionStatus === completionStatuses.STARTED"
+                    :to="'/lessons/' + item.id"
+                    variant="light-warning"
+                    size="sm"
+                >
+                  Continue
+                </b-button>
+                <b-button
+                    v-if="item.completionStatus === completionStatuses.FINISHED"
+                    :to="'/lessons/' + item.id"
+                    variant="light-danger"
+                    size="sm"
+                >
+                  Re-Watch
+                </b-button>
               </td>
             </tr>
           </template>
@@ -90,13 +102,13 @@ export default {
           id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'Yapikredi Mobil Uygulaması iOS/Android Aktarım-Giriş',
           duration: '20 min',
-          completionStatus: completionStatuses.NOT_STARTED
+          completionStatus: completionStatuses.FINISHED
         },
         {
           id: '084970b3-6be2-4e73-aef7-ba34d483370f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
-          completionStatus: completionStatuses.STARTED
+          completionStatus: completionStatuses.FINISHED
         },
         {
           id: '083450b3-6be2-4e73-aef7-ba34d483e70f',
@@ -108,43 +120,43 @@ export default {
           id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
-          completionStatus: completionStatuses.STARTED
+          completionStatus: completionStatuses.NOT_STARTED
         },
         {
           id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
-          completionStatus: completionStatuses.STARTED
+          completionStatus: completionStatuses.NOT_STARTED
         },
         {
           id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
-          completionStatus: completionStatuses.STARTED
+          completionStatus: completionStatuses.NOT_STARTED
         },
         {
           id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
-          completionStatus: completionStatuses.STARTED
+          completionStatus: completionStatuses.NOT_STARTED
         },
         {
           id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
-          completionStatus: completionStatuses.STARTED
+          completionStatus: completionStatuses.NOT_STARTED
         },
         {
           id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
-          completionStatus: completionStatuses.STARTED
+          completionStatus: completionStatuses.NOT_STARTED
         },
         {
           id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min',
-          completionStatus: completionStatuses.STARTED
+          completionStatus: completionStatuses.NOT_STARTED
         }
       ]
     };

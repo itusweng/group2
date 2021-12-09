@@ -25,9 +25,46 @@ export default new Router({
                 import('@/view/pages/admin/trainings/CreateTraining')
             },
             {
-              path: 'update/:id',
+              path: ':id/update',
               component: () =>
                 import('@/view/pages/admin/trainings/UpdateTraining')
+            },
+            {
+              path: ':id/details',
+              component: () =>
+                import('@/view/pages/admin/trainings/TrainingDetails')
+            }
+          ]
+        },
+        {
+          path: 'onlineLessons',
+          component: () => import('@/view/pages/admin/onlineLessons'),
+          children: [
+            {
+              path: 'create',
+              component: () =>
+                import('@/view/pages/admin/onlineLessons/CreateOnlineLesson')
+            },
+            {
+              path: ':id/update',
+              component: () =>
+                import('@/view/pages/admin/onlineLessons/UpdateOnlineLesson')
+            }
+          ]
+        },
+        {
+          path: 'offlineLessons',
+          component: () => import('@/view/pages/admin/offlineLessons'),
+          children: [
+            {
+              path: 'create',
+              component: () =>
+                import('@/view/pages/admin/offlineLessons/CreateOfflineLesson')
+            },
+            {
+              path: ':id/update',
+              component: () =>
+                import('@/view/pages/admin/offlineLessons/CreateOfflineLesson')
             }
           ]
         }
