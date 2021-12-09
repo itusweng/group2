@@ -33,10 +33,7 @@
               </div>
 
               <div class="my-lg-0 my-3">
-                <b-button variant="light-primary"
-                >
-                  Update
-                </b-button>
+                <b-button variant="light-primary">Update</b-button>
               </div>
             </div>
             <!--end::Title-->
@@ -68,7 +65,7 @@
 
                 <span class="font-weight-bold text-dark-50">
                   I distinguish three main text objectives could be merely to
-                  inform people. A second could be persuade people.You want
+                  inform people. A second could be persuade people. You want
                   people to bay objective
                 </span>
               </div>
@@ -245,7 +242,7 @@
                             />
                           </span>
                         </b-button>
-                        <b-button class="btn btn-icon btn-light btn-sm">
+                        <b-button @click="deleteLesson(item)" class="btn btn-icon btn-light btn-sm">
                           <span class="svg-icon svg-icon-md svg-icon-primary">
                             <inline-svg
                               src="media/svg/icons/General/Trash.svg"
@@ -325,6 +322,12 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    deleteLesson(lesson) {
+      this.confirmDelete();
+      console.log(lesson);
+    }
   }
 };
 </script>
