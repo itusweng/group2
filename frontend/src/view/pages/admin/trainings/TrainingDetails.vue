@@ -237,7 +237,7 @@
                         </span>
                       </td>
                       <td class="text-right pr-0">
-                        <b-button :to="'/admin/onlineLessons/'+item.id+'/update'" class="btn btn-icon btn-light btn-sm mx-3">
+                        <b-button :to="'/admin/offlineLessons/'+item.id+'/update'" class="btn btn-icon btn-light btn-sm mx-3">
                           <span class="svg-icon svg-icon-md svg-icon-primary">
                             <inline-svg
                               src="media/svg/icons/Communication/Write.svg"

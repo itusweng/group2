@@ -51,6 +51,22 @@ export default new Router({
                 import('@/view/pages/admin/onlineLessons/UpdateOnlineLesson')
             }
           ]
+        },
+        {
+          path: 'offlineLessons',
+          component: () => import('@/view/pages/admin/offlineLessons'),
+          children: [
+            {
+              path: 'create',
+              component: () =>
+                import('@/view/pages/admin/offlineLessons/CreateOfflineLesson')
+            },
+            {
+              path: ':id/update',
+              component: () =>
+                import('@/view/pages/admin/offlineLessons/CreateOfflineLesson')
+            }
+          ]
         }
       ]
     },
