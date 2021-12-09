@@ -48,7 +48,7 @@ export default new Router({
             {
               path: ':id/update',
               component: () =>
-                import('@/view/pages/admin/trainings/UpdateTraining')
+                import('@/view/pages/admin/onlineLessons/UpdateOnlineLesson')
             }
           ]
         }

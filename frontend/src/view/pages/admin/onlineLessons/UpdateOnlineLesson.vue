@@ -3,10 +3,10 @@
     <div class="card-header py-3">
       <div class="card-title align-items-start flex-column">
         <h3 class="card-label font-weight-bolder text-dark">
-          Create a New Online Lesson
+          Update Online Lesson
         </h3>
         <span class="text-muted font-weight-bold font-size-sm mt-1">
-          You can create online lesson in this page.
+          You can update online lesson in this page.
         </span>
       </div>
       <div class="card-toolbar">
@@ -16,7 +16,7 @@
           @click="save()"
           ref="kt_save_changes"
         >
-          Create
+          Save Changes
         </button>
         <button type="reset" class="btn btn-secondary" @click="$router.back()">
           Cancel
@@ -71,11 +71,11 @@
           <label class="col-xl-3 col-lg-3 col-form-label">Zoom Link</label>
           <form-group name="zoomLink" lg="9" xl="6" no-label no-margin>
             <b-input
-                slot-scope="{ attrs, listeners }"
-                v-bind="attrs"
-                v-on="listeners"
-                class="form-control form-control-lg form-control-solid"
-                v-model="form.zoomLink"
+              slot-scope="{ attrs, listeners }"
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.zoomLink"
             />
           </form-group>
         </div>
@@ -100,10 +100,12 @@ export default {
   data() {
     return {
       form: {
-        title: '',
-        description: '',
+        title: 'Yapikredi Mobil Uygulaması iOS/Android Aktarım-Giriş',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, necessitatibus!',
         meetingDate: new Date(),
-        zoomLink: ''
+        zoomLink:
+          'https://itu-edu-tr.zoom.us/j/96625427230?pwd=VW56L29lVmFEZ0wzajRhdEFscVEwdz09'
       }
     };
   },
@@ -112,7 +114,7 @@ export default {
       try {
         Swal.fire({
           icon: 'success',
-          title: 'Online lesson created successfully!',
+          title: 'Online lesson updated successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
