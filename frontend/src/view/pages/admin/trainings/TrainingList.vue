@@ -18,7 +18,9 @@
     <card>
       <b-row>
         <b-col md="12" class="d-flex justify-content-end">
-          <b-button variant="light-success">Create New Training</b-button>
+          <b-button variant="light-success" to="/admin/trainings/create">
+            Create New Training
+          </b-button>
         </b-col>
       </b-row>
       <b-row class="mt-5">

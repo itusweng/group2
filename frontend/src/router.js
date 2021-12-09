@@ -17,6 +17,10 @@ export default new Router({
             {
               path: 'list',
               component: () => import('@/view/pages/admin/trainings/TrainingList'),
+            },
+            {
+              path: 'create',
+              component: () => import('@/view/pages/admin/trainings/CreateTraining'),
             }
           ]
         }
