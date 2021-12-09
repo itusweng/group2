@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
+import java.util.UUID;
 
 
 @Service
@@ -50,5 +51,10 @@ public class UserService {
 
     public ResponseEntity login(UserCredentials userCredentials) {
         return keycloakService.loginToKeycloak(userCredentials);
+    }
+
+    public User getUserByID(UUID uuid) throws EntityNotFoundException {
+        return userRepo.findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException(uuid.toString()));
     }
 }
