@@ -1,4 +1,4 @@
-package com.trainingplatform.userservice.model.oauth2;
+package com.trainingplatform.userservice.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

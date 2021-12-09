@@ -1,7 +1,7 @@
 package com.trainingplatform.userservice.service;
 
-import com.trainingplatform.userservice.model.oauth2.OAuth2ResponseModel;
-import com.trainingplatform.userservice.model.user.UserCredentials;
+import com.trainingplatform.userservice.model.request.OAuth2ResponseModel;
+import com.trainingplatform.userservice.model.entity.UserCredentials;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.UsersResource;

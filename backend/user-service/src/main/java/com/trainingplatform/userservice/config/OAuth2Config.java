@@ -1,6 +1,6 @@
 package com.trainingplatform.userservice.config;
 
-import com.trainingplatform.userservice.model.oauth2.OAuth2ResponseModel;
+import com.trainingplatform.userservice.model.request.OAuth2ResponseModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
