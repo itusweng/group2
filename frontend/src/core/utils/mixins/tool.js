@@ -8,8 +8,8 @@ export const toolMixin = {
   methods: {
     confirmDelete() {
       return Swal.fire({
-        title: '',
-        text: this.$t('notification.swal.confirmDelete'),
+        text: "You won't be able to revert this!",
+        title: 'Are you sure?',
         icon: 'error',
         confirmButtonColor: 'red',
         confirmButtonText: this.$t('common.delete'),

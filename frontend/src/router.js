@@ -6,6 +6,34 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
+      path: '/admin',
+      redirect: '/trainings',
+      component: () => import('@/view/layout/Layout'),
+      children: [
+        {
+          path: 'trainings',
+          component: () => import('@/view/pages/admin/trainings'),
+          children: [
+            {
+              path: 'list',
+              component: () =>
+                import('@/view/pages/admin/trainings/TrainingList')
+            },
+            {
+              path: 'create',
+              component: () =>
+                import('@/view/pages/admin/trainings/CreateTraining')
+            },
+            {
+              path: 'update/:id',
+              component: () =>
+                import('@/view/pages/admin/trainings/UpdateTraining')
+            }
+          ]
+        }
+      ]
+    },
+    {
       path: '/',
       redirect: '/dashboard',
       component: () => import('@/view/layout/Layout'),
@@ -14,6 +42,14 @@ export default new Router({
           path: '/dashboard',
           name: 'dashboard',
           component: () => import('@/view/pages/Dashboard.vue')
+        },
+        {
+          path: '/trainings/:id',
+          component: () => import('@/view/pages/trainings/TrainingDetails')
+        },
+        {
+          path: '/lessons/:id',
+          component: () => import('@/view/pages/trainings/LessonDetails')
         },
         {
           path: '/builder',
@@ -300,6 +336,7 @@ export default new Router({
         }
       ]
     },
+
     {
       path: '/custom-error',
       name: 'error',

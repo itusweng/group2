@@ -41,6 +41,31 @@
     </router-link>
 
     <li class="menu-section">
+      <h4 class="menu-text">Administration</h4>
+      <i class="menu-icon flaticon-more-v2"></i>
+    </li>
+
+    <router-link
+      to="/admin/trainings/list"
+      v-slot="{ href, navigate, isActive, isExactActive }"
+    >
+      <li
+        aria-haspopup="true"
+        data-menu-toggle="hover"
+        class="menu-item"
+        :class="[
+          isActive && 'menu-item-active',
+          isExactActive && 'menu-item-active'
+        ]"
+      >
+        <a :href="href" class="menu-link" @click="navigate">
+          <i class="menu-icon flaticon2-list-3"></i>
+          <span class="menu-text">Trainings</span>
+        </a>
+      </li>
+    </router-link>
+
+    <li class="menu-section">
       <h4 class="menu-text">Components</h4>
       <i class="menu-icon flaticon-more-v2"></i>
     </li>
@@ -1868,7 +1893,7 @@
     >
       <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon flaticon2-image-file"></i>
-        <span class="menu-text"> Plugins </span>
+        <span class="menu-text">Plugins</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="menu-submenu menu-submenu-classic menu-submenu-right">
@@ -1888,7 +1913,7 @@
             >
               <a :href="href" class="menu-link" @click="navigate">
                 <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                <span class="menu-text"> Cropper </span>
+                <span class="menu-text">Cropper</span>
               </a>
             </li>
           </router-link>
@@ -1907,7 +1932,7 @@
             >
               <a :href="href" class="menu-link" @click="navigate">
                 <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                <span class="menu-text"> Treeselect </span>
+                <span class="menu-text">Treeselect</span>
               </a>
             </li>
           </router-link>

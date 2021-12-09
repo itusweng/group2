@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import KTCard from '@/view/components/Card.vue';
+import KTCard from '@/view/components/KTCard.vue';
 import KTLayoutExamples from '@/assets/js/layout/extended/examples.js';
 
 export default {

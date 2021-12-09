@@ -31,6 +31,11 @@ import '@/core/plugins/vuelidate-error-extractor';
 import { validationMixin } from 'vuelidate';
 import { toolMixin } from '@/core/utils/mixins/tool';
 
+// Global Components
+import Card from '@/view/components/Card';
+
+Vue.component('card', Card);
+
 Vue.mixin(validationMixin);
 Vue.mixin(toolMixin);
 

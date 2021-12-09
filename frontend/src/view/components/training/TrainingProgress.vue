@@ -1,31 +1,14 @@
 <template>
   <!--begin::Mixed Widget 14-->
-  <div class="card card-custom gutter-b">
-    <!--begin::Header-->
-    <div class="card-header border-0 pt-5">
-      <h3 class="card-title font-weight-bolder">Progress</h3>
-      <div class="card-toolbar">
-        <Dropdown3></Dropdown3>
-      </div>
-    </div>
-    <!--end::Header-->
-    <!--begin::Body-->
-    <div class="card-body d-flex flex-column">
-      <div class="flex-grow-1">
-        <apexchart
-          :options="chartOptions"
-          :series="series"
-          type="radialBar"
-        ></apexchart>
-      </div>
-    </div>
-    <!--end::Body-->
-  </div>
+  <apexchart
+    :options="chartOptions"
+    :series="series"
+    type="radialBar"
+  ></apexchart>
   <!--end::Mixed Widget 14-->
 </template>
 
 <script>
-import Dropdown3 from '@/view/components/dropdown/Dropdown3.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -37,7 +20,6 @@ export default {
     };
   },
   components: {
-    Dropdown3
   },
   computed: {
     ...mapGetters(['layoutConfig'])
