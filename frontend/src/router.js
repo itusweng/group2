@@ -16,11 +16,18 @@ export default new Router({
           children: [
             {
               path: 'list',
-              component: () => import('@/view/pages/admin/trainings/TrainingList'),
+              component: () =>
+                import('@/view/pages/admin/trainings/TrainingList')
             },
             {
               path: 'create',
-              component: () => import('@/view/pages/admin/trainings/CreateTraining'),
+              component: () =>
+                import('@/view/pages/admin/trainings/CreateTraining')
+            },
+            {
+              path: 'update/:id',
+              component: () =>
+                import('@/view/pages/admin/trainings/UpdateTraining')
             }
           ]
         }

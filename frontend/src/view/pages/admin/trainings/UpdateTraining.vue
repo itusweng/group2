@@ -2,11 +2,9 @@
   <div class="card card-custom">
     <div class="card-header py-3">
       <div class="card-title align-items-start flex-column">
-        <h3 class="card-label font-weight-bolder text-dark">
-          Create a New Training
-        </h3>
+        <h3 class="card-label font-weight-bolder text-dark">Update Training</h3>
         <span class="text-muted font-weight-bold font-size-sm mt-1">
-          You can create online / offline training in this page.
+          You can update trainings in this page.
         </span>
       </div>
       <div class="card-toolbar">
@@ -93,7 +91,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 export default {
   validations: {
@@ -106,11 +104,12 @@ export default {
   data() {
     return {
       form: {
-        title: '',
-        trainer: '',
-        description: '',
+        title: 'İş Sağlığı ve Güvenliği-UE/001-20',
+        trainer: 'Dickerson',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam amet cumque doloribus ducimus error explicabo iste labore repudiandae saepe.',
         isOnline: false
-      },
+      }
     };
   },
   methods: {
@@ -118,7 +117,7 @@ export default {
       try {
         Swal.fire({
           icon: 'success',
-          title: 'Training created successfully!',
+          title: 'Training updated successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });

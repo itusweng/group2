@@ -26,38 +26,33 @@
       <b-row class="mt-5">
         <b-col md="12">
           <b-table :fields="tableFields" :items="trainings">
-            <template v-slot:cell(actions)>
-              <a
-                href="#"
+            <template v-slot:cell(actions)="{ item }">
+              <button
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                 v-b-tooltip="'Details'"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                   <inline-svg src="media/svg/icons/General/Settings-1.svg" />
                 </span>
-              </a>
-              <a
-                href="#"
+              </button>
+              <b-button
+                :to="'/admin/trainings/update/' + item.id"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
                 v-b-tooltip="'Edit'"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg
-                    src="media/svg/icons/Communication/Write.svg"
-                  ></inline-svg>
+                  <inline-svg src="media/svg/icons/Communication/Write.svg" />
                 </span>
-              </a>
-              <a
-                href="#"
+              </b-button>
+              <button
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                 v-b-tooltip="'Delete'"
+                @click="deleteTraining(item)"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg
-                    src="media/svg/icons/General/Trash.svg"
-                  ></inline-svg>
+                  <inline-svg src="media/svg/icons/General/Trash.svg" />
                 </span>
-              </a>
+              </button>
             </template>
           </b-table>
         </b-col>
@@ -107,6 +102,11 @@ export default {
       ]
     };
   },
-  components: {}
+  methods: {
+    deleteTraining(training) {
+      this.confirmDelete();
+      console.log(training);
+    }
+  }
 };
 </script>
