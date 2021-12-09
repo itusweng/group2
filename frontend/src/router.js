@@ -25,9 +25,14 @@ export default new Router({
                 import('@/view/pages/admin/trainings/CreateTraining')
             },
             {
-              path: 'update/:id',
+              path: ':id/update',
               component: () =>
                 import('@/view/pages/admin/trainings/UpdateTraining')
+            },
+            {
+              path: ':id/details',
+              component: () =>
+                import('@/view/pages/admin/trainings/TrainingDetails')
             }
           ]
         }

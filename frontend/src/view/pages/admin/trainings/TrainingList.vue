@@ -27,16 +27,17 @@
         <b-col md="12">
           <b-table :fields="tableFields" :items="trainings">
             <template v-slot:cell(actions)="{ item }">
-              <button
+              <b-button
+                :to="'/admin/trainings/' + item.id + '/details'"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                 v-b-tooltip="'Details'"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                   <inline-svg src="media/svg/icons/General/Settings-1.svg" />
                 </span>
-              </button>
+              </b-button>
               <b-button
-                :to="'/admin/trainings/update/' + item.id"
+                :to="'/admin/trainings/' + item.id + '/update'"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
                 v-b-tooltip="'Edit'"
               >
@@ -44,7 +45,7 @@
                   <inline-svg src="media/svg/icons/Communication/Write.svg" />
                 </span>
               </b-button>
-              <button
+              <b-button
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                 v-b-tooltip="'Delete'"
                 @click="deleteTraining(item)"
@@ -52,7 +53,7 @@
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                   <inline-svg src="media/svg/icons/General/Trash.svg" />
                 </span>
-              </button>
+              </b-button>
             </template>
           </b-table>
         </b-col>

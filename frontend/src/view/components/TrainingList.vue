@@ -9,7 +9,7 @@
       <b-col md="4" v-for="(training, index) in trainingList" :key="index">
         <b-card
           :title="training.title"
-          img-src="https://picsum.photos/600/300/?image=25"
+          :img-src="'https://picsum.photos/600/300/?image=' + (index + 35)"
           img-alt="Image"
           img-top
           tag="article"
