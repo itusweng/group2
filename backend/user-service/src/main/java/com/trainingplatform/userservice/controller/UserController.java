@@ -31,6 +31,8 @@ public class UserController extends BaseController {
         }
     }
 
+
+
     @PostMapping("")
     public ResponseEntity createUser(User user) {
         try {
@@ -42,9 +44,9 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity loginWithPassword(@RequestBody UserCredentials userCredentials) {
+    public ResponseEntity<Map> loginWithPassword(@RequestBody UserCredentials userCredentials) {
         try {
-            ResponseEntity responseEntity = userService.login(userCredentials);
+            ResponseEntity<Map> responseEntity = userService.login(userCredentials);
             return responseEntity;
         } catch (Exception e) {
             return exceptionHandler(e);

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2RestOperations;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -81,7 +82,7 @@ public class KeycloakService {
         usersResource.get(user.getId()).update(user);
     }
 
-    public ResponseEntity loginToKeycloak(UserCredentials userCredentials) {
+    public OAuth2AccessToken loginToKeycloak(UserCredentials userCredentials) {
         OAuth2ResponseModel oAuth2ResponseModel = oAuth2RequestBuilder.tokenUri(oauth2TokenEndpoint)
                 .clientId(oauth2ClientId)
                 .clientSecret(oauth2ClientSecret)
@@ -93,7 +94,7 @@ public class KeycloakService {
 
 
         OAuth2RestOperations restTemplate = beanFactory.getBean(OAuth2RestOperations.class, oAuth2ResponseModel);
-        return ResponseEntity.ok(restTemplate.getAccessToken());
+        return restTemplate.getAccessToken();
     }
 
 }

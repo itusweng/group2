@@ -7,10 +7,13 @@ import com.trainingplatform.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -40,7 +43,7 @@ public class UserService {
                 throw new UserNotCreatedException("This username is already in use!");
         }
 
-        responseWithAccessToken = keycloakService.loginToKeycloak(userCredentials);
+        responseWithAccessToken = ResponseEntity.ok(keycloakService.loginToKeycloak(userCredentials));
         return responseWithAccessToken;
     }
 
@@ -49,8 +52,13 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(username));
     }
 
-    public ResponseEntity login(UserCredentials userCredentials) {
-        return keycloakService.loginToKeycloak(userCredentials);
+    public ResponseEntity<Map> login(UserCredentials userCredentials) {
+        OAuth2AccessToken token = keycloakService.loginToKeycloak(userCredentials);
+        User user = getUserByUsername(userCredentials.getUsername());
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("user", user);
+        return ResponseEntity.ok(response);
     }
 
     public User getUserByID(UUID uuid) throws EntityNotFoundException {
