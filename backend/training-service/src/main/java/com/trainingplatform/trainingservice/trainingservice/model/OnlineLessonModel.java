@@ -1,5 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +17,9 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @ToString
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property  = "id",
+        scope     = Long.class)
 public class OnlineLessonModel implements Serializable {
 
     @Id
@@ -38,6 +43,20 @@ public class OnlineLessonModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "training_id", nullable = false)
     private TrainingModel training;
+
+    @Column(
+            name="title",
+            nullable = false,
+            columnDefinition = "CHAR(50)"
+    )
+    private String title;
+
+    @Column(
+            name="description",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String description;
 
     public OnlineLessonModel(LocalDate meeting_date, String zoom_link) {
         this.meeting_date = meeting_date;
