@@ -5,13 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-public interface TrainingRepository extends JpaRepository<TrainingModel, UUID> {
+public interface TrainingRepository extends JpaRepository<TrainingModel, Long> {
 
-    Optional<TrainingModel> findById(UUID ID);
+    Optional<TrainingModel> findById(Long ID);
 
     List<TrainingModel> findAll();
 
-    void deleteById(UUID ID);
+    void deleteById(Long ID);
 }
