@@ -3,7 +3,7 @@ package com.trainingplatform.userservice.controller;
 import com.trainingplatform.userservice.model.UserResponseDTO;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
-import com.trainingplatform.userservice.model.entity.UserMapper;
+import com.trainingplatform.userservice.model.mapper.UserMapper;
 import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -51,20 +51,17 @@ public class UserController extends BaseController {
         }
     }
 
-//    @GetMapping("/api/user/getAllUsers")
-//    public UserResponseDTO getAllUserDTO(){
-//
-//    }
+    @PostMapping("/getTrainingUsersByID")
+    public ResponseEntity<Map<Long, Object>> getTrainingUserByID(@RequestBody Map<Long, Long> trainingIdUserIdMap) {
+        // Key -> Training Id, Value -> User created the training
+        Map<Long, Object> userResponseDTOMap = new HashMap<>();
 
-    @PostMapping("/api/user/getUsersByID")
-    public Map<Long, UserResponseDTO> getUsersByID(@RequestBody List<Long> userIDs) {
-        Map<Long, UserResponseDTO> userResponseDTOMap = new HashMap<>();
-        userIDs.forEach(id -> {
-            User user = userService.getUserByID(id);
+        trainingIdUserIdMap.forEach((trainingId, userId) -> {
+            User user = userService.getUserByID(userId);
             UserResponseDTO userResponseDTO = userMapper.mapToDto(user);
-            userResponseDTOMap.put(id, userResponseDTO);
+            userResponseDTOMap.put(trainingId, userResponseDTO);
         });
-        return userResponseDTOMap;
+        return ResponseEntity.ok(userResponseDTOMap);
     }
 
 

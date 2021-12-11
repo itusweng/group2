@@ -41,11 +41,11 @@ public class TrainingModel implements Serializable {
     private Long user_created_id;
 
     @Column(
-            name="trainer_id",
+            name="instructor_id",
             nullable = false,
             columnDefinition = "BIGINT"
     )
-    private Long trainer_id;
+    private Long instructor_id;
 
     @Column(
             name="capacity",
@@ -67,12 +67,4 @@ public class TrainingModel implements Serializable {
             columnDefinition = "TEXT"
     )
     private String description;
-
-    public TrainingModel(boolean is_online, long user_created_id, long trainer_id, int capacity) {
-        this.is_online = is_online;
-        this.user_created_id = user_created_id;
-        this.trainer_id = trainer_id;
-        this.capacity = capacity;
-    }
-
 }

@@ -1,6 +1,7 @@
-package com.trainingplatform.userservice.model.entity;
+package com.trainingplatform.userservice.model.mapper;
 
 import com.trainingplatform.userservice.model.UserResponseDTO;
+import com.trainingplatform.userservice.model.entity.User;
 import org.mapstruct.Mapper;
 
 import java.util.List;

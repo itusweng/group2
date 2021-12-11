@@ -12,9 +12,9 @@ public class UserResponseDTO {
 
     private Long id;
 
-    private String firstName;
+    private String first_name;
 
-    private String lastName;
+    private String last_name;
 
     private String role;
 }
