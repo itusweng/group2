@@ -26,7 +26,7 @@ CREATE TABLE `training` (
   `id` bigint NOT NULL,
   `capacity` int NOT NULL,
   `is_online` tinyint(1) NOT NULL,
-  `trainer_id` bigint NOT NULL,
+  `instructor_id` bigint NOT NULL,
   `user_created_id` bigint NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

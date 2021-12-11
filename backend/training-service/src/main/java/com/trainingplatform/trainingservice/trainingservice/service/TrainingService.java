@@ -29,10 +29,17 @@ public class TrainingService {
         Map<Long, Long> userCreatedList = trainingModels.stream()
                 .collect(Collectors.toMap(TrainingModel::getId, TrainingModel::getUser_created_id));
 
-        Map<Long, UserResponseDTO> usersMap = trainingClient.getTrainingCreatedUsersByID(userCreatedList).getBody();
+        // Fetch users who are created the trainings
+        Map<Long, UserResponseDTO> createdUsersMap = trainingClient.getTrainingUsersByID(userCreatedList).getBody();
+
+        // Fetch instructors of trainings
+        Map<Long, UserResponseDTO> instructorsMap = trainingClient.getTrainingUsersByID(userCreatedList).getBody();
+
+        // Add instructors & created users into dto model
         trainingModels.forEach(trainingModel -> {
             TrainingResponseDTO responseDTO = trainingModelMapper.mapToDto(trainingModel);
-            responseDTO.setUser_created(usersMap.get(responseDTO.getId()));
+            responseDTO.setUser_created(createdUsersMap.get(responseDTO.getId()));
+            responseDTO.setInstructor(instructorsMap.get(responseDTO.getId()));
             trainingResponseDTOS.add(responseDTO);
         });
 

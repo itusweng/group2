@@ -11,6 +11,6 @@ import java.util.Map;
 @FeignClient(name="user-service")
 public interface TrainingClient {
 
-    @PostMapping("/api/user/getTrainingCreatedUsersByID")
-    public ResponseEntity<Map<Long, UserResponseDTO>> getTrainingCreatedUsersByID(Map<Long, Long>  userIDs);
+    @PostMapping("/api/user/getTrainingUsersByID")
+    public ResponseEntity<Map<Long, UserResponseDTO>> getTrainingUsersByID(Map<Long, Long>  userIDs);
 }

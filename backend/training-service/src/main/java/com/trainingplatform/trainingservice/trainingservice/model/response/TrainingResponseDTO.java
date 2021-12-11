@@ -15,7 +15,7 @@ public class TrainingResponseDTO {
 
     private Object user_created;
 
-    private Object trainer;
+    private Object instructor;
 
     private Integer capacity;
 

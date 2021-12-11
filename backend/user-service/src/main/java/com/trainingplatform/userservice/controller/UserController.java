@@ -51,8 +51,8 @@ public class UserController extends BaseController {
         }
     }
 
-    @PostMapping("/getTrainingCreatedUsersByID")
-    public ResponseEntity<Map<Long, Object>> getTrainingCreatedUserByID(@RequestBody Map<Long, Long> trainingIdUserIdMap) {
+    @PostMapping("/getTrainingUsersByID")
+    public ResponseEntity<Map<Long, Object>> getTrainingUserByID(@RequestBody Map<Long, Long> trainingIdUserIdMap) {
         // Key -> Training Id, Value -> User created the training
         Map<Long, Object> userResponseDTOMap = new HashMap<>();
 
@@ -63,6 +63,7 @@ public class UserController extends BaseController {
         });
         return ResponseEntity.ok(userResponseDTOMap);
     }
+
 
 }
 
