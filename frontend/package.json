@@ -45,7 +45,8 @@
         "vue2-perfect-scrollbar": "^1.5.0",
         "vuelidate": "^0.7.5",
         "vuelidate-error-extractor": "^2.4.1",
-        "vuex": "^3.3.0"
+        "vuex": "^3.3.0",
+        "yarn": "^1.22.17"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "4.5.9",

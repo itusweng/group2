@@ -1,5 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +17,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @ToString
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property  = "id",
+        scope     = Long.class)
 public class TrainingModel implements Serializable {
 
     @Id
@@ -48,6 +53,20 @@ public class TrainingModel implements Serializable {
             columnDefinition = "INT"
     )
     private Integer capacity;
+
+    @Column(
+            name="title",
+            nullable = false,
+            columnDefinition = "CHAR(50)"
+    )
+    private String title;
+
+    @Column(
+            name="description",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String description;
 
     public TrainingModel(boolean is_online, long user_created_id, long trainer_id, int capacity) {
         this.is_online = is_online;

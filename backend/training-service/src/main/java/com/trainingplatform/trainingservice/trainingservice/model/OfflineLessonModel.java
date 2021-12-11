@@ -1,5 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,11 +16,21 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @ToString
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property  = "id",
+        scope     = Long.class)
 public class OfflineLessonModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(
+            name="title",
+            nullable = false,
+            columnDefinition = "CHAR(50)"
+    )
+    private String title;
 
     @Column(
             name = "description",
