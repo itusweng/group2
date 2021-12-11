@@ -11,7 +11,7 @@ import java.util.UUID;
 @ToString
 public class UserResponseDTO {
 
-    private UUID id;
+    private Long id;
 
     private String firstName;
 

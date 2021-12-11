@@ -18,6 +18,7 @@ import lombok.*;
 public class User {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(

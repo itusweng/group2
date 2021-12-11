@@ -25,7 +25,6 @@ public class UserServiceApplication {
     @PostConstruct
     public void populateUserDb(){
         User user = new User();
-        user.setId(1L);
         user.setUsername("test1");
         user.setFirst_name("test name");
         user.setLast_name("test last name");
