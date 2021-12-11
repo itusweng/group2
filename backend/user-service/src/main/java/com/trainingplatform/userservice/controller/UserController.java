@@ -31,8 +31,6 @@ public class UserController extends BaseController {
         }
     }
 
-
-
     @PostMapping("")
     public ResponseEntity createUser(User user) {
         try {
@@ -59,12 +57,12 @@ public class UserController extends BaseController {
 //    }
 
     @PostMapping("/api/user/getUsersByID")
-    public Map<UUID, UserResponseDTO> getUsersByID(@RequestBody List<UUID> userIDs){
-        Map<UUID, UserResponseDTO> userResponseDTOMap = new HashMap<>();
-        userIDs.forEach(uuid -> {
-            User user = userService.getUserByID(uuid);
+    public Map<Long, UserResponseDTO> getUsersByID(@RequestBody List<Long> userIDs) {
+        Map<Long, UserResponseDTO> userResponseDTOMap = new HashMap<>();
+        userIDs.forEach(id -> {
+            User user = userService.getUserByID(id);
             UserResponseDTO userResponseDTO = userMapper.mapToDto(user);
-            userResponseDTOMap.put(uuid,userResponseDTO);
+            userResponseDTOMap.put(id, userResponseDTO);
         });
         return userResponseDTOMap;
     }

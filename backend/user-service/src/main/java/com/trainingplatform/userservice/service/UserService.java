@@ -61,8 +61,8 @@ public class UserService {
         return ResponseEntity.ok(response);
     }
 
-    public User getUserByID(UUID uuid) throws EntityNotFoundException {
-        return userRepo.findById(uuid)
-                .orElseThrow(() -> new EntityNotFoundException(uuid.toString()));
+    public User getUserByID(Long id) throws EntityNotFoundException {
+        return userRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id.toString()));
     }
 }

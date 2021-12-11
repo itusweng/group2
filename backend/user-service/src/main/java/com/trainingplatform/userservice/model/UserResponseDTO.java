@@ -2,7 +2,6 @@ package com.trainingplatform.userservice.model;
 
 import lombok.*;
 
-import java.util.UUID;
 
 @Getter
 @Setter

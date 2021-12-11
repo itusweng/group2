@@ -5,15 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-public interface UserRepository extends JpaRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findById(UUID ID);
+    Optional<User> findById(Long id);
 
     Optional<User> findByUsername(String username);
 
-    void deleteById(UUID ID);
+    void deleteById(Long id);
 
     List<User> findAll();
 
