@@ -33,7 +33,7 @@
               </div>
 
               <div class="my-lg-0 my-3">
-                <b-button variant="light-primary">Notify to Set Password</b-button>
+                <b-button variant="light-primary" @click="save()">Notify to Set Password</b-button>
               </div>
             </div>
             <!--end::Title-->
@@ -324,6 +324,8 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
@@ -402,6 +404,18 @@ export default {
     deleteLesson(lesson) {
       this.confirmDelete();
       console.log(lesson);
+    },
+    save() {
+      try {
+        Swal.fire({
+          icon: 'success',
+          title: 'Password link sent to the user successfully via email!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        })
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };
