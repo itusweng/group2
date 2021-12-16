@@ -181,7 +181,82 @@
       </div>
     </div>
     <!--end::Card-->
+    <div class="row" v-if="requests"> <!--if requests isnt null render this block-->
+      <div class="col-lg-12">
+        <div class="card card-custom card-stretch gutter-b">
+          <!--begin::Header-->
+          <div class="card-header border-0 pt-5">
+            <h3 class="card-title align-items-start flex-column">
+              <span class="card-label font-weight-bolder text-dark">
+                Training Requests
+              </span>
+              <span class="text-muted mt-3 font-weight-bold font-size-sm">
+                List of trainings requested by the user.
+              </span>
+            </h3>
+          </div>
+          <!--end::Header-->
+          <!--begin::Body-->
+          <div class="card-body pt-3 pb-0">
+            <!--begin::Table-->
+            <div class="table-responsive">
+              <table class="table table-borderless table-vertical-center">
+                <thead>
+                <tr>
+                  <th class="p-0" style="width: 50px"></th>
+                  <th class="p-0" style="min-width: 200px"></th>
+                  <th class="p-0" style="min-width: 250px"></th>
 
+                </tr>
+                </thead>
+                <tbody>
+                <template v-for="(item, i) in requests">
+                  <tr v-bind:key="i">
+                    <td class="pl-0 py-4 font-weight-bolder">{{ i + 1 }}.</td>
+                    <td class="pl-0">
+                      <a
+                          class="
+                            text-dark-75 text-hover-primary
+                            mb-1
+                            font-size-lg
+                          "
+                      >
+                        {{ item.title }}
+                      </a>
+                    </td>
+
+                    <td class="text-right pr-0">
+
+                      <div class = "row">
+                        <div class="col-sm">
+                          <div class="card-toolbar">
+                            <b-button to="/admin/onlineLessons/create" variant="light-info">
+                              Approve
+                            </b-button>
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                          <div class="card-toolbar">
+                            <b-button to="/admin/onlineLessons/create" variant="light-danger">
+                              Reject
+                            </b-button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </td>
+                  </tr>
+                </template>
+                </tbody>
+              </table>
+            </div>
+            <!--end::Table-->
+          </div>
+          <!--end::Body-->
+          <!--end::Advance Table Widget 2-->
+        </div>
+      </div>
+    </div>
     <!--begin::Row-->
     <div class="row">
       <div class="col-lg-12">
@@ -193,14 +268,10 @@
                 Trainings
               </span>
               <span class="text-muted mt-3 font-weight-bold font-size-sm">
-                Lesson list of the training.
+                Trainings watched by the user
               </span>
             </h3>
-            <div class="card-toolbar">
-              <b-button to="/admin/onlineLessons/create" variant="light-info">
-                Add Lesson
-              </b-button>
-            </div>
+
           </div>
           <!--end::Header-->
           <!--begin::Body-->
@@ -213,7 +284,7 @@
                     <th class="p-0" style="width: 50px"></th>
                     <th class="p-0" style="min-width: 200px"></th>
                     <th class="p-0" style="min-width: 100px"></th>
-                    <th class="p-0" style="min-width: 150px"></th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -236,25 +307,7 @@
                           {{ item.duration }}
                         </span>
                       </td>
-                      <td class="text-right pr-0">
-                        <b-button :to="'/admin/offlineLessons/'+item.id+'/update'" class="btn btn-icon btn-light btn-sm mx-3">
-                          <span class="svg-icon svg-icon-md svg-icon-primary">
-                            <inline-svg
-                              src="media/svg/icons/Communication/Write.svg"
-                            />
-                          </span>
-                        </b-button>
-                        <b-button
-                          @click="deleteLesson(item)"
-                          class="btn btn-icon btn-light btn-sm"
-                        >
-                          <span class="svg-icon svg-icon-md svg-icon-primary">
-                            <inline-svg
-                              src="media/svg/icons/General/Trash.svg"
-                            />
-                          </span>
-                        </b-button>
-                      </td>
+
                     </tr>
                   </template>
                 </tbody>
@@ -324,6 +377,23 @@ export default {
           id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
           title: 'iOS Architecture, Custom Components',
           duration: '18 min'
+        }
+      ],
+      requests: [
+        {
+          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
+          title: 'Yapikredi Mobil Uygulaması iOS/Android Aktarım-Giriş',
+
+        },
+        {
+          id: '084970b3-6be2-4e73-aef7-ba34d483370f',
+          title: 'iOS Architecture, Custom Components',
+
+        },
+        {
+          id: '083450b3-6be2-4e73-aef7-ba34d483e70f',
+          title: 'iOS Architecture, Custom Components',
+
         }
       ]
     };
