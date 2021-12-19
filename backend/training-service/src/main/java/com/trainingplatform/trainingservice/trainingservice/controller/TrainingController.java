@@ -1,13 +1,16 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
-import com.trainingplatform.trainingservice.trainingservice.communication.TrainingClient;
+import com.trainingplatform.trainingservice.trainingservice.model.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.service.TrainingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-;import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -16,7 +19,6 @@ import java.util.List;
 public class TrainingController extends BaseController {
 
     private final TrainingService trainingService;
-    private final TrainingClient trainingClient;
 
     @GetMapping("/getAllTrainings")
     public ResponseEntity<HashMap<String, Object>> getUserByUsername() {
@@ -28,5 +30,15 @@ public class TrainingController extends BaseController {
         }
     }
 
+    @PostMapping("/")
+    public ResponseEntity<HashMap<String, Object>> createTraining(@RequestBody TrainingModel training) {
+        try {
+            // TODO: fill created user and instructor fields of returned dto!!
+            TrainingResponseDTO new_training = trainingService.createTraining(training);
+            return ResponseEntity.ok(createReturnObj("Training created successfully!", new_training));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
 }
 

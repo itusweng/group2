@@ -2,11 +2,13 @@ package com.trainingplatform.trainingservice.trainingservice.service;
 
 import com.trainingplatform.trainingservice.trainingservice.communication.TrainingClient;
 import com.trainingplatform.trainingservice.trainingservice.model.TrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.User_CreatedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
-import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 
+import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
+import com.trainingplatform.trainingservice.trainingservice.repository.User_CreatedTrainingRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class TrainingService {
 
     private final TrainingRepository trainingRepo;
+    private final User_CreatedTrainingRepo trainingUserRepo;
     private final TrainingClient trainingClient;
     private final TrainingModelMapper trainingModelMapper;
 
@@ -48,5 +51,17 @@ public class TrainingService {
         });
 
         return trainingResponseDTOS;
+    }
+
+    public TrainingResponseDTO createTraining(TrainingModel tm) {
+
+        // Create training
+        TrainingModel savedTraining = trainingRepo.save(tm);
+
+        // Create user-created training linker
+        User_CreatedTrainingModel userTrainingModel = new User_CreatedTrainingModel(savedTraining.getId(),
+                tm.getUser_created_id());
+        trainingUserRepo.save(userTrainingModel);
+        return trainingModelMapper.mapToDto(savedTraining);
     }
 }

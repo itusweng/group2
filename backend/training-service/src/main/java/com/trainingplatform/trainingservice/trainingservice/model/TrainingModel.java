@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -73,4 +74,8 @@ public class TrainingModel implements Serializable {
             columnDefinition = "TEXT"
     )
     private String thumbnail;
+
+    private Date created_date;
+
+    private Date updated_date;
 }
