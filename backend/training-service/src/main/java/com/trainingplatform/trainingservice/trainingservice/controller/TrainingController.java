@@ -5,13 +5,11 @@ import com.trainingplatform.trainingservice.trainingservice.model.response.Train
 import com.trainingplatform.trainingservice.trainingservice.service.TrainingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,5 +38,27 @@ public class TrainingController extends BaseController {
             return exceptionHandler(e);
         }
     }
+
+    @DeleteMapping("/{trainingId}")
+    public ResponseEntity<HashMap<String, Object>> deleteTraining(@PathVariable Long trainingId) {
+        try {
+            trainingService.deleteTraining(trainingId);
+            return ResponseEntity.ok(createReturnObj("Training deleted successfully!", null));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @PostMapping("/{trainingId}/participant")
+    public ResponseEntity<HashMap<String, Object>> addParticipantToTraining(@PathVariable Long trainingId, @RequestBody Map<String, List<Long>> requestDTO) {
+        try {
+            Map<Long, Boolean> participationResultMap = trainingService.addParticipantToTraining(trainingId, requestDTO.get("users"));
+            return ResponseEntity.ok(createReturnObj("Check data to see which users participated successfully! ", participationResultMap));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+
 }
 

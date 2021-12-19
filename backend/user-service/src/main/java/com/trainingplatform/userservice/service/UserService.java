@@ -1,6 +1,6 @@
 package com.trainingplatform.userservice.service;
 
-import com.trainingplatform.userservice.exceptions.UserNotCreatedException;
+import com.trainingplatform.userservice.exception.UserNotCreatedException;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.repository.UserRepository;
@@ -14,7 +14,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 
 @Service
@@ -52,13 +51,13 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(username));
     }
 
-    public ResponseEntity<Map> login(UserCredentials userCredentials) {
+    public Map<String, Object> login(UserCredentials userCredentials) {
         OAuth2AccessToken token = keycloakService.loginToKeycloak(userCredentials);
         User user = getUserByUsername(userCredentials.getUsername());
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
         response.put("user", user);
-        return ResponseEntity.ok(response);
+        return response;
     }
 
     public User getUserByID(Long id) throws EntityNotFoundException {
