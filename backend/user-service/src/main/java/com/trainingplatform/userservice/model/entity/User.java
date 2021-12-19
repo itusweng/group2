@@ -63,4 +63,16 @@ public class User {
     )
     private Long role_id;
 
+    @Column(
+            name = "profile_photo",
+            columnDefinition = "TEXT"
+    )
+    private String profile_photo;
+
+    @Column(
+            name = "job_title",
+            nullable = false,
+            columnDefinition = "CHAR(50)"
+    )
+    private String job_title;
 }

@@ -17,4 +17,9 @@ public class UserResponseDTO {
     private String last_name;
 
     private String role;
+
+    private String profile_photo;
+
+    private String job_title;
+
 }
