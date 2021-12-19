@@ -1,5 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
+import com.trainingplatform.trainingservice.trainingservice.exception.TrainingNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,8 +26,11 @@ public abstract class BaseController {
     }
 
     public ResponseEntity exceptionHandler(Exception e) {
-
         if (e instanceof EntityNotFoundException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(createReturnObj(e.getMessage()));
+        }
+        else if (e instanceof TrainingNotFoundException) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(createReturnObj(e.getMessage()));
         }

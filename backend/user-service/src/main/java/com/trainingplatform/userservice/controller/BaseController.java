@@ -1,6 +1,6 @@
 package com.trainingplatform.userservice.controller;
 
-import com.trainingplatform.userservice.exceptions.UserNotCreatedException;
+import com.trainingplatform.userservice.exception.UserNotCreatedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;

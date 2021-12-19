@@ -1,6 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.service;
 
 import com.trainingplatform.trainingservice.trainingservice.communication.TrainingClient;
+import com.trainingplatform.trainingservice.trainingservice.exception.TrainingNotFoundException;
 import com.trainingplatform.trainingservice.trainingservice.model.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.User_CreatedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
@@ -10,7 +11,7 @@ import com.trainingplatform.trainingservice.trainingservice.model.response.UserR
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_CreatedTrainingRepo;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.mapping.Collection;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -77,4 +78,14 @@ public class TrainingService {
         trainingResponseDTO.setInstructor(userInstructorResponseMap.get(tm.getId()));
         return trainingResponseDTO;
     }
+
+    public void deleteTraining(Long trainingId) throws TrainingNotFoundException {
+        try {
+            trainingRepo.deleteById(trainingId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new TrainingNotFoundException(e.getMessage());
+        }
+
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.trainingplatform.userservice.service;
 
-import com.trainingplatform.userservice.exceptions.UserNotCreatedException;
+import com.trainingplatform.userservice.exception.UserNotCreatedException;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.repository.UserRepository;
@@ -14,7 +14,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 
 @Service

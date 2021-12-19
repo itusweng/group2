@@ -5,9 +5,6 @@ import com.trainingplatform.trainingservice.trainingservice.model.response.Train
 import com.trainingplatform.trainingservice.trainingservice.service.TrainingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -40,5 +37,16 @@ public class TrainingController extends BaseController {
             return exceptionHandler(e);
         }
     }
+
+    @DeleteMapping("/{trainingId}")
+    public ResponseEntity<HashMap<String, Object>> deleteTraining(@PathVariable Long trainingId) {
+        try {
+            trainingService.deleteTraining(trainingId);
+            return ResponseEntity.ok(createReturnObj("Training deleted successfully!", null));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
 }
 
