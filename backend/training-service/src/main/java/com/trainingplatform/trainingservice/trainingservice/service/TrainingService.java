@@ -1,15 +1,18 @@
 package com.trainingplatform.trainingservice.trainingservice.service;
 
-import com.trainingplatform.trainingservice.trainingservice.communication.TrainingClient;
-import com.trainingplatform.trainingservice.trainingservice.exception.TrainingNotFoundException;
+import com.trainingplatform.trainingservice.trainingservice.communication.UserClient;
+import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
 import com.trainingplatform.trainingservice.trainingservice.model.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.User_CreatedTrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.User_ParticipatedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
 
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_CreatedTrainingRepo;
+import com.trainingplatform.trainingservice.trainingservice.repository.User_ParticipatedTrainingRepo;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -22,8 +25,9 @@ import java.util.stream.Collectors;
 public class TrainingService {
 
     private final TrainingRepository trainingRepo;
-    private final User_CreatedTrainingRepo trainingUserRepo;
-    private final TrainingClient trainingClient;
+    private final User_CreatedTrainingRepo trainingCreatedUserRepo;
+    private final User_ParticipatedTrainingRepo trainingParticipatedUserRepo;
+    private final UserClient userClient;
     private final TrainingModelMapper trainingModelMapper;
 
     public List<TrainingResponseDTO> getAllTrainings() {
@@ -37,10 +41,10 @@ public class TrainingService {
                 .collect(Collectors.toMap(TrainingModel::getId, TrainingModel::getInstructor_id));
 
         // Fetch users who are created the trainings
-        Map<Long, UserResponseDTO> createdUsersMap = trainingClient.getTrainingUsersByID(userCreatedList).getBody();
+        Map<Long, UserResponseDTO> createdUsersMap = userClient.getTrainingUsersByID(userCreatedList).getBody();
 
         // Fetch instructors of trainings
-        Map<Long, UserResponseDTO> instructorsMap = trainingClient.getTrainingUsersByID(userInstructorList).getBody();
+        Map<Long, UserResponseDTO> instructorsMap = userClient.getTrainingUsersByID(userInstructorList).getBody();
 
         // Add instructors & created users into dto model
         trainingModels.forEach(trainingModel -> {
@@ -59,17 +63,20 @@ public class TrainingService {
         TrainingModel savedTraining = trainingRepo.save(tm);
 
         // Create user-created training linker
-        User_CreatedTrainingModel userTrainingModel = new User_CreatedTrainingModel(savedTraining.getId(),
-                tm.getUser_created_id());
-        trainingUserRepo.save(userTrainingModel);
+        User_CreatedTrainingModel userTrainingModel = User_CreatedTrainingModel
+                .builder()
+                .training_id(savedTraining.getId())
+                .user_id(tm.getUser_created_id())
+                .build();
+        trainingCreatedUserRepo.save(userTrainingModel);
 
         // Fetch user data who is created the training
         Map<Long, Long> createdUserRequestMap = Collections.singletonMap(tm.getId(), tm.getUser_created_id());
-        Map<Long, UserResponseDTO> createdUserResponseMap = trainingClient.getTrainingUsersByID(createdUserRequestMap).getBody();
+        Map<Long, UserResponseDTO> createdUserResponseMap = userClient.getTrainingUsersByID(createdUserRequestMap).getBody();
 
         // Fetch instructor user of training
         Map<Long, Long> userInstructorRequestMap = Collections.singletonMap(tm.getId(), tm.getUser_created_id());
-        Map<Long, UserResponseDTO> userInstructorResponseMap = trainingClient.getTrainingUsersByID(userInstructorRequestMap).getBody();
+        Map<Long, UserResponseDTO> userInstructorResponseMap = userClient.getTrainingUsersByID(userInstructorRequestMap).getBody();
 
         TrainingResponseDTO trainingResponseDTO = trainingModelMapper.mapToDto(savedTraining);
 
@@ -79,13 +86,45 @@ public class TrainingService {
         return trainingResponseDTO;
     }
 
-    public void deleteTraining(Long trainingId) throws TrainingNotFoundException {
+    public void deleteTraining(Long trainingId) throws TrainingCrudException {
         try {
             trainingRepo.deleteById(trainingId);
         } catch (EmptyResultDataAccessException e) {
-            throw new TrainingNotFoundException(e.getMessage());
+            throw new TrainingCrudException("Training cannot be deleted! " + e.getMessage());
         }
-
     }
 
+    public Map<Long,Boolean> addParticipantToTraining(Long trainingId, List<Long> participantIdList) throws TrainingCrudException {
+
+        // Check training exists
+        Optional<TrainingModel> training = trainingRepo.findById(trainingId);
+        training.orElseThrow(() -> new TrainingCrudException("Participant cannot be added to training! " +
+                "Training is not found by id:" + trainingId));
+
+        Map<Long, Boolean> isUserAddedToTrainingMap = new HashMap<>();
+        participantIdList.forEach((Long userId) -> {
+            try {
+                // Check user exists
+                userClient.getUserByID(userId);
+
+                // Create user-training model to save it into database
+                User_ParticipatedTrainingModel trainingParticipatedUser = User_ParticipatedTrainingModel
+                        .builder()
+                        .user_id(userId)
+                        .training_id(trainingId)
+                        .participatedDate(new Date())
+                        .build();
+
+                trainingParticipatedUserRepo.save(trainingParticipatedUser);
+                isUserAddedToTrainingMap.put(userId, true);
+            } catch (FeignException.NotFound e) {
+                isUserAddedToTrainingMap.put(userId, false);
+            }
+            catch (Exception e){
+                isUserAddedToTrainingMap.put(userId, false);
+            }
+        });
+
+        return isUserAddedToTrainingMap;
+    }
 }

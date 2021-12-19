@@ -51,13 +51,13 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(username));
     }
 
-    public ResponseEntity<Map> login(UserCredentials userCredentials) {
+    public Map<String, Object> login(UserCredentials userCredentials) {
         OAuth2AccessToken token = keycloakService.loginToKeycloak(userCredentials);
         User user = getUserByUsername(userCredentials.getUsername());
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
         response.put("user", user);
-        return ResponseEntity.ok(response);
+        return response;
     }
 
     public User getUserByID(Long id) throws EntityNotFoundException {

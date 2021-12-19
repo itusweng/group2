@@ -7,13 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
-@Table(name = "User_CreatedTraining", schema = "tp-userservice")
+@Table(name = "User_ParticipatedTraining", schema = "tp-userservice")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @ToString
 @IdClass(User_TrainingPK.class)
 public class User_ParticipatedTrainingModel {
@@ -24,4 +26,5 @@ public class User_ParticipatedTrainingModel {
     @Id
     private Long user_id;
 
+    private Date participatedDate;
 }

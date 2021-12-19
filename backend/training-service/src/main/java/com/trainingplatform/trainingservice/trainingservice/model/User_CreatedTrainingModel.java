@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @ToString
 @IdClass(User_TrainingPK.class)
 public class User_CreatedTrainingModel {

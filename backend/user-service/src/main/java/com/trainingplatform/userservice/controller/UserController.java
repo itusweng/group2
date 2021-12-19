@@ -8,8 +8,8 @@ import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;;import java.util.*;
+import org.springframework.web.bind.annotation.*;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,11 +18,10 @@ public class UserController extends BaseController {
 
     // Inject services
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
 
-    @GetMapping("/{username}")
-    public ResponseEntity getUserByUsername(@PathVariable String username) {
+    @GetMapping("/byUsername/{username}")
+    public ResponseEntity<Map<String, Object>> getUserByUsername(@PathVariable String username) {
         try {
             User user = userService.getUserByUsername(username);
             return ResponseEntity.ok(createReturnObj("User fetched successfully!", user));
@@ -30,6 +29,17 @@ public class UserController extends BaseController {
             return exceptionHandler(e);
         }
     }
+
+    @GetMapping("/byId/{userId}")
+    ResponseEntity<Map<String, Object>> getUserByID(@PathVariable Long userId){
+        try {
+            User user = userService.getUserByID(userId);
+            return ResponseEntity.ok(createReturnObj("User fetched successfully!", user));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
 
     @PostMapping("")
     public ResponseEntity createUser(User user) {
@@ -42,9 +52,9 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map> loginWithPassword(@RequestBody UserCredentials userCredentials) {
+    public ResponseEntity<Map<String,Object>> loginWithPassword(@RequestBody UserCredentials userCredentials) {
         try {
-            ResponseEntity<Map> responseEntity = userService.login(userCredentials);
+            ResponseEntity<Map<String,Object>> responseEntity = ResponseEntity.ok(userService.login(userCredentials));
             return responseEntity;
         } catch (Exception e) {
             return exceptionHandler(e);
