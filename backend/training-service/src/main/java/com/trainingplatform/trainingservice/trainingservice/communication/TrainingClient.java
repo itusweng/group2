@@ -13,4 +13,5 @@ public interface TrainingClient {
 
     @PostMapping("/api/user/getTrainingUsersByID")
     public ResponseEntity<Map<Long, UserResponseDTO>> getTrainingUsersByID(Map<Long, Long>  userIDs);
+
 }
