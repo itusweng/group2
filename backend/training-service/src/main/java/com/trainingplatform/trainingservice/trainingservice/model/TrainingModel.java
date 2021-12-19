@@ -67,4 +67,10 @@ public class TrainingModel implements Serializable {
             columnDefinition = "TEXT"
     )
     private String description;
+
+    @Column(
+            name="thumbnail",
+            columnDefinition = "TEXT"
+    )
+    private String thumbnail;
 }
