@@ -33,7 +33,7 @@ public class TrainingController extends BaseController {
     @PostMapping("/")
     public ResponseEntity<HashMap<String, Object>> createTraining(@RequestBody TrainingModel training) {
         try {
-            // TODO: fill created user and instructor fields of returned dto!!
+            // TODO: test error cases
             TrainingResponseDTO new_training = trainingService.createTraining(training);
             return ResponseEntity.ok(createReturnObj("Training created successfully!", new_training));
         } catch (Exception e) {
