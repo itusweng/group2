@@ -1,0 +1,54 @@
+-- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
+--
+-- Host: localhost    Database: tp-userservice
+-- ------------------------------------------------------
+-- Server version	8.0.27
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `CLIENT_SCOPE_CLIENT`
+--
+
+DROP TABLE IF EXISTS `CLIENT_SCOPE_CLIENT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `CLIENT_SCOPE_CLIENT` (
+  `CLIENT_ID` varchar(255) NOT NULL,
+  `SCOPE_ID` varchar(255) NOT NULL,
+  `DEFAULT_SCOPE` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`CLIENT_ID`,`SCOPE_ID`),
+  KEY `IDX_CLSCOPE_CL` (`CLIENT_ID`),
+  KEY `IDX_CL_CLSCOPE` (`SCOPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `CLIENT_SCOPE_CLIENT`
+--
+
+LOCK TABLES `CLIENT_SCOPE_CLIENT` WRITE;
+/*!40000 ALTER TABLE `CLIENT_SCOPE_CLIENT` DISABLE KEYS */;
+INSERT INTO `CLIENT_SCOPE_CLIENT` VALUES ('014dd004-06d5-49dd-a89a-293f7c5974a2','34559097-c6b4-4792-a1db-769bdc8edf2e',_binary ''),('014dd004-06d5-49dd-a89a-293f7c5974a2','54e97e7e-8161-4cf0-b0ca-ef8b0aab2aef',_binary '\0'),('014dd004-06d5-49dd-a89a-293f7c5974a2','5caba6be-7ab6-4904-97a1-abdef217c6a8',_binary '\0'),('014dd004-06d5-49dd-a89a-293f7c5974a2','8082bc35-e261-4d30-9254-45deb40f5bc8',_binary ''),('014dd004-06d5-49dd-a89a-293f7c5974a2','b2bf91f6-0f19-4e95-ad89-0a65982e4b02',_binary ''),('014dd004-06d5-49dd-a89a-293f7c5974a2','dee9a228-fe60-41d5-b484-47cd90246224',_binary '\0'),('014dd004-06d5-49dd-a89a-293f7c5974a2','fca7e2c0-3c2d-40df-a1be-21cd54e377da',_binary '\0'),('014dd004-06d5-49dd-a89a-293f7c5974a2','fd787c51-5ed4-464e-86be-237d209128ba',_binary ''),('1dbb1163-f4c3-44ae-a385-46d76862cd86','0b1eee33-4741-4903-a2ca-c2d3442d537c',_binary '\0'),('1dbb1163-f4c3-44ae-a385-46d76862cd86','1b6aa6a2-33b3-4645-87be-c658959367b9',_binary '\0'),('1dbb1163-f4c3-44ae-a385-46d76862cd86','2f736949-d74b-449b-b367-9a8970657a85',_binary ''),('1dbb1163-f4c3-44ae-a385-46d76862cd86','5b9e322d-b418-424e-af31-dca243472f08',_binary ''),('1dbb1163-f4c3-44ae-a385-46d76862cd86','5f9e5bfb-8e90-4396-8972-4e0928890ad8',_binary ''),('1dbb1163-f4c3-44ae-a385-46d76862cd86','b9148a9a-42d3-4e90-bbcf-33b03b44a0e9',_binary '\0'),('1dbb1163-f4c3-44ae-a385-46d76862cd86','fb94fb3d-5ac9-425b-94b4-559d9f67d9d2',_binary '\0'),('22c20439-6887-43b5-813b-49f191fadb40','1b6aa6a2-33b3-4645-87be-c658959367b9',_binary '\0'),('22c20439-6887-43b5-813b-49f191fadb40','612b86fb-90d3-4c31-a8df-28b1fc24b36e',_binary ''),('22c20439-6887-43b5-813b-49f191fadb40','b9148a9a-42d3-4e90-bbcf-33b03b44a0e9',_binary '\0'),('22c20439-6887-43b5-813b-49f191fadb40','fb94fb3d-5ac9-425b-94b4-559d9f67d9d2',_binary '\0'),('2493d4c4-276d-4a6b-99af-09b9563d031f','34559097-c6b4-4792-a1db-769bdc8edf2e',_binary ''),('2493d4c4-276d-4a6b-99af-09b9563d031f','54e97e7e-8161-4cf0-b0ca-ef8b0aab2aef',_binary '\0'),('2493d4c4-276d-4a6b-99af-09b9563d031f','5caba6be-7ab6-4904-97a1-abdef217c6a8',_binary '\0'),('2493d4c4-276d-4a6b-99af-09b9563d031f','8082bc35-e261-4d30-9254-45deb40f5bc8',_binary ''),('2493d4c4-276d-4a6b-99af-09b9563d031f','b2bf91f6-0f19-4e95-ad89-0a65982e4b02',_binary ''),('2493d4c4-276d-4a6b-99af-09b9563d031f','dee9a228-fe60-41d5-b484-47cd90246224',_binary '\0'),('2493d4c4-276d-4a6b-99af-09b9563d031f','fca7e2c0-3c2d-40df-a1be-21cd54e377da',_binary '\0'),('2493d4c4-276d-4a6b-99af-09b9563d031f','fd787c51-5ed4-464e-86be-237d209128ba',_binary ''),('3694ae68-0198-42f4-8280-bade470681e6','34559097-c6b4-4792-a1db-769bdc8edf2e',_binary ''),('3694ae68-0198-42f4-8280-bade470681e6','54e97e7e-8161-4cf0-b0ca-ef8b0aab2aef',_binary '\0'),('3694ae68-0198-42f4-8280-bade470681e6','5caba6be-7ab6-4904-97a1-abdef217c6a8',_binary '\0'),('3694ae68-0198-42f4-8280-bade470681e6','8082bc35-e261-4d30-9254-45deb40f5bc8',_binary ''),('3694ae68-0198-42f4-8280-bade470681e6','b2bf91f6-0f19-4e95-ad89-0a65982e4b02',_binary ''),('3694ae68-0198-42f4-8280-bade470681e6','dee9a228-fe60-41d5-b484-47cd90246224',_binary '\0'),('3694ae68-0198-42f4-8280-bade470681e6','fca7e2c0-3c2d-40df-a1be-21cd54e377da',_binary '\0'),('3694ae68-0198-42f4-8280-bade470681e6','fd787c51-5ed4-464e-86be-237d209128ba',_binary ''),('412bc1ee-d68f-4be5-96bf-cd7fe022e19d','34559097-c6b4-4792-a1db-769bdc8edf2e',_binary ''),('412bc1ee-d68f-4be5-96bf-cd7fe022e19d','54e97e7e-8161-4cf0-b0ca-ef8b0aab2aef',_binary '\0'),('412bc1ee-d68f-4be5-96bf-cd7fe022e19d','5caba6be-7ab6-4904-97a1-abdef217c6a8',_binary '\0'),('412bc1ee-d68f-4be5-96bf-cd7fe022e19d','8082bc35-e261-4d30-9254-45deb40f5bc8',_binary ''),('412bc1ee-d68f-4be5-96bf-cd7fe022e19d','b2bf91f6-0f19-4e95-ad89-0a65982e4b02',_binary ''),('412bc1ee-d68f-4be5-96bf-cd7fe022e19d','dee9a228-fe60-41d5-b484-47cd90246224',_binary '\0'),('412bc1ee-d68f-4be5-96bf-cd7fe022e19d','fca7e2c0-3c2d-40df-a1be-21cd54e377da',_binary '\0'),('412bc1ee-d68f-4be5-96bf-cd7fe022e19d','fd787c51-5ed4-464e-86be-237d209128ba',_binary ''),('5c672d07-da67-4494-b773-71c6df07837c','0b1eee33-4741-4903-a2ca-c2d3442d537c',_binary '\0'),('5c672d07-da67-4494-b773-71c6df07837c','1b6aa6a2-33b3-4645-87be-c658959367b9',_binary '\0'),('5c672d07-da67-4494-b773-71c6df07837c','2f736949-d74b-449b-b367-9a8970657a85',_binary ''),('5c672d07-da67-4494-b773-71c6df07837c','5b9e322d-b418-424e-af31-dca243472f08',_binary ''),('5c672d07-da67-4494-b773-71c6df07837c','5f9e5bfb-8e90-4396-8972-4e0928890ad8',_binary ''),('5c672d07-da67-4494-b773-71c6df07837c','b9148a9a-42d3-4e90-bbcf-33b03b44a0e9',_binary '\0'),('5c672d07-da67-4494-b773-71c6df07837c','fb94fb3d-5ac9-425b-94b4-559d9f67d9d2',_binary '\0'),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','34559097-c6b4-4792-a1db-769bdc8edf2e',_binary ''),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','54e97e7e-8161-4cf0-b0ca-ef8b0aab2aef',_binary '\0'),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','5caba6be-7ab6-4904-97a1-abdef217c6a8',_binary '\0'),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','8082bc35-e261-4d30-9254-45deb40f5bc8',_binary ''),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','b2bf91f6-0f19-4e95-ad89-0a65982e4b02',_binary ''),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','dee9a228-fe60-41d5-b484-47cd90246224',_binary '\0'),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','fca7e2c0-3c2d-40df-a1be-21cd54e377da',_binary '\0'),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','fd787c51-5ed4-464e-86be-237d209128ba',_binary ''),('75a57c7d-19a9-49f3-8796-778f11f5552d','0b1eee33-4741-4903-a2ca-c2d3442d537c',_binary '\0'),('75a57c7d-19a9-49f3-8796-778f11f5552d','1b6aa6a2-33b3-4645-87be-c658959367b9',_binary '\0'),('75a57c7d-19a9-49f3-8796-778f11f5552d','2f736949-d74b-449b-b367-9a8970657a85',_binary ''),('75a57c7d-19a9-49f3-8796-778f11f5552d','5b9e322d-b418-424e-af31-dca243472f08',_binary ''),('75a57c7d-19a9-49f3-8796-778f11f5552d','5f9e5bfb-8e90-4396-8972-4e0928890ad8',_binary ''),('75a57c7d-19a9-49f3-8796-778f11f5552d','b9148a9a-42d3-4e90-bbcf-33b03b44a0e9',_binary '\0'),('75a57c7d-19a9-49f3-8796-778f11f5552d','fb94fb3d-5ac9-425b-94b4-559d9f67d9d2',_binary '\0'),('79915969-616f-45bf-85bf-615bac5c29b2','34559097-c6b4-4792-a1db-769bdc8edf2e',_binary ''),('79915969-616f-45bf-85bf-615bac5c29b2','54e97e7e-8161-4cf0-b0ca-ef8b0aab2aef',_binary '\0'),('79915969-616f-45bf-85bf-615bac5c29b2','5caba6be-7ab6-4904-97a1-abdef217c6a8',_binary '\0'),('79915969-616f-45bf-85bf-615bac5c29b2','8082bc35-e261-4d30-9254-45deb40f5bc8',_binary ''),('79915969-616f-45bf-85bf-615bac5c29b2','b2bf91f6-0f19-4e95-ad89-0a65982e4b02',_binary ''),('79915969-616f-45bf-85bf-615bac5c29b2','dee9a228-fe60-41d5-b484-47cd90246224',_binary '\0'),('79915969-616f-45bf-85bf-615bac5c29b2','fca7e2c0-3c2d-40df-a1be-21cd54e377da',_binary '\0'),('79915969-616f-45bf-85bf-615bac5c29b2','fd787c51-5ed4-464e-86be-237d209128ba',_binary ''),('a8eee0ec-1798-424e-b2b2-9181f32eda68','0b1eee33-4741-4903-a2ca-c2d3442d537c',_binary '\0'),('a8eee0ec-1798-424e-b2b2-9181f32eda68','1b6aa6a2-33b3-4645-87be-c658959367b9',_binary '\0'),('a8eee0ec-1798-424e-b2b2-9181f32eda68','2f736949-d74b-449b-b367-9a8970657a85',_binary ''),('a8eee0ec-1798-424e-b2b2-9181f32eda68','5b9e322d-b418-424e-af31-dca243472f08',_binary ''),('a8eee0ec-1798-424e-b2b2-9181f32eda68','5f9e5bfb-8e90-4396-8972-4e0928890ad8',_binary ''),('a8eee0ec-1798-424e-b2b2-9181f32eda68','b9148a9a-42d3-4e90-bbcf-33b03b44a0e9',_binary '\0'),('a8eee0ec-1798-424e-b2b2-9181f32eda68','fb94fb3d-5ac9-425b-94b4-559d9f67d9d2',_binary '\0'),('bf730706-6231-4f83-ac31-aaf9646a826e','0b1eee33-4741-4903-a2ca-c2d3442d537c',_binary '\0'),('bf730706-6231-4f83-ac31-aaf9646a826e','1b6aa6a2-33b3-4645-87be-c658959367b9',_binary '\0'),('bf730706-6231-4f83-ac31-aaf9646a826e','2f736949-d74b-449b-b367-9a8970657a85',_binary ''),('bf730706-6231-4f83-ac31-aaf9646a826e','5b9e322d-b418-424e-af31-dca243472f08',_binary ''),('bf730706-6231-4f83-ac31-aaf9646a826e','5f9e5bfb-8e90-4396-8972-4e0928890ad8',_binary ''),('bf730706-6231-4f83-ac31-aaf9646a826e','b9148a9a-42d3-4e90-bbcf-33b03b44a0e9',_binary '\0'),('bf730706-6231-4f83-ac31-aaf9646a826e','fb94fb3d-5ac9-425b-94b4-559d9f67d9d2',_binary '\0'),('c5a95f7a-298c-4a2e-9150-3e3cde3788e2','0b1eee33-4741-4903-a2ca-c2d3442d537c',_binary '\0'),('c5a95f7a-298c-4a2e-9150-3e3cde3788e2','1b6aa6a2-33b3-4645-87be-c658959367b9',_binary '\0'),('c5a95f7a-298c-4a2e-9150-3e3cde3788e2','2f736949-d74b-449b-b367-9a8970657a85',_binary ''),('c5a95f7a-298c-4a2e-9150-3e3cde3788e2','5b9e322d-b418-424e-af31-dca243472f08',_binary ''),('c5a95f7a-298c-4a2e-9150-3e3cde3788e2','5f9e5bfb-8e90-4396-8972-4e0928890ad8',_binary ''),('c5a95f7a-298c-4a2e-9150-3e3cde3788e2','b9148a9a-42d3-4e90-bbcf-33b03b44a0e9',_binary '\0'),('c5a95f7a-298c-4a2e-9150-3e3cde3788e2','fb94fb3d-5ac9-425b-94b4-559d9f67d9d2',_binary '\0');
+/*!40000 ALTER TABLE `CLIENT_SCOPE_CLIENT` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-12-20 16:09:07

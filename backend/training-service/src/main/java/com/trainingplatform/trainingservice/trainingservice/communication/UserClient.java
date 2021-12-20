@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @FeignClient(name="user-service")
-public interface TrainingClient {
+public interface UserClient {
 
     @PostMapping("/api/user/getTrainingUsersByID")
-    public ResponseEntity<Map<Long, UserResponseDTO>> getTrainingUsersByID(Map<Long, Long>  userIDs);
+    ResponseEntity<Map<Long, UserResponseDTO>> getTrainingUsersByID(Map<Long, Long>  userIDs);
+
+    @GetMapping("/api/user/byId/{userId}")
+    ResponseEntity<Map<String, Object>> getUserByID(@PathVariable Long userId);
+
 }

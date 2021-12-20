@@ -1,6 +1,6 @@
 package com.trainingplatform.userservice.controller;
 
-import com.trainingplatform.userservice.exceptions.UserNotCreatedException;
+import com.trainingplatform.userservice.exception.UserNotCreatedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;
@@ -17,6 +17,7 @@ public abstract class BaseController {
     public HashMap<String, Object> createReturnObj(String message) {
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("message", message);
+        returnMap.put("data", null);
         return (HashMap<String, Object>) returnMap;
     }
 
@@ -27,7 +28,7 @@ public abstract class BaseController {
         return (HashMap<String, Object>) returnMap;
     }
 
-    public ResponseEntity exceptionHandler(Exception e) {
+    public ResponseEntity<Map<String, Object>> exceptionHandler(Exception e) {
 
         if (e instanceof EntityNotFoundException) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
