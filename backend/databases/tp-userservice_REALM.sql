@@ -79,18 +79,16 @@ CREATE TABLE `REALM` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `UK_ORVSDMLA56612EAEFIQ6WL5OI` (`NAME`),
   KEY `IDX_REALM_MASTER_ADM_CLI` (`MASTER_ADMIN_CLIENT`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `REALM`
 --
 
-LOCK TABLES `REALM` WRITE;
 /*!40000 ALTER TABLE `REALM` DISABLE KEYS */;
-INSERT INTO `REALM` VALUES ('master',60,300,60,NULL,NULL,NULL,_binary '',_binary '\0',0,NULL,'master',0,NULL,_binary '\0',_binary '\0',_binary '\0',_binary '\0','EXTERNAL',1800,36000,_binary '\0',_binary '\0','412bc1ee-d68f-4be5-96bf-cd7fe022e19d',1800,_binary '\0',NULL,_binary '\0',_binary '\0',_binary '\0',_binary '\0',0,1,30,6,'HmacSHA1','totp','6cef92ba-4928-49c9-8fa9-f960a8e3228f','285c15be-65cf-4da8-9a1f-807808cfce68','c1833708-dfd2-4027-aab9-10fd6541e1ed','3c3c831b-cb2c-44d0-b668-2eb7a69b2aea','ca3a0139-2c53-41bd-adb8-984acfc24eef',2592000,_binary '\0',900,_binary '',_binary '\0','618aeee9-44cc-46ab-87a1-9a923db77826',0,_binary '\0',0,0,'4298e966-05e1-4116-92b4-cf50b8598b5a'),('training-platform-realm',60,300,300,NULL,NULL,NULL,_binary '',_binary '\0',0,NULL,'training-platform-realm',0,NULL,_binary '\0',_binary '\0',_binary '\0',_binary '\0','EXTERNAL',1800,36000,_binary '\0',_binary '\0','bd783b6e-4231-45a8-a878-71215870684f',1800,_binary '\0',NULL,_binary '\0',_binary '\0',_binary '\0',_binary '\0',0,1,30,6,'HmacSHA1','totp','73b5375c-de3d-4f7b-984e-387d76e96784','32e8db6f-f9e7-4fbc-ac72-c671ea67c208','0eec3cc0-5311-44c0-95b8-6421114455d3','613e10cc-178d-4192-ac75-cdf5d1d40535','bd101774-198e-4dc6-9043-7d9c0ba8b68f',2592000,_binary '\0',900,_binary '',_binary '\0','8272c931-20e2-4d46-807f-70b86f9c8e78',0,_binary '\0',0,0,'7e41caf4-8159-4542-8aa1-cc6004367bbc');
+INSERT INTO `REALM` VALUES ('master',60,300,60,NULL,NULL,NULL,_binary '',_binary '\0',0,NULL,'master',0,NULL,_binary '\0',_binary '\0',_binary '\0',_binary '\0','EXTERNAL',1800,36000,_binary '\0',_binary '\0','412bc1ee-d68f-4be5-96bf-cd7fe022e19d',1800,_binary '\0',NULL,_binary '\0',_binary '\0',_binary '\0',_binary '\0',0,1,30,6,'HmacSHA1','totp','6cef92ba-4928-49c9-8fa9-f960a8e3228f','285c15be-65cf-4da8-9a1f-807808cfce68','c1833708-dfd2-4027-aab9-10fd6541e1ed','3c3c831b-cb2c-44d0-b668-2eb7a69b2aea','ca3a0139-2c53-41bd-adb8-984acfc24eef',2592000,_binary '\0',900,_binary '',_binary '\0','618aeee9-44cc-46ab-87a1-9a923db77826',0,_binary '\0',0,0,'4298e966-05e1-4116-92b4-cf50b8598b5a'),('training-platform-realm',60,300,300,NULL,NULL,NULL,_binary '',_binary '\0',0,NULL,'training-platform-realm',1638678273,NULL,_binary '\0',_binary '\0',_binary '\0',_binary '\0','EXTERNAL',1800,36000,_binary '\0',_binary '\0','bd783b6e-4231-45a8-a878-71215870684f',1800,_binary '\0',NULL,_binary '\0',_binary '\0',_binary '\0',_binary '\0',0,1,30,6,'HmacSHA1','totp','73b5375c-de3d-4f7b-984e-387d76e96784','32e8db6f-f9e7-4fbc-ac72-c671ea67c208','0eec3cc0-5311-44c0-95b8-6421114455d3','613e10cc-178d-4192-ac75-cdf5d1d40535','bd101774-198e-4dc6-9043-7d9c0ba8b68f',2592000,_binary '\0',900,_binary '',_binary '\0','8272c931-20e2-4d46-807f-70b86f9c8e78',0,_binary '\0',0,0,'7e41caf4-8159-4542-8aa1-cc6004367bbc');
 /*!40000 ALTER TABLE `REALM` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -101,4 +99,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-29  3:30:50
+-- Dump completed on 2021-12-20 16:46:40

@@ -30,19 +30,19 @@ CREATE TABLE `user` (
   `role_id` bigint NOT NULL,
   `password` text NOT NULL,
   `username` text NOT NULL,
+  `job_title` char(50) NOT NULL,
+  `profile_photo` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
 --
 
-LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'test@gmail.com','test name','test last name',1,'$2a$10$E4F.NJcHqGrKqyUB9LBDeO1CnjosO9wmYJJSBHtEzRMa0TYumKiyq','test1'),(2,'test3@gmail.com','test name','test last name',1,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test3');
+INSERT INTO `user` VALUES (1,'test@gmail.com','test name','test last name',1,'$2a$10$wwNjYmbCz/4en33BXtdI9epC8ppcucVng2JBJS8Rc7v.xN4xa.GgK','test1','',NULL),(2,'test3@gmail.com','test name','test last name',1,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test3','',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-29  3:30:50
+-- Dump completed on 2021-12-20 16:46:44

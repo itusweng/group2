@@ -28,18 +28,16 @@ CREATE TABLE `REDIRECT_URIS` (
   PRIMARY KEY (`CLIENT_ID`,`VALUE`),
   KEY `IDX_REDIR_URI_CLIENT` (`CLIENT_ID`),
   CONSTRAINT `FK_1BURS8PB4OUJ97H5WUPPAHV9F` FOREIGN KEY (`CLIENT_ID`) REFERENCES `CLIENT` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `REDIRECT_URIS`
 --
 
-LOCK TABLES `REDIRECT_URIS` WRITE;
 /*!40000 ALTER TABLE `REDIRECT_URIS` DISABLE KEYS */;
 INSERT INTO `REDIRECT_URIS` VALUES ('1dbb1163-f4c3-44ae-a385-46d76862cd86','/admin/training-platform-realm/console/*'),('22c20439-6887-43b5-813b-49f191fadb40','*'),('3694ae68-0198-42f4-8280-bade470681e6','/realms/master/account/*'),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','/admin/master/console/*'),('75a57c7d-19a9-49f3-8796-778f11f5552d','/realms/training-platform-realm/account/*'),('79915969-616f-45bf-85bf-615bac5c29b2','/realms/master/account/*'),('bf730706-6231-4f83-ac31-aaf9646a826e','/realms/training-platform-realm/account/*');
 /*!40000 ALTER TABLE `REDIRECT_URIS` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-29  3:30:55
+-- Dump completed on 2021-12-20 16:46:40

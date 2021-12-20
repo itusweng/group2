@@ -26,22 +26,21 @@ CREATE TABLE `offlinelesson` (
   `id` bigint NOT NULL,
   `description` date NOT NULL,
   `files` mediumtext,
+  `title` char(50) NOT NULL,
   `video_link` mediumtext NOT NULL,
   `training_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FKa2yqfitw6xqd2rbtpjt0opjsj` (`training_id`),
   CONSTRAINT `FKa2yqfitw6xqd2rbtpjt0opjsj` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `offlinelesson`
 --
 
-LOCK TABLES `offlinelesson` WRITE;
 /*!40000 ALTER TABLE `offlinelesson` DISABLE KEYS */;
 /*!40000 ALTER TABLE `offlinelesson` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-29  3:30:49
+-- Dump completed on 2021-12-20 16:46:38

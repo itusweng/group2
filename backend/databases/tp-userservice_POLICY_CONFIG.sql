@@ -28,18 +28,16 @@ CREATE TABLE `POLICY_CONFIG` (
   `VALUE` longtext,
   PRIMARY KEY (`POLICY_ID`,`NAME`),
   CONSTRAINT `FKDC34197CF864C4E43` FOREIGN KEY (`POLICY_ID`) REFERENCES `RESOURCE_SERVER_POLICY` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `POLICY_CONFIG`
 --
 
-LOCK TABLES `POLICY_CONFIG` WRITE;
 /*!40000 ALTER TABLE `POLICY_CONFIG` DISABLE KEYS */;
 INSERT INTO `POLICY_CONFIG` VALUES ('569333c0-cae6-49da-9919-e37778d34d7d','defaultResourceType','urn:tp-spring-cloud-gateway-client:resources:default'),('9ba80fba-01c4-4590-8ae0-1ca2052ef1de','code','// by default, grants any permission associated with this policy\n$evaluation.grant();\n');
 /*!40000 ALTER TABLE `POLICY_CONFIG` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-29  3:30:54
+-- Dump completed on 2021-12-20 16:46:39
