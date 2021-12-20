@@ -19,7 +19,7 @@ public class TrainingController extends BaseController {
     private final TrainingService trainingService;
 
     @GetMapping("/getAllTrainings")
-    public ResponseEntity<HashMap<String, Object>> getUserByUsername() {
+    public ResponseEntity<HashMap<String, Object>> getAllTrainings() {
         try {
             List<TrainingResponseDTO> trainings = trainingService.getAllTrainings();
             return ResponseEntity.ok(createReturnObj("Trainings fetched successfully!", trainings));
