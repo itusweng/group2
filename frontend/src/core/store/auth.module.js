@@ -33,6 +33,15 @@ const actions = {
   [LOGIN](context, credentials) {
     return new Promise((resolve) => {
 
+
+      const data = {
+        token: 'fsdf',
+        ...credentials
+      }
+      context.commit(SET_AUTH, data);
+      resolve(data);
+      /*
+
       ApiService.post('login', credentials)
         .then(({ data }) => {
           // console.log("Here what post returns", data);
@@ -42,6 +51,9 @@ const actions = {
         .catch(({ response }) => {
           context.commit(SET_ERROR, response.data.errors);
         });
+
+
+       */
     });
   },
   [LOGOUT](context) {

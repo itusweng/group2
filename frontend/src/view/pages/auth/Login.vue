@@ -113,9 +113,9 @@ export default {
       try {
         this.submitting = true;
 
-        // this.$store.dispatch(LOGOUT);
+        this.$store.dispatch('logout');
 
-        //await this.$store.dispatch(LOGIN, this.form);
+        await this.$store.dispatch('login', this.form);
 
         this.$router.push({ name: 'dashboard' });
       } catch (e) {
