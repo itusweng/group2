@@ -33,7 +33,7 @@
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">First Name</label>
-          <form-group name="title" lg="9" xl="6" no-label no-margin>
+          <form-group name="firstName" lg="9" xl="6" no-label no-margin>
             <b-input
               slot-scope="{ attrs, listeners }"
               v-bind="attrs"
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Last Name</label>
-          <form-group name="trainer" lg="9" xl="6" no-label no-margin>
+          <form-group name="lastName" lg="9" xl="6" no-label no-margin>
             <b-input
               slot-scope="{ attrs, listeners }"
               v-bind="attrs"
@@ -57,8 +57,8 @@
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Email Address</label>
-          <form-group name="description" lg="9" xl="6" no-label no-margin>
-            <b-form-textarea
+          <form-group name="email" lg="9" xl="6" no-label no-margin>
+            <b-form-input
               slot-scope="{ attrs, listeners }"
               v-bind="attrs"
               v-on="listeners"
@@ -80,15 +80,15 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators';
+import { required, email, minLength } from 'vuelidate/lib/validators';
 import Swal from "sweetalert2";
 
 export default {
   validations: {
     form: {
-      firstName: { required },
+      firstName: { required, minLength : minLength(3)},
       lastName: { required },
-      email: { required },
+      email: { required, email },
       role_id: { required },
       description: {}
     }
@@ -110,9 +110,27 @@ export default {
       ]
     };
   },
+  created() {
+
+    const {data: roles} = this.axios.get('http://localhost:5000/roles');
+
+    this.options = roles;
+  },
   methods: {
-    save() {
+    async save() {
       try {
+
+        this.$v.$touch();
+
+        console.log(this.$v)
+        if(this.$v.$anyError){
+          return
+        }
+
+
+
+        await this.axios.post('http://localhost:5000/roles', this.form);
+
         Swal.fire({
           icon: 'success',
           title: 'User created successfully!',
@@ -123,6 +141,12 @@ export default {
 
         })
       } catch (e) {
+        Swal.fire({
+          icon: 'error',
+          title: 'User cannot created!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        })
         console.log(e);
       }
     },
