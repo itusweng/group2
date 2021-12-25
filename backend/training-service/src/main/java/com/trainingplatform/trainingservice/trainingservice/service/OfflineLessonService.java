@@ -1,10 +1,12 @@
 package com.trainingplatform.trainingservice.trainingservice.service;
 
+import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
 import com.trainingplatform.trainingservice.trainingservice.model.OfflineLessonModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.response.OfflineLessonResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.repository.OfflineLessonRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,5 +29,33 @@ public class OfflineLessonService {
         });
 
         return offlineLessonResponseDTOS;
+    }
+
+    public OfflineLessonResponseDTO createOfflineLesson(OfflineLessonModel offlineLessonModel){
+        OfflineLessonModel savedOfflineLesson = offlineLessonRepo.save(offlineLessonModel);
+        OfflineLessonResponseDTO offlineLessonResponseDTO = offlineLessonModelMapper.mapToDto(savedOfflineLesson);
+        offlineLessonResponseDTO.setTraining_id(savedOfflineLesson.getTraining().getId());
+        return offlineLessonResponseDTO;
+    }
+
+    public void deleteOfflineLesson(Long offlineLessonId) {
+        //TODO CATCH EXCEPTION
+       offlineLessonRepo.deleteById(offlineLessonId);
+    }
+
+    public Integer updateOfflineLessonTitle(Long offlineLessonId, String offlineLessonTitle){
+        return offlineLessonRepo.updateTitle(offlineLessonId, offlineLessonTitle);
+    }
+
+    public Integer updateOfflineLessonVideoLink(Long offlineLessonId, String offlineLessonVideoLink){
+        return offlineLessonRepo.updateVideoLink(offlineLessonId, offlineLessonVideoLink);
+    }
+
+    public Integer updateOfflineLessonFiles(Long offlineLessonId, String offlineLessonFiles){
+        return offlineLessonRepo.updateFiles(offlineLessonId, offlineLessonFiles);
+    }
+
+    public Integer updateOfflineLessonDescription(Long offlineLessonId, String offlineLessonDescription){
+        return offlineLessonRepo.updateDescription(offlineLessonId, offlineLessonDescription);
     }
 }
