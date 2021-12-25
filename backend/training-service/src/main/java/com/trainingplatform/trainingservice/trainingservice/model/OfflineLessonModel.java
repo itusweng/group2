@@ -26,6 +26,7 @@ public class OfflineLessonModel implements Serializable {
     @Column(
             name="title",
             nullable = false,
+            unique = true,
             columnDefinition = "CHAR(50)"
     )
     private String title;
@@ -40,11 +41,12 @@ public class OfflineLessonModel implements Serializable {
     @Column(
             name = "video_link",
             nullable = false,
+            unique = true,
             columnDefinition = "MEDIUMTEXT"
     )
     private String video_link;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "training_id", nullable = false)
     private TrainingModel training;
 
