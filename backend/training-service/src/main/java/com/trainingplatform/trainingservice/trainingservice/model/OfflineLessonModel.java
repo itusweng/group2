@@ -33,7 +33,7 @@ public class OfflineLessonModel implements Serializable {
     @Column(
             name = "description",
             nullable = false,
-            columnDefinition = "DATE"
+            columnDefinition = "MEDIUMTEXT"
     )
     private String description;
 
