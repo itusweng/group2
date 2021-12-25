@@ -103,10 +103,29 @@ export default {
       ]
     };
   },
+  async created() {
+    this.getTrainings();
+  },
   methods: {
-    deleteTraining(training) {
-      this.confirmDelete();
-      console.log(training);
+    async getTrainings() {
+      try {
+        const { data } = await this.axios.get('/training/getAllTrainings');
+        this.trainings = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async deleteTraining(training) {
+      try {
+        const result = await this.confirmDelete();
+        if (!result.isConfirmed) return;
+
+        await this.axios.delete('/training/' + training.id);
+
+        this.getTrainings();
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };
