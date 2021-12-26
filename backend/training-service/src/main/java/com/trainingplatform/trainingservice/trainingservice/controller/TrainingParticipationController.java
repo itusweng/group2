@@ -1,5 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
+import com.trainingplatform.trainingservice.trainingservice.model.request.TrainingParticipationRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.service.TrainingParticipationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/training")
-public class TrainingParticipationController extends BaseController{
+public class TrainingParticipationController extends BaseController {
 
     private final TrainingParticipationService participationService;
 
@@ -23,6 +24,16 @@ public class TrainingParticipationController extends BaseController{
             return ResponseEntity.ok(createReturnObj("Check data to see which users participated successfully! ", participationResultMap));
         } catch (Exception e) {
             return exceptionHandler(e);
+        }
+    }
+
+    @PostMapping("/participationRequest")
+    public ResponseEntity<Map<String, Object>> requestForParticipation(@RequestBody TrainingParticipationRequestDTO requestDTO) {
+        try {
+            participationService.requestParticipation(requestDTO.getTrainingId(), requestDTO.getUserId());
+            return ResponseEntity.ok(createReturnObj("Participation request is send!", null));
+        } catch (Exception e) {
+            return  exceptionHandler(e);
         }
     }
 }

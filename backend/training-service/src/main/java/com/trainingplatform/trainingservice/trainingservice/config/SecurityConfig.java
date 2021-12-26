@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/training/").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.DELETE, "/api/training/{id}").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/{id}/participant").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.POST, "/api/training/participationRequest").authenticated()
                 .anyRequest().denyAll()
                 .and()
                 .oauth2ResourceServer()

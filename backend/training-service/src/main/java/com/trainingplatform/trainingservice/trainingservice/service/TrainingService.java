@@ -56,6 +56,11 @@ public class TrainingService {
         return trainingResponseDTOS;
     }
 
+    public TrainingModel getTrainingById(Long trainingId) throws TrainingCrudException {
+        return trainingRepo.findById(trainingId)
+                .orElseThrow(() -> new TrainingCrudException("Training is not found by id: " + trainingId));
+    }
+
     public TrainingResponseDTO createTraining(TrainingModel tm) {
 
         // Create training
