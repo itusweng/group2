@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -48,17 +47,5 @@ public class TrainingController extends BaseController {
             return exceptionHandler(e);
         }
     }
-
-    @PostMapping("/{trainingId}/participant")
-    public ResponseEntity<HashMap<String, Object>> addParticipantToTraining(@PathVariable Long trainingId, @RequestBody Map<String, List<Long>> requestDTO) {
-        try {
-            Map<Long, Boolean> participationResultMap = trainingService.addParticipantToTraining(trainingId, requestDTO.get("users"));
-            return ResponseEntity.ok(createReturnObj("Check data to see which users participated successfully! ", participationResultMap));
-        } catch (Exception e) {
-            return exceptionHandler(e);
-        }
-    }
-
-
 }
 
