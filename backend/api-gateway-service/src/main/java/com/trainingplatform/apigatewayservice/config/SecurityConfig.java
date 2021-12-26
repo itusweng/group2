@@ -25,8 +25,7 @@ public class SecurityConfig  {
         http
                 .cors().and()
                 .authorizeExchange()
-                .pathMatchers("/api/user/login").permitAll()
-                .pathMatchers("/api/user/register").permitAll()
+                .pathMatchers("/api/user/**").permitAll()
                 .pathMatchers("/api/streaming/*").authenticated()
                 .pathMatchers("/api/training/*").permitAll()
 
