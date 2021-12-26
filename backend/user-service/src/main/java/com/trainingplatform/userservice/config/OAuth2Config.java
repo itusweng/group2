@@ -43,4 +43,5 @@ public class OAuth2Config {
         restTemplate.setAccessTokenProvider(new ResourceOwnerPasswordAccessTokenProvider());
         return restTemplate;
     }
+
 }

@@ -26,8 +26,8 @@ public class SecurityConfig  {
                 .cors().and()
                 .authorizeExchange()
                 .pathMatchers("/api/user/**").permitAll()
-                .pathMatchers("/api/streaming/*").authenticated()
-                .pathMatchers("/api/training/*").permitAll()
+                .pathMatchers("/api/streaming/**").authenticated()
+                .pathMatchers("/api/training/**").permitAll()
 
                 // Authentication is required for remaining endpoints
                 .anyExchange().authenticated()
