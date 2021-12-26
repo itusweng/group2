@@ -38,6 +38,8 @@ public class UserService {
             case 200: // Successful case
                 userRepo.save(newUser);
                 break;
+            case 403: // Forbidden case
+                throw new UserNotCreatedException("Keycloak user cannot be created!");
             case 409: // Conflict case
                 throw new UserNotCreatedException("This username is already in use!");
         }

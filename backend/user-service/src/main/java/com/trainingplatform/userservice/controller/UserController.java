@@ -41,8 +41,8 @@ public class UserController extends BaseController {
     }
 
 
-    @PostMapping("")
-    public ResponseEntity createUser(User user) {
+    @PostMapping("/")
+    public ResponseEntity createUser(@RequestBody User user) {
         try {
             ResponseEntity accessToken = userService.createUser(user);
             return ResponseEntity.status(HttpStatus.OK).body(accessToken);
