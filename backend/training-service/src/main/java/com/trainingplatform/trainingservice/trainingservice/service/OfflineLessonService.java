@@ -43,19 +43,4 @@ public class OfflineLessonService {
        offlineLessonRepo.deleteById(offlineLessonId);
     }
 
-    public Integer updateOfflineLessonTitle(Long offlineLessonId, String offlineLessonTitle){
-        return offlineLessonRepo.updateTitle(offlineLessonId, offlineLessonTitle);
-    }
-
-    public Integer updateOfflineLessonVideoLink(Long offlineLessonId, String offlineLessonVideoLink){
-        return offlineLessonRepo.updateVideoLink(offlineLessonId, offlineLessonVideoLink);
-    }
-
-    public Integer updateOfflineLessonFiles(Long offlineLessonId, String offlineLessonFiles){
-        return offlineLessonRepo.updateFiles(offlineLessonId, offlineLessonFiles);
-    }
-
-    public Integer updateOfflineLessonDescription(Long offlineLessonId, String offlineLessonDescription){
-        return offlineLessonRepo.updateDescription(offlineLessonId, offlineLessonDescription);
-    }
 }
