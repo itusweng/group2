@@ -3,10 +3,7 @@ package com.trainingplatform.trainingservice.trainingservice.model;
 import com.trainingplatform.trainingservice.trainingservice.model.composite_keys.User_TrainingPK;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -21,17 +18,23 @@ import java.util.Date;
 public class User_RequestedTrainingModel {
 
     @Id
-    private Long training_id;
+    @Column(name = "training_id")
+    private Long trainingId;
 
     @Id
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userId;
 
-    private Long instructor_id;
+    @Column(name = "manager_id")
+    private Long managerId;
 
-    private Date created_date;
+    @Column(name = "created_date")
+    private Date createdDate;
 
-    private Date responded_date;
+    @Column(name = "responded_date")
+    private Date respondedDate;
 
+    @Column(name = "status")
     private String status;
 
 }

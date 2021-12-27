@@ -2,14 +2,12 @@ package com.trainingplatform.trainingservice.trainingservice.model.response;
 
 import lombok.*;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserResponseDTO {
+public class UserResponseDTO extends BaseResponseDTO {
 
     private Long id;
 
@@ -18,4 +16,8 @@ public class UserResponseDTO {
     private String last_name;
 
     private String role;
+
+    private String profile_photo;
+
+    private String job_title;
 }

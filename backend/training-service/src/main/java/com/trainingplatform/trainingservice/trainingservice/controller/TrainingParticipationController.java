@@ -1,6 +1,8 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
-import com.trainingplatform.trainingservice.trainingservice.model.request.TrainingParticipationRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationPendingRequestsListAllRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.PendingParticipationResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.service.TrainingParticipationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +29,23 @@ public class TrainingParticipationController extends BaseController {
         }
     }
 
-    @PostMapping("/participationRequest")
-    public ResponseEntity<Map<String, Object>> requestForParticipation(@RequestBody TrainingParticipationRequestDTO requestDTO) {
+    @PostMapping("/participation/request")
+    public ResponseEntity<Map<String, Object>> requestForParticipation(@RequestBody ParticipationRequestDTO requestDTO) {
         try {
             participationService.requestParticipation(requestDTO.getTrainingId(), requestDTO.getUserId());
             return ResponseEntity.ok(createReturnObj("Participation request is send!", null));
         } catch (Exception e) {
-            return  exceptionHandler(e);
+            return exceptionHandler(e);
+        }
+    }
+
+    @PostMapping("/participation/listAll")
+    public ResponseEntity<Map<String, Object>> listAllParticipationRequests(@RequestBody ParticipationPendingRequestsListAllRequestDTO requestDTO) {
+        try {
+            List<PendingParticipationResponseDTO> requests = participationService.listAllPendingRequests(requestDTO);
+            return ResponseEntity.ok(createReturnObj("Participation requests fetched!", requests));
+        } catch (Exception e) {
+            return exceptionHandler(e);
         }
     }
 }

@@ -17,9 +17,11 @@ import javax.persistence.*;
 public class User_CreatedTrainingModel {
 
     @Id
-    private Long training_id;
+    @Column(name="training_id")
+    private Long trainingId;
 
     @Id
-    private Long user_id;
+    @Column(name="user_id")
+    private Long userId;
 
 }

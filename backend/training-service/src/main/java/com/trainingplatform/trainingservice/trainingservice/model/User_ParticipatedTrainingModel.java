@@ -3,10 +3,7 @@ package com.trainingplatform.trainingservice.trainingservice.model;
 import com.trainingplatform.trainingservice.trainingservice.model.composite_keys.User_TrainingPK;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -21,10 +18,13 @@ import java.util.Date;
 public class User_ParticipatedTrainingModel {
 
     @Id
-    private Long training_id;
+    @Column(name="training_id")
+    private Long trainingId;
 
     @Id
-    private Long user_id;
+    @Column(name="user_id")
+    private Long userId;
 
+    @Column(name="participated_date")
     private Date participatedDate;
 }

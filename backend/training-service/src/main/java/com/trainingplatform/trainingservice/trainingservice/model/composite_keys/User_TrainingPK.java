@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class User_TrainingPK implements Serializable {
 
-    private Long user_id;
+    private Long userId;
 
-    private Long training_id;
+    private Long trainingId;
 }

@@ -1,13 +1,15 @@
 package com.trainingplatform.trainingservice.trainingservice.model.response;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TrainingResponseDTO {
+public class TrainingResponseDTO extends BaseResponseDTO {
 
     private Long id;
 

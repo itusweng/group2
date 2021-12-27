@@ -69,8 +69,8 @@ public class TrainingService {
         // Create user-created training linker
         User_CreatedTrainingModel userTrainingModel = User_CreatedTrainingModel
                 .builder()
-                .training_id(savedTraining.getId())
-                .user_id(tm.getUser_created_id())
+                .trainingId(savedTraining.getId())
+                .userId(tm.getUser_created_id())
                 .build();
         trainingCreatedUserRepo.save(userTrainingModel);
 
