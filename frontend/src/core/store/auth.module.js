@@ -1,5 +1,6 @@
 import ApiService from '@/core/services/api.service';
 import JwtService from '@/core/services/jwt.service';
+import UserService from '@/core/services/user.service';
 
 // action types
 export const VERIFY_AUTH = 'verifyAuth';
@@ -16,7 +17,7 @@ export const SET_ERROR = 'setError';
 
 const state = {
   errors: null,
-  user: {},
+  user: UserService.getUser(),
   isAuthenticated: !!JwtService.getToken()
 };
 
@@ -33,7 +34,15 @@ const actions = {
   [LOGIN](context, credentials) {
     return new Promise((resolve) => {
 
-      ApiService.post('login', credentials)
+
+      // const data = {
+      //   token: 'fsdf',
+      //   ...credentials
+      // }
+      // context.commit(SET_AUTH, data);
+      // resolve(data);
+
+      ApiService.post('user/login', credentials)
         .then(({ data }) => {
           // console.log("Here what post returns", data);
           context.commit(SET_AUTH, data);
@@ -42,6 +51,8 @@ const actions = {
         .catch(({ response }) => {
           context.commit(SET_ERROR, response.data.errors);
         });
+
+
     });
   },
   [LOGOUT](context) {
@@ -61,7 +72,7 @@ const actions = {
   },
   [VERIFY_AUTH](context) {
     if (JwtService.getToken()) {
-      ApiService.setHeader();
+      ApiService.setToken();
       ApiService.get('verify')
         .then(({ data }) => {
           context.commit(SET_AUTH, data);
@@ -87,11 +98,13 @@ const mutations = {
   [SET_ERROR](state, error) {
     state.errors = error;
   },
-  [SET_AUTH](state, user) {
+  [SET_AUTH](state, data) {
     state.isAuthenticated = true;
-    state.user = user;
+    state.user = data.user;
     state.errors = {};
-    JwtService.saveToken(state.user.token);
+    UserService.saveUser(state.user);
+    JwtService.saveToken(data.token.access_token);
+    ApiService.setToken();
   },
   [SET_PASSWORD](state, password) {
     state.user.password = password;
@@ -100,7 +113,9 @@ const mutations = {
     state.isAuthenticated = false;
     state.user = {};
     state.errors = {};
+    UserService.destroyUser();
     JwtService.destroyToken();
+    ApiService.removeToken();
   }
 };
 

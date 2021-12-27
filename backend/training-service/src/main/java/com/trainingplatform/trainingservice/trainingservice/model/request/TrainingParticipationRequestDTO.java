@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TrainingParticipantRequestDTO {
+public class TrainingParticipationRequestDTO extends BaseRequestDTO{
 
-    private Long participantId;
-
+    private Long trainingId;
+    private Long userId;
 }

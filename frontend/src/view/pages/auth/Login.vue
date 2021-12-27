@@ -7,9 +7,9 @@
         </h3>
       </div>
       <div class="form-group">
-        <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
+        <label class="font-size-h6 font-weight-bolder text-dark">Username</label>
         <b-row>
-          <form-group name="email" xs="12" no-label no-margin>
+          <form-group name="username" xs="12" no-label no-margin>
             <b-input
               slot-scope="{ attrs, listeners }"
               v-bind="attrs"
@@ -21,7 +21,7 @@
                 px-6
                 rounded-lg
               "
-              v-model="form.email"
+              v-model="form.username"
             />
           </form-group>
         </b-row>
@@ -86,13 +86,13 @@
 
 <script>
 // import { LOGIN, LOGOUT } from '@/core/store/auth.module';
-import { required, email } from 'vuelidate/lib/validators';
+import { required } from 'vuelidate/lib/validators';
 
 export default {
   props: ['showForm'],
   validations: {
     form: {
-      email: { required, email },
+      username: { required },
       password: { required }
     }
   },
@@ -100,8 +100,8 @@ export default {
     return {
       // Remove this dummy login info
       form: {
-        email: 'admin@demo.com',
-        password: 'demo'
+        username: 'test1',
+        password: 'test1'
       },
       submitting: false
     };
@@ -113,9 +113,8 @@ export default {
       try {
         this.submitting = true;
 
-        // this.$store.dispatch(LOGOUT);
-
-        //await this.$store.dispatch(LOGIN, this.form);
+        this.$store.dispatch('logout');
+        await this.$store.dispatch('login', this.form);
 
         this.$router.push({ name: 'dashboard' });
       } catch (e) {

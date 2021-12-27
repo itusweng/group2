@@ -1,12 +1,15 @@
 package com.trainingplatform.apigatewayservice.config;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.server.SecurityWebFilterChain;
@@ -19,16 +22,19 @@ import java.util.stream.Collectors;
 
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-public class SecurityConfig  {
+@RequiredArgsConstructor
+public class SecurityConfig {
+
+    private final ReactiveClientRegistrationRepository clientRegistrationRepository;
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
                 .cors().and()
                 .authorizeExchange()
-                .pathMatchers("/api/user/login").permitAll()
-                .pathMatchers("/api/user/register").permitAll()
-                .pathMatchers("/api/streaming/**").permitAll()
+
+                .pathMatchers("/api/user/**").permitAll()
+                .pathMatchers("/api/streaming/**").authenticated()
                 .pathMatchers("/api/training/**").permitAll()
 
                 // Authentication is required for remaining endpoints
@@ -36,6 +42,7 @@ public class SecurityConfig  {
                 .and()
                 .csrf().disable()
                 .oauth2Login()
+                //.authorizationRequestResolver(new AuthorizationRequestResolver(this.clientRegistrationRepository))
                 .and()
                 .oauth2ResourceServer()
                 .jwt();
@@ -45,7 +52,7 @@ public class SecurityConfig  {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
