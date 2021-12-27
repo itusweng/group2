@@ -42,15 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/training/participationRequest").authenticated()
           
                 .antMatchers(HttpMethod.GET, "/api/training/offlineLesson/getAllLessons/{trainingId}").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/training/offlineLesson//update/{offlineLessonId}").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/update/{offlineLessonId}").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.DELETE, "/api/training/offlineLesson/{offlineLessonId}").hasAuthority("ROLE_MANAGER")
-                .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/{offlineLessonId}/{offlineLessonTitle}").hasAuthority("ROLE_MANAGER")
-                .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/{offlineLessonId}/{offlineLessonVideoLink}").hasAuthority("ROLE_MANAGER")
-                .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/{offlineLessonId}/{offlineLessonFiles}").hasAuthority("ROLE_MANAGER")
-                .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/{offlineLessonId}/{offlineLessonDescription}").hasAuthority("ROLE_MANAGER")
 
-                
+                .antMatchers(HttpMethod.GET, "/api/training/onlineLesson/getAllLessons/{trainingId}").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/training/onlineLesson/update/{onlineLessonId}").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.POST, "/api/training/onlineLesson/").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.DELETE, "/api/training/onlineLesson/{onlineLessonId}").hasAuthority("ROLE_MANAGER")
 
                 .anyRequest().denyAll()
                 .and()

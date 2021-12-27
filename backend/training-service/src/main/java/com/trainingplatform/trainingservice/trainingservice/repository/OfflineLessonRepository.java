@@ -20,23 +20,4 @@ public interface OfflineLessonRepository extends JpaRepository<OfflineLessonMode
 
     void deleteById(Long ID);
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE OfflineLessonModel offlineLesson SET offlineLesson.title = ?2 WHERE offlineLesson.id = ?1")
-    Integer updateTitle(Long offlineLessonId, String offlineLessonTitle);
-
-    @Modifying
-    @Transactional
-    @Query("UPDATE OfflineLessonModel offlineLesson SET offlineLesson.video_link = ?2 WHERE offlineLesson.id = ?1")
-    Integer updateVideoLink(Long offlineLessonId, String offlineLessonVideoLink);
-
-    @Modifying
-    @Transactional
-    @Query("UPDATE OfflineLessonModel offlineLesson SET offlineLesson.files = ?2 WHERE offlineLesson.id = ?1")
-    Integer updateFiles(Long offlineLessonId, String offlineLessonFiles);
-
-    @Modifying
-    @Transactional
-    @Query("UPDATE OfflineLessonModel offlineLesson SET offlineLesson.description = ?2 WHERE offlineLesson.id = ?1")
-    Integer updateDescription(Long offlineLessonId, String offlineLessonDescription);
 }
