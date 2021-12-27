@@ -1,6 +1,7 @@
 package com.trainingplatform.apigatewayservice.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -31,6 +32,7 @@ public class SecurityConfig {
         http
                 .cors().and()
                 .authorizeExchange()
+
                 .pathMatchers("/api/user/**").permitAll()
                 .pathMatchers("/api/streaming/**").authenticated()
                 .pathMatchers("/api/training/**").permitAll()

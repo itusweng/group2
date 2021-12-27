@@ -1,0 +1,23 @@
+package com.trainingplatform.trainingservice.trainingservice.model.response;
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class OfflineLessonResponseDTO {
+
+    private Long id;
+
+    private String title;
+
+    private String video_link;
+
+    private String files;
+
+    private String description;
+
+    private Long training_id;
+}
