@@ -36,6 +36,8 @@ public class TrainingParticipationController extends BaseController {
     public ResponseEntity<Map<String, Object>> addParticipantToTraining(@PathVariable Long trainingId, @RequestBody Map<String, List<Long>> requestDTO) {
         try {
             Map<Long, Boolean> participationResultMap = participationService.addParticipantsToTraining(trainingId, requestDTO.get("users"));
+            // TODO: CHECK QUOTA OF TRAINING BEFORE ADDING PARTICIPANT
+            Map<Long, Boolean> participationResultMap = participationService.addParticipantToTraining(trainingId, requestDTO.get("users"));
             return ResponseEntity.ok(createReturnObj("Check data to see which users participated successfully! ", participationResultMap));
         } catch (Exception e) {
             return exceptionHandler(e);
@@ -45,6 +47,7 @@ public class TrainingParticipationController extends BaseController {
     @PostMapping("/participation/request")
     public ResponseEntity<Map<String, Object>> requestForParticipation(@RequestBody ParticipationRequestDTO requestDTO) {
         try {
+            // TODO: CHECK QUOTA OF TRAINING BEFORE SENDING PARTICIPATION REQUEST
             participationService.requestParticipation(requestDTO.getTrainingId(), requestDTO.getUserId());
             return ResponseEntity.ok(createReturnObj("Participation request is send!", null));
         } catch (Exception e) {

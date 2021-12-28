@@ -1,5 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class OnlineLessonModel implements Serializable {
             nullable = false,
             columnDefinition = "DATE"
     )
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate meeting_date;
 
     @Column(

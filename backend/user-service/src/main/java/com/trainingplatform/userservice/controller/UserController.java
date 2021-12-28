@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
@@ -20,6 +21,24 @@ public class UserController extends BaseController {
     // Inject services
     private final UserService userService;
     private final UserMapper userMapper;
+
+    @GetMapping("/getAllUsers")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam Integer page, @RequestParam Integer size) {
+        try {
+            Map<String, Object> userMap = userService.getAllUsers(page, size);
+            Map<String, Object> userDtoMap = new HashMap<>();
+            List<UserResponseDTO> userDtoList = new ArrayList<>();
+            userDtoMap.put("total", userMap.get("total"));
+            ((List)userMap.get("users")).forEach(user -> {
+                        userDtoList.add(userMapper.mapToDto((User) user));
+                    });
+            userDtoMap.put("users", userDtoList);
+            return ResponseEntity.ok(createReturnObj("Users fetched successfully!", userDtoMap));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
 
     @GetMapping("/byUsername/{username}")
     public ResponseEntity<Map<String, Object>> getUserByUsername(@PathVariable String username) {

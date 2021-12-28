@@ -35,6 +35,9 @@ public abstract class BaseController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(createReturnObj(e.getMessage()));
         }
+        else if (e instanceof NullPointerException){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createReturnObj(e.getMessage()));
+        }
 
         // Return default exception
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(createReturnObj("An error is occured!"));
