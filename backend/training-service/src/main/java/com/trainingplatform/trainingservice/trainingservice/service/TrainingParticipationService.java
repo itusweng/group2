@@ -5,14 +5,16 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.trainingplatform.trainingservice.trainingservice.communication.UserClient;
 import com.trainingplatform.trainingservice.trainingservice.constants.Constants;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
+import com.trainingplatform.trainingservice.trainingservice.exception.TrainingParticipationException;
+import com.trainingplatform.trainingservice.trainingservice.exception.TrainingUserNotFoundException;
 import com.trainingplatform.trainingservice.trainingservice.model.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.User_ParticipatedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.User_RequestedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
+import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationApproveRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationPendingRequestsListAllRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.PendingParticipationResponseDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationRejectRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.*;
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_ParticipatedTrainingRepo;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_RequestedTrainingRepo;
@@ -34,7 +36,7 @@ public class TrainingParticipationService {
     private final TrainingModelMapper trainingMapper;
     private final ObjectMapper objectMapper;
 
-    public Map<Long, Boolean> addParticipantToTraining(Long trainingId, List<Long> participantIdList) throws TrainingCrudException {
+    public Map<Long, Boolean> addParticipantsToTraining(Long trainingId, List<Long> participantIdList) throws TrainingCrudException {
         // TODO: CHECK TRAINING QUOTA BEFORE ADDING!
 
         // Check training exists
@@ -68,6 +70,8 @@ public class TrainingParticipationService {
     }
 
     public void requestParticipation(Long trainingId, Long userId) throws TrainingCrudException {
+        // TODO: CHECK QUOTA IS FULL OR NOT
+
         TrainingModel training = trainingService.getTrainingById(trainingId);
         Long instructorId = training.getInstructor_id();
         User_RequestedTrainingModel requestedTrainingUserModel = User_RequestedTrainingModel.builder()
@@ -109,5 +113,126 @@ public class TrainingParticipationService {
         });
 
         return pendingRequests;
+    }
+
+    public void addSingleParticipantToTraining(Long trainingId, Long userId) throws TrainingUserNotFoundException, TrainingCrudException {
+
+        validateTrainingUser(userId);
+        validateTraining(trainingId);
+
+        User_ParticipatedTrainingModel participatedTrainingModel = User_ParticipatedTrainingModel
+                .builder()
+                .userId(userId)
+                .trainingId(trainingId)
+                .participatedDate(new Date())
+                .build();
+
+        trainingParticipatedRepo.save(participatedTrainingModel);
+    }
+
+    public boolean checkTrainingExistsByTrainingId(Long trainingId) {
+        return trainingRepo.existsById(trainingId);
+    }
+
+    public List<ParticipationApproveResponseDTO> approveParticipation(List<ParticipationApproveRequestDTO> requestDTOs) {
+
+        // TODO: CHECK QUOTA IS ENOUGH OR NOT
+        List<ParticipationApproveResponseDTO> approveResponseDTOList = new ArrayList<>();
+
+        requestDTOs.forEach(requestToBeApproved -> {
+            Long trainingId = requestToBeApproved.getTrainingId();
+            Long userId = requestToBeApproved.getUserId();
+
+
+            // Create response dto
+            ParticipationApproveResponseDTO responseDTO = ParticipationApproveResponseDTO.builder()
+                    .trainingId(trainingId)
+                    .userId(userId)
+                    .build();
+            try {
+                validateTraining(trainingId);
+                validateTrainingUser(userId);
+                validateTrainingParticipationRequest(trainingId, userId);
+
+                User_RequestedTrainingModel participationRequest = trainingRequestedRepo.findByTrainingIdAndUserId(trainingId, userId);
+
+                // Update participation request
+                participationRequest.setRespondedDate(new Date());
+                participationRequest.setStatus(Constants.Training.Participation.RequestType.APPROVED);
+                trainingRequestedRepo.save(participationRequest);
+
+                // Add participant to db
+                addSingleParticipantToTraining(trainingId, userId);
+
+                // Set response dto opStatus as success
+                responseDTO.setOpStatus(Constants.Training.Participation.OpStatus.SUCCESS);
+
+            } catch (Exception e) {
+                // Set response dto opStatus as failed
+                responseDTO.setOpStatus(Constants.Training.Participation.OpStatus.FAILED);
+            }
+
+            approveResponseDTOList.add(responseDTO);
+        });
+
+        return approveResponseDTOList;
+    }
+
+    public List<ParticipationRejectResponseDTO> rejectParticipation(List<ParticipationRejectRequestDTO> requestDTOs) {
+        List<ParticipationRejectResponseDTO> rejectResponseDTOList = new ArrayList<>();
+
+        requestDTOs.forEach(requestToBeRejected -> {
+            Long trainingId = requestToBeRejected.getTrainingId();
+            Long userId = requestToBeRejected.getUserId();
+            User_RequestedTrainingModel participationRequest = trainingRequestedRepo.findByTrainingIdAndUserId(trainingId, userId);
+
+            // Create response dto
+            ParticipationRejectResponseDTO responseDTO = ParticipationRejectResponseDTO.builder()
+                    .trainingId(trainingId)
+                    .userId(userId)
+                    .build();
+            try {
+                validateTraining(trainingId);
+                validateTrainingUser(userId);
+                validateTrainingParticipationRequest(trainingId, userId);
+
+                // Update participation request
+                participationRequest.setRespondedDate(new Date());
+                participationRequest.setStatus(Constants.Training.Participation.RequestType.REJECTED);
+                trainingRequestedRepo.save(participationRequest);
+
+                // Set response dto opStatus as success
+                responseDTO.setOpStatus(Constants.Training.Participation.OpStatus.SUCCESS);
+
+            } catch (Exception e) {
+                // Set response dto opStatus as failed
+                responseDTO.setOpStatus(Constants.Training.Participation.OpStatus.FAILED);
+            }
+
+            rejectResponseDTOList.add(responseDTO);
+        });
+
+        return rejectResponseDTOList;
+    }
+
+    public void validateTrainingUser(Long userId) throws TrainingUserNotFoundException {
+        // Check user exists
+        if (!((boolean) userClient.checkUserExistsByUserId(userId).getBody().get("data")))
+            throw new TrainingUserNotFoundException("There is no user by id: \n" + userId);
+    }
+
+    public void validateTraining(Long trainingId) throws TrainingCrudException {
+        // Check training exists
+        if (!this.checkTrainingExistsByTrainingId(trainingId))
+            throw new TrainingCrudException("Training not found by id: \n" + trainingId);
+
+    }
+
+    public void validateTrainingParticipationRequest(Long trainingId, Long userId) throws TrainingParticipationException {
+        // Check participation request exists
+        if (!trainingRequestedRepo.existsByTrainingIdAndUserId(trainingId, userId))
+            throw new TrainingParticipationException("Training participation request is not found " +
+                    "by training id: " + trainingId +
+                    "and user id: \n" + userId);
     }
 }

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
@@ -31,7 +32,7 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/byId/{userId}")
-    ResponseEntity<Map<String, Object>> getUserByID(@PathVariable Long userId){
+    ResponseEntity<Map<String, Object>> getUserByID(@PathVariable Long userId) {
         try {
             User user = userService.getUserByID(userId);
             return ResponseEntity.ok(createReturnObj("User fetched successfully!", user));
@@ -52,9 +53,9 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String,Object>> loginWithPassword(@RequestBody UserCredentials userCredentials) {
+    public ResponseEntity<Map<String, Object>> loginWithPassword(@RequestBody UserCredentials userCredentials) {
         try {
-            ResponseEntity<Map<String,Object>> responseEntity = ResponseEntity.ok(userService.login(userCredentials));
+            ResponseEntity<Map<String, Object>> responseEntity = ResponseEntity.ok(userService.login(userCredentials));
             return responseEntity;
         } catch (Exception e) {
             return exceptionHandler(e);
@@ -74,6 +75,14 @@ public class UserController extends BaseController {
         return ResponseEntity.ok(userResponseDTOMap);
     }
 
-
+    @GetMapping("/isExists/byId/{userId}")
+    public ResponseEntity<Map<String, Object>> checkUserExistsByUserId(@PathVariable Long userId) {
+        try {
+            boolean response = userService.checkUserExistsByUserId(userId);
+            return ResponseEntity.ok(createReturnObj("User exist query performed successfully!", response));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
 }
 

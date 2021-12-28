@@ -11,4 +11,8 @@ import java.util.List;
 public interface User_RequestedTrainingRepo extends JpaRepository<User_RequestedTrainingModel, Long> {
 
     List<User_RequestedTrainingModel> findByManagerIdAndStatusEquals(Long managerId, String status);
+
+    User_RequestedTrainingModel findByTrainingIdAndUserId(Long trainingId, Long userId);
+
+    boolean existsByTrainingIdAndUserId(Long trainingId, Long userId);
 }

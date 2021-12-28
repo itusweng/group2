@@ -18,4 +18,7 @@ public interface UserClient {
     @GetMapping("/api/user/byId/{userId}")
     ResponseEntity<Map<String, Object>> getUserByID(@PathVariable Long userId);
 
+    @GetMapping("/api/user/isExists/byId/{userId}")
+    ResponseEntity<Map<String, Object>> checkUserExistsByUserId(@PathVariable Long userId);
+
 }

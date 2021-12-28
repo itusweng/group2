@@ -1,9 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.model.request;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Getter
@@ -11,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @ToString
 @NoArgsConstructor
-public class ParticipationRequestDTO extends BaseRequestDTO{
+public class ParticipationApproveRequestDTO extends BaseRequestDTO {
 
     private Long trainingId;
     private Long userId;

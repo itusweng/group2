@@ -21,7 +21,7 @@ public class TrainingServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TrainingServiceApplication.class, args);
 	}
-//
+
 //	@PostConstruct
 //	public void populateTrainingDb(){
 //		TrainingModel training = new TrainingModel();

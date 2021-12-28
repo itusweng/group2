@@ -11,6 +11,11 @@ public final class Constants {
                 public static final String APPROVED = "approved";
                 public static final String REJECTED = "rejected";
             }
+
+            public final class OpStatus {
+                public static final String SUCCESS = "success";
+                public static final String FAILED = "failed";
+            }
         }
     }
 }

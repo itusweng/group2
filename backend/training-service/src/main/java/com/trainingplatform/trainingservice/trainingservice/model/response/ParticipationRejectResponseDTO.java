@@ -5,7 +5,12 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@ToString
 @SuperBuilder
-public class BaseResponseDTO {
+@ToString
+public class ParticipationRejectResponseDTO extends BaseResponseDTO {
+
+    private Long trainingId;
+    private Long userId;
+    private String opStatus;
+
 }
