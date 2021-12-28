@@ -5,8 +5,11 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@ToString
 @SuperBuilder
+@ToString
 @NoArgsConstructor
-public class BaseRequestDTO {
+public class ParticipationApproveRequestDTO extends BaseRequestDTO {
+
+    private Long trainingId;
+    private Long userId;
 }

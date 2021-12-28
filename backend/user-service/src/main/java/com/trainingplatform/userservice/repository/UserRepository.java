@@ -25,4 +25,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select count(*) from User u")
     long countAllUsers();
 
+    boolean existsById(Long ID);
 }

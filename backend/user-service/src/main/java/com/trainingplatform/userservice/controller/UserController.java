@@ -94,6 +94,14 @@ public class UserController extends BaseController {
         return ResponseEntity.ok(userResponseDTOMap);
     }
 
-
+    @GetMapping("/isExists/byId/{userId}")
+    public ResponseEntity<Map<String, Object>> checkUserExistsByUserId(@PathVariable Long userId) {
+        try {
+            boolean response = userService.checkUserExistsByUserId(userId);
+            return ResponseEntity.ok(createReturnObj("User exist query performed successfully!", response));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
 }
 

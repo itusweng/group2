@@ -78,4 +78,8 @@ public class UserService {
         return userRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id.toString()));
     }
+
+    public boolean checkUserExistsByUserId(Long id) {
+        return userRepo.existsById(id);
+    }
 }
