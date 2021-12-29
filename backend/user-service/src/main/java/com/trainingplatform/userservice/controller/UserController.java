@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +21,24 @@ public class UserController extends BaseController {
     // Inject services
     private final UserService userService;
     private final UserMapper userMapper;
+
+    @GetMapping("/getAllUsers")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam Integer page, @RequestParam Integer size) {
+        try {
+            Map<String, Object> userMap = userService.getAllUsers(page, size);
+            Map<String, Object> userDtoMap = new HashMap<>();
+            List<UserResponseDTO> userDtoList = new ArrayList<>();
+            userDtoMap.put("total", userMap.get("total"));
+            ((List)userMap.get("users")).forEach(user -> {
+                        userDtoList.add(userMapper.mapToDto((User) user));
+                    });
+            userDtoMap.put("users", userDtoList);
+            return ResponseEntity.ok(createReturnObj("Users fetched successfully!", userDtoMap));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
 
     @GetMapping("/byUsername/{username}")
     public ResponseEntity<Map<String, Object>> getUserByUsername(@PathVariable String username) {
@@ -31,7 +51,7 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/byId/{userId}")
-    ResponseEntity<Map<String, Object>> getUserByID(@PathVariable Long userId){
+    ResponseEntity<Map<String, Object>> getUserByID(@PathVariable Long userId) {
         try {
             User user = userService.getUserByID(userId);
             return ResponseEntity.ok(createReturnObj("User fetched successfully!", user));
@@ -41,8 +61,8 @@ public class UserController extends BaseController {
     }
 
 
-    @PostMapping("")
-    public ResponseEntity createUser(User user) {
+    @PostMapping("/")
+    public ResponseEntity createUser(@RequestBody User user) {
         try {
             ResponseEntity accessToken = userService.createUser(user);
             return ResponseEntity.status(HttpStatus.OK).body(accessToken);
@@ -52,9 +72,9 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String,Object>> loginWithPassword(@RequestBody UserCredentials userCredentials) {
+    public ResponseEntity<Map<String, Object>> loginWithPassword(@RequestBody UserCredentials userCredentials) {
         try {
-            ResponseEntity<Map<String,Object>> responseEntity = ResponseEntity.ok(userService.login(userCredentials));
+            ResponseEntity<Map<String, Object>> responseEntity = ResponseEntity.ok(userService.login(userCredentials));
             return responseEntity;
         } catch (Exception e) {
             return exceptionHandler(e);
@@ -74,6 +94,14 @@ public class UserController extends BaseController {
         return ResponseEntity.ok(userResponseDTOMap);
     }
 
-
+    @GetMapping("/isExists/byId/{userId}")
+    public ResponseEntity<Map<String, Object>> checkUserExistsByUserId(@PathVariable Long userId) {
+        try {
+            boolean response = userService.checkUserExistsByUserId(userId);
+            return ResponseEntity.ok(createReturnObj("User exist query performed successfully!", response));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
 }
 

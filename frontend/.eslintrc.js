@@ -29,7 +29,8 @@ module.exports = {
         "tabWidth": 2,
         "useTabs": false,
         "vueIndentScriptAndStyle": false,
-        "jsxBracketSameLine": false
+        "jsxBracketSameLine": false,
+        'endOfLine': 'auto'
       }
     ],
     "vue/no-use-v-if-with-v-for": "off"

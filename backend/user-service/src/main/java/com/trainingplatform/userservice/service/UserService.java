@@ -5,6 +5,7 @@ import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,6 +26,16 @@ public class UserService {
     private final UserRepository userRepo;
     private final KeycloakService keycloakService;
     private final PasswordEncoder passwordEncoder;
+
+    public Map<String, Object> getAllUsers(Integer page, Integer size) {
+        Map<String, Object> returnMap=new HashMap<>();
+        List<User> userList = userRepo.findAll(PageRequest.of(page, size)).getContent();
+        long userCount = userRepo.countAllUsers();
+
+        returnMap.put("users", userList);
+        returnMap.put("total", userCount);
+        return returnMap;
+    }
 
     public ResponseEntity createUser(User newUser) throws UserNotCreatedException {
         UserCredentials userCredentials = new UserCredentials();
@@ -38,6 +50,8 @@ public class UserService {
             case 200: // Successful case
                 userRepo.save(newUser);
                 break;
+            case 403: // Forbidden case
+                throw new UserNotCreatedException("Keycloak user cannot be created!");
             case 409: // Conflict case
                 throw new UserNotCreatedException("This username is already in use!");
         }
@@ -63,5 +77,9 @@ public class UserService {
     public User getUserByID(Long id) throws EntityNotFoundException {
         return userRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id.toString()));
+    }
+
+    public boolean checkUserExistsByUserId(Long id) {
+        return userRepo.existsById(id);
     }
 }

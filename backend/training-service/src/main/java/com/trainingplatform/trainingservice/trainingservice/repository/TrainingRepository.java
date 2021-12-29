@@ -13,4 +13,6 @@ public interface TrainingRepository extends JpaRepository<TrainingModel, Long> {
     List<TrainingModel> findAll();
 
     void deleteById(Long ID);
+
+    boolean existsById(Long ID);
 }

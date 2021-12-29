@@ -44,14 +44,14 @@
           </form-group>
         </div>
         <div class="form-group row">
-          <label class="col-xl-3 col-lg-3 col-form-label">Trainer</label>
+          <label class="col-xl-3 col-lg-3 col-form-label">Instructor</label>
           <form-group name="trainer" lg="9" xl="6" no-label no-margin>
             <b-input
               slot-scope="{ attrs, listeners }"
               v-bind="attrs"
               v-on="listeners"
               class="form-control form-control-lg form-control-solid"
-              v-model="form.trainer"
+              v-model="form.instructor_id"
             />
           </form-group>
         </div>
@@ -68,8 +68,20 @@
           </form-group>
         </div>
         <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Image URL</label>
+          <form-group name="thumbnail" lg="9" xl="6" no-label no-margin>
+            <b-input
+              slot-scope="{ attrs, listeners }"
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.thumbnail"
+            />
+          </form-group>
+        </div>
+        <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Is Online</label>
-          <form-group name="isOnline" lg="9" xl="6" no-label no-margin>
+          <form-group name="is_online" lg="9" xl="6" no-label no-margin>
             <span
               slot-scope="{ attrs, listeners }"
               class="switch switch-sm switch-primary"
@@ -79,7 +91,7 @@
                   type="checkbox"
                   v-bind="attrs"
                   v-on="listeners"
-                  v-model="form.isOnline"
+                  v-model="form.is_online"
                 />
                 <span></span>
               </label>
@@ -93,13 +105,13 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 export default {
   validations: {
     form: {
       title: { required },
-      trainer: { required },
+      instructor_id: { required },
       description: {}
     }
   },
@@ -107,22 +119,35 @@ export default {
     return {
       form: {
         title: '',
-        trainer: '',
+        instructor_id: 2,
         description: '',
-        isOnline: false
-      },
+        thumbnail: '',
+        is_online: false
+      }
     };
   },
   methods: {
-    save() {
+    async save() {
       try {
-        Swal.fire({
+        await this.axios.post('/training/', {
+          ...this.form,
+          capacity: 100,
+          user_created_id: this.$store.getters.currentUser.id
+        });
+
+        await Swal.fire({
           icon: 'success',
           title: 'Training created successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
       } catch (e) {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Training cannot created!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        });
         console.log(e);
       }
     },

@@ -1,5 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.communication;
 
+import com.trainingplatform.trainingservice.trainingservice.config.FeignRequestInterceptor;
 import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@FeignClient(name="user-service")
+@FeignClient(name="user-service",  configuration= FeignRequestInterceptor.class)
 public interface UserClient {
 
     @PostMapping("/api/user/getTrainingUsersByID")
@@ -16,5 +17,8 @@ public interface UserClient {
 
     @GetMapping("/api/user/byId/{userId}")
     ResponseEntity<Map<String, Object>> getUserByID(@PathVariable Long userId);
+
+    @GetMapping("/api/user/isExists/byId/{userId}")
+    ResponseEntity<Map<String, Object>> checkUserExistsByUserId(@PathVariable Long userId);
 
 }
