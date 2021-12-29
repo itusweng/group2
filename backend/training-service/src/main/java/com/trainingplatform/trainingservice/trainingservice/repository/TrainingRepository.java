@@ -1,6 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.repository;
 
-import com.trainingplatform.trainingservice.trainingservice.model.TrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

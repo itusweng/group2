@@ -1,6 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
-import com.trainingplatform.trainingservice.trainingservice.model.OnlineLessonModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.OnlineLessonModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OnlineLessonModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.request.OnlineLessonRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.OnlineLessonResponseDTO;

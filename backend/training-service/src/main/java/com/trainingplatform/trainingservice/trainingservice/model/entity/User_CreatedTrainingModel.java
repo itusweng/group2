@@ -1,4 +1,4 @@
-package com.trainingplatform.trainingservice.trainingservice.model;
+package com.trainingplatform.trainingservice.trainingservice.model.entity;
 
 import com.trainingplatform.trainingservice.trainingservice.model.composite_keys.User_TrainingPK;
 import lombok.*;

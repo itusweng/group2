@@ -1,14 +1,11 @@
 package com.trainingplatform.trainingservice.trainingservice;
 
-import com.trainingplatform.trainingservice.trainingservice.model.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-
-import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @EnableEurekaClient

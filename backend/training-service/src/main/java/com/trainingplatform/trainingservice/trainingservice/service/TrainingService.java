@@ -2,17 +2,14 @@ package com.trainingplatform.trainingservice.trainingservice.service;
 
 import com.trainingplatform.trainingservice.trainingservice.communication.UserClient;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
-import com.trainingplatform.trainingservice.trainingservice.model.TrainingModel;
-import com.trainingplatform.trainingservice.trainingservice.model.User_CreatedTrainingModel;
-import com.trainingplatform.trainingservice.trainingservice.model.User_ParticipatedTrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.User_CreatedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
 
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_CreatedTrainingRepo;
-import com.trainingplatform.trainingservice.trainingservice.repository.User_ParticipatedTrainingRepo;
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;

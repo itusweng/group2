@@ -1,6 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.model.mapper;
 
-import com.trainingplatform.trainingservice.trainingservice.model.TrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
 import org.mapstruct.Mapper;
 

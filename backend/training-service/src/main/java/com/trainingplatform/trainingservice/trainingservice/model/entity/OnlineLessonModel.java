@@ -1,4 +1,4 @@
-package com.trainingplatform.trainingservice.trainingservice.model;
+package com.trainingplatform.trainingservice.trainingservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;

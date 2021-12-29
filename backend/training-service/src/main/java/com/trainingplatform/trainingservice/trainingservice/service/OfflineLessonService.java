@@ -1,12 +1,10 @@
 package com.trainingplatform.trainingservice.trainingservice.service;
 
-import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
-import com.trainingplatform.trainingservice.trainingservice.model.OfflineLessonModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.OfflineLessonModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.response.OfflineLessonResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.repository.OfflineLessonRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

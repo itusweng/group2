@@ -1,6 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.repository;
 
-import com.trainingplatform.trainingservice.trainingservice.model.User_RequestedTrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.User_RequestedTrainingModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
