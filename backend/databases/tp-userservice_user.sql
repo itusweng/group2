@@ -41,7 +41,7 @@ CREATE TABLE `user` (
 --
 
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'test@gmail.com','test name','test last name',1,'$2a$10$wwNjYmbCz/4en33BXtdI9epC8ppcucVng2JBJS8Rc7v.xN4xa.GgK','test1','',NULL),(2,'test3@gmail.com','test name','test last name',1,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test3','',NULL);
+INSERT INTO `user` VALUES (1,'test@gmail.com','test name','test last name',1,'$2a$10$wwNjYmbCz/4en33BXtdI9epC8ppcucVng2JBJS8Rc7v.xN4xa.GgK','test1','',NULL),(2,'test3@gmail.com','test name','test last name',1,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test5','',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +53,4 @@ INSERT INTO `user` VALUES (1,'test@gmail.com','test name','test last name',1,'$2
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-20 16:46:44
+-- Dump completed on 2021-12-31  8:52:08

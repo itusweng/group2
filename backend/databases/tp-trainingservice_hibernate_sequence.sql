@@ -32,7 +32,7 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (16);
+INSERT INTO `hibernate_sequence` VALUES (2);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -44,4 +44,4 @@ INSERT INTO `hibernate_sequence` VALUES (16);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-20 16:46:38
+-- Dump completed on 2021-12-31  8:52:03
