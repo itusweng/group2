@@ -27,6 +27,9 @@ public class GatewayConfig {
 
                 .route("notification-service", r -> r.path("/api/notification/**")
                         .uri("lb://notification-service"))
+
+                .route("reporting-service", r -> r.path("/api/reporting/**")
+                        .uri("lb://reporting-service"))
                 .build();
     }
 
