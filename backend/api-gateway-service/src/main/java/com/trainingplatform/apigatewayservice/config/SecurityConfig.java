@@ -34,8 +34,9 @@ public class SecurityConfig {
                 .authorizeExchange()
 
                 .pathMatchers("/api/user/**").permitAll()
-                .pathMatchers("/api/streaming/**").authenticated()
+                .pathMatchers("/api/streaming/**").permitAll()
                 .pathMatchers("/api/training/**").permitAll()
+                .pathMatchers("/api/notification/**").permitAll()
 
                 // Authentication is required for remaining endpoints
                 .anyExchange().authenticated()
