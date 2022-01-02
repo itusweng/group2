@@ -19,32 +19,27 @@
       <b-row class="mt-5">
         <b-col md="12">
           <b-table :fields="tableFields" :items="requests">
+            <template v-slot:cell(user)="{ item }">
+              {{ item.requested_user.first_name }}
+              {{ item.requested_user.last_name }}
+            </template>
             <template v-slot:cell(actions)="{ item }">
               <b-button
-                :to="'/admin/requests/' + item.id + '/details'"
+                @click="approve(item)"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
-                v-b-tooltip="'Details'"
+                v-b-tooltip="'Approve'"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg src="media/svg/icons/General/Settings-1.svg" />
+                  <inline-svg src="media/svg/icons/General/Check.svg" />
                 </span>
               </b-button>
               <b-button
-                :to="'/admin/requests/' + item.id + '/update'"
+                @click="reject(item)"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-                v-b-tooltip="'Edit'"
+                v-b-tooltip="'Reject'"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg src="media/svg/icons/Communication/Write.svg" />
-                </span>
-              </b-button>
-              <b-button
-                class="btn btn-icon btn-light btn-hover-primary btn-sm"
-                v-b-tooltip="'Delete'"
-                @click="deleteRequest(item)"
-              >
-                <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg src="media/svg/icons/General/Trash.svg" />
+                  <inline-svg src="media/svg/icons/Navigation/Close.svg" />
                 </span>
               </b-button>
             </template>
@@ -56,20 +51,20 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
       requests: [],
       tableFields: [
         {
-          key: 'title',
-          sortable: true
+          key: 'requested_training.title',
+          label: 'Training Name'
         },
         {
-          key: 'trainer'
-        },
-        {
-          key: 'createdBy'
+          key: 'user',
+          label: 'User'
         },
         {
           key: 'actions'
@@ -83,20 +78,81 @@ export default {
   methods: {
     async getRequests() {
       try {
-        const { data } = await this.axios.get(
-          '/training/participation/listAll'
+        const { data } = await this.axios.post(
+          '/training/participation/listAll',
+          {
+            managerId: this.$store.getters.currentUser.id,
+            page: 0,
+            size: 10
+          }
         );
         this.requests = data.data;
       } catch (e) {
         console.log(e);
       }
     },
-    async deleteRequest(request) {
+    async approve(request) {
       try {
-        const result = await this.confirmDelete();
+        const result = await Swal.fire({
+          text: 'The participation request will be approved!',
+          title: 'Are you sure?',
+          icon: 'warning',
+          confirmButtonColor: 'red',
+          confirmButtonText: 'Approve',
+          cancelButtonText: this.$t('common.cancel'),
+          showCancelButton: true,
+          reverseButtons: true,
+          heightAuto: false
+        });
         if (!result.isConfirmed) return;
 
-        await this.axios.delete('/request/' + request.id);
+        await this.axios.post('/training/participation/approve', [
+          {
+            userId: request.requested_user.id,
+            trainingId: request.requested_training.id
+          }
+        ]);
+
+        await Swal.fire({
+          icon: 'success',
+          title: 'The participation request approved successfully!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        });
+
+        this.getRequests();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async reject(request) {
+      try {
+        const result = await Swal.fire({
+          text: 'The participation request will be rejected!',
+          title: 'Are you sure?',
+          icon: 'warning',
+          confirmButtonColor: 'red',
+          confirmButtonText: 'Reject',
+          cancelButtonText: this.$t('common.cancel'),
+          showCancelButton: true,
+          reverseButtons: true,
+          heightAuto: false
+        });
+        if (!result.isConfirmed) return;
+
+        await this.axios.post('/training/participation/reject', [
+          {
+            userId: request.requested_user.id,
+            trainingId: request.requested_training.id
+          }
+        ]);
+
+        await Swal.fire({
+          icon: 'success',
+          title: 'The participation request rejected successfully!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        });
 
         this.getRequests();
       } catch (e) {
