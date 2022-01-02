@@ -15,8 +15,8 @@ public class FeignRequestInterceptor {
             @Override
             public void apply(RequestTemplate requestTemplate) {
                 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-                Jwt details = (Jwt) authentication.getPrincipal();
                 if (authentication == null) return;
+                Jwt details = (Jwt) authentication.getPrincipal();
 
                 requestTemplate.header("Authorization", "Bearer " + details.getTokenValue());
             }
