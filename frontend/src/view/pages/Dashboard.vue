@@ -3,7 +3,14 @@
     <!--begin::Dashboard-->
     <div class="row">
       <div class="col-xl-9">
-        <TrainingList></TrainingList>
+        <b-tabs content-class="mt-3">
+          <b-tab title="My Trainings" active>
+            <MyTrainingList />
+          </b-tab>
+          <b-tab title="All Trainings">
+            <AllTrainingList />
+          </b-tab>
+        </b-tabs>
       </div>
       <div class="col-xl-3">
         <profile></profile>
@@ -15,13 +22,15 @@
 <script>
 import { SET_BREADCRUMB } from '@/core/store/breadcrumbs.module';
 import Profile from '@/view/components/widgets/Profile.vue';
-import TrainingList from '@/view/components/TrainingList';
+import MyTrainingList from '@/view/components/training/MyTrainingList';
+import AllTrainingList from '@/view/components/training/AllTrainingList';
 
 export default {
   name: 'dashboard',
   components: {
     Profile,
-    TrainingList,
+    MyTrainingList,
+    AllTrainingList
   },
   data() {
     return {};
