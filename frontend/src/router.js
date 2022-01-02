@@ -74,25 +74,21 @@ export default new Router({
           children: [
             {
               path: 'list',
-              component: () =>
-                  import('@/view/pages/admin/users/UserList')
+              component: () => import('@/view/pages/admin/users/UserList')
             },
             {
               path: 'create',
-              component: () =>
-                  import('@/view/pages/admin/users/CreateUser')
+              component: () => import('@/view/pages/admin/users/CreateUser')
             },
             {
               path: ':id/update',
-              component: () =>
-                  import('@/view/pages/admin/users/UpdateUser')
+              component: () => import('@/view/pages/admin/users/UpdateUser')
             },
             {
               path: ':id/details',
-              component: () =>
-                  import('@/view/pages/admin/users/UserDetails')
+              component: () => import('@/view/pages/admin/users/UserDetails')
             }
-              /*
+            /*
             {
               path: 'create',
               component: () =>
@@ -109,10 +105,18 @@ export default new Router({
                   import('@/view/pages/admin/trainings/TrainingDetails')
             }
             */
-
+          ]
+        },
+        {
+          path: 'requests',
+          component: () => import('@/view/pages/admin/requests'),
+          children: [
+            {
+              path: 'list',
+              component: () => import('@/view/pages/admin/requests/RequestList')
+            }
           ]
         }
-
       ]
     },
     {
