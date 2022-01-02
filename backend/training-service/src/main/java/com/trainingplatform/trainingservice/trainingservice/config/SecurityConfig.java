@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/training/getAllTrainings").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/training/{id}").hasAuthority("ROLE_MANAGER")
-                .antMatchers(HttpMethod.POST, "/api/training/{id}/participant").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.GET, "/api/training/{id}").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/training/").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/participationRequest").authenticated()
 
@@ -55,6 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/training/participation/listAll").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/participation/approve").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/participation/reject").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.POST, "/api/training/participation/training/{id}/participant").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.GET, "/api/training/participation/{id}/participant/getIds").permitAll()
+
                 .anyRequest().denyAll()
                 .and()
                 .oauth2ResourceServer()

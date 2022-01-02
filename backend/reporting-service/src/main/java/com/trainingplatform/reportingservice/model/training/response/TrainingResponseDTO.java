@@ -1,14 +1,17 @@
-package com.trainingplatform.trainingservice.trainingservice.model.response;
+package com.trainingplatform.reportingservice.model.training.response;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.*;
+import com.trainingplatform.reportingservice.model.BaseResponseDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @SuperBuilder
 @ToString
-@JsonSerialize
+@NoArgsConstructor
 public class TrainingResponseDTO extends BaseResponseDTO {
 
     private Long id;

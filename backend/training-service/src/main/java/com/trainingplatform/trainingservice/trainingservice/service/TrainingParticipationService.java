@@ -20,9 +20,11 @@ import com.trainingplatform.trainingservice.trainingservice.repository.User_Part
 import com.trainingplatform.trainingservice.trainingservice.repository.User_RequestedTrainingRepo;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -234,5 +236,12 @@ public class TrainingParticipationService {
             throw new TrainingParticipationException("Training participation request is not found " +
                     "by training id: " + trainingId +
                     "and user id: \n" + userId);
+    }
+
+    public List<Long> getAllParticipantIdsByTrainingId(Long trainingId) {
+        List<User_ParticipatedTrainingModel> participantModels = trainingParticipatedRepo.findByTrainingId(trainingId);
+        List<Long> userIds = participantModels.stream().map(User_ParticipatedTrainingModel::getUserId).collect(Collectors.toList());
+
+        return userIds;
     }
 }

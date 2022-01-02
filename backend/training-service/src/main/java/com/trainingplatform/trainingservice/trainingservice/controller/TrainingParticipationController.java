@@ -4,25 +4,25 @@ import com.trainingplatform.trainingservice.trainingservice.model.request.Partic
 import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationRejectRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationPendingRequestsListAllRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.ParticipationApproveResponseDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.ParticipationRejectResponseDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.PendingParticipationResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.*;
 import com.trainingplatform.trainingservice.trainingservice.service.TrainingParticipationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/training")
+@RequestMapping("/api/training/participation")
 public class TrainingParticipationController extends BaseController {
 
     private final TrainingParticipationService participationService;
 
-    @PostMapping("/participation/listAll")
+    @PostMapping("/listAll")
     public ResponseEntity<Map<String, Object>> listAllParticipationRequests(@RequestBody ParticipationPendingRequestsListAllRequestDTO requestDTO) {
         try {
             List<PendingParticipationResponseDTO> requests = participationService.listAllPendingRequests(requestDTO);
@@ -43,7 +43,17 @@ public class TrainingParticipationController extends BaseController {
         }
     }
 
-    @PostMapping("/participation/request")
+    @GetMapping("/{trainingId}/participant/getIds")
+    public ResponseEntity<List<Long>> getAllParticipantIdsByTrainingId(@PathVariable Long trainingId) {
+        try {
+            List<Long> participantIds = participationService.getAllParticipantIdsByTrainingId(trainingId);
+            return ResponseEntity.ok(participantIds);
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @PostMapping("/request")
     public ResponseEntity<Map<String, Object>> requestForParticipation(@RequestBody ParticipationRequestDTO requestDTO) {
         try {
             // TODO: CHECK QUOTA OF TRAINING BEFORE SENDING PARTICIPATION REQUEST
@@ -54,7 +64,7 @@ public class TrainingParticipationController extends BaseController {
         }
     }
 
-    @PostMapping("/participation/approve")
+    @PostMapping("/approve")
     public ResponseEntity<Map<String, Object>> approveParticipationRequest(@RequestBody List<ParticipationApproveRequestDTO> requestDTOs){
         try {
             List<ParticipationApproveResponseDTO> responseDTOs = participationService.approveParticipation(requestDTOs);
@@ -64,7 +74,7 @@ public class TrainingParticipationController extends BaseController {
         }
     }
 
-    @PostMapping("/participation/reject")
+    @PostMapping("/reject")
     public ResponseEntity<Map<String, Object>> rejectParticipationRequest(@RequestBody List<ParticipationRejectRequestDTO> requestDTOs){
         try {
             List<ParticipationRejectResponseDTO> responseDTOS = participationService.rejectParticipation(requestDTOs);

@@ -7,6 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @FeignClient(name="user-service",  configuration= FeignRequestInterceptor.class)
@@ -21,4 +22,6 @@ public interface UserClient {
     @GetMapping("/api/user/isExists/byId/{userId}")
     ResponseEntity<Map<String, Object>> checkUserExistsByUserId(@PathVariable Long userId);
 
+    @PostMapping("/api/user/byIdList/getUserModels")
+    ResponseEntity<List<UserResponseDTO>> getUserModelsByUserIdList(@RequestBody List<Long> userIds);
 }

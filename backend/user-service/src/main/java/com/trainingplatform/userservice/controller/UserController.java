@@ -30,9 +30,9 @@ public class UserController extends BaseController {
             Map<String, Object> userDtoMap = new HashMap<>();
             List<UserResponseDTO> userDtoList = new ArrayList<>();
             userDtoMap.put("total", userMap.get("total"));
-            ((List)userMap.get("users")).forEach(user -> {
-                        userDtoList.add(userMapper.mapToDto((User) user));
-                    });
+            ((List) userMap.get("users")).forEach(user -> {
+                userDtoList.add(userMapper.mapToDto((User) user));
+            });
             userDtoMap.put("users", userDtoList);
             return ResponseEntity.ok(createReturnObj("Users fetched successfully!", userDtoMap));
         } catch (Exception e) {
@@ -83,7 +83,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/getTrainingUsersByID")
     public ResponseEntity<Map<Long, Object>> getTrainingUserByID(@RequestBody Map<Long, Long> trainingIdUserIdMap) {
-        // Key -> Training Id, Value -> User created the training
+        // Key -> Training Id, Value -> User id
         Map<Long, Object> userResponseDTOMap = new HashMap<>();
 
         trainingIdUserIdMap.forEach((trainingId, userId) -> {
@@ -103,5 +103,27 @@ public class UserController extends BaseController {
             return exceptionHandler(e);
         }
     }
+
+    @PostMapping("/byIdList/getUserModels")
+    ResponseEntity<Map<String, Object>> getUserModelsByUserIdList(@RequestBody List<Long> userIds) {
+        try {
+            List<UserResponseDTO> userResponseDTOS = new ArrayList<>();
+            userIds.forEach(userId -> {
+                try {
+                    User userModel = userService.getUserByID(userId);
+                    UserResponseDTO userResponseDTO = userMapper.mapToDto(userModel);
+                    userResponseDTOS.add(userResponseDTO);
+                } catch (Exception e) {
+                    // do nothing
+                }
+            });
+            return ResponseEntity.ok(createReturnObj("Users are fetched by id list!",userResponseDTOS));
+        } catch (Exception e) {
+                return exceptionHandler(e);
+        }
+    }
+
+    ;
+
 }
 
