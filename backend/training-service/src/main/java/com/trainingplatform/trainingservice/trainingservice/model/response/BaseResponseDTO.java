@@ -7,5 +7,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @ToString
 @SuperBuilder
+@NoArgsConstructor
 public class BaseResponseDTO {
 }

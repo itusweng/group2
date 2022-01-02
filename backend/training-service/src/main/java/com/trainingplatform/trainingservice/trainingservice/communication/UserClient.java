@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@FeignClient(name="user-service",  configuration= FeignRequestInterceptor.class)
+@FeignClient(name="user-service")
 public interface UserClient {
 
     @PostMapping("/api/user/getTrainingUsersByID")
