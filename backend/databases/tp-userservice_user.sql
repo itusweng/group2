@@ -53,4 +53,4 @@ INSERT INTO `user` VALUES (1,'test@gmail.com','test name','test last name',1,'$2
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-31  8:52:08
+-- Dump completed on 2022-01-02 23:18:19
