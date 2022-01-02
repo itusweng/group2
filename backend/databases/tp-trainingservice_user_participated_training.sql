@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: tp-trainingservice
 -- ------------------------------------------------------
@@ -34,11 +34,8 @@ CREATE TABLE `user_participated_training` (
 -- Dumping data for table `user_participated_training`
 --
 
-LOCK TABLES `user_participated_training` WRITE;
 /*!40000 ALTER TABLE `user_participated_training` DISABLE KEYS */;
-INSERT INTO `user_participated_training` VALUES (1,1,'2021-12-20 00:27:03.226000'),(1,2,'2021-12-20 00:27:03.277000'),(4,1,'2021-12-20 15:16:54.404000'),(4,2,'2021-12-20 15:17:00.849000'),(32,12,NULL);
 /*!40000 ALTER TABLE `user_participated_training` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -49,4 +46,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-20 16:09:03
+-- Dump completed on 2022-01-03  0:35:59

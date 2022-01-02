@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: tp-trainingservice
 -- ------------------------------------------------------
@@ -25,21 +25,25 @@ DROP TABLE IF EXISTS `training`;
 CREATE TABLE `training` (
   `id` bigint NOT NULL,
   `capacity` int NOT NULL,
-  `is_online` tinyint(1) NOT NULL,
+  `created_date` datetime(6) DEFAULT NULL,
+  `description` text NOT NULL,
   `instructor_id` bigint NOT NULL,
+  `is_online` tinyint(1) NOT NULL,
+  `thumbnail` text,
+  `title` char(50) NOT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
   `user_created_id` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `training`
 --
 
-LOCK TABLES `training` WRITE;
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
+INSERT INTO `training` VALUES (1,100,NULL,'Guzel bir aciklama',2,1,'https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dGh1bWJuYWlsfGVufDB8fDB8fA%3D%3D&w=1000&q=80','Guzel bir egitim',NULL,1);
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -50,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-29  3:30:49
+-- Dump completed on 2022-01-03  0:35:59
