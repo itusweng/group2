@@ -34,6 +34,7 @@ CREATE TABLE `user_created_training` (
 --
 
 /*!40000 ALTER TABLE `user_created_training` DISABLE KEYS */;
+INSERT INTO `user_created_training` VALUES (2,1);
 /*!40000 ALTER TABLE `user_created_training` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -45,4 +46,4 @@ CREATE TABLE `user_created_training` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-31  8:52:03
+-- Dump completed on 2022-01-02 23:18:24

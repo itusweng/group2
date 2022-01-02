@@ -26,6 +26,7 @@ CREATE TABLE `user_participated_training` (
   `training_id` bigint NOT NULL,
   `user_id` bigint NOT NULL,
   `participated_date` datetime(6) DEFAULT NULL,
+  `participation_status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`training_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,7 +36,7 @@ CREATE TABLE `user_participated_training` (
 --
 
 /*!40000 ALTER TABLE `user_participated_training` DISABLE KEYS */;
-INSERT INTO `user_participated_training` VALUES (1,1,'2021-12-28 13:35:11.256000');
+INSERT INTO `user_participated_training` VALUES (1,1,'2021-12-28 13:35:11.256000',NULL);
 /*!40000 ALTER TABLE `user_participated_training` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +48,4 @@ INSERT INTO `user_participated_training` VALUES (1,1,'2021-12-28 13:35:11.256000
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-31  8:52:03
+-- Dump completed on 2022-01-02 23:18:24
