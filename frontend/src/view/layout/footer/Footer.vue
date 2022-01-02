@@ -13,13 +13,10 @@
     >
       <!--begin::Copyright-->
       <div class="text-dark order-2 order-md-1">
-        <span class="text-muted font-weight-bold mr-2">2020©</span>
-        <a
-          href="http://keenthemes.com/metronic"
-          target="_blank"
-          class="text-dark-75 text-hover-primary"
-          >Keenthemes</a
-        >
+        <span class="text-muted font-weight-bold mr-2">2022©</span>
+        <a href="#" class="text-dark-75 text-hover-primary">
+          Training Platform
+        </a>
       </div>
       <!--end::Copyright-->
       <!--begin::Nav-->
@@ -28,20 +25,23 @@
           href="http://keenthemes.com/metronic"
           target="_blank"
           class="nav-link pr-3 pl-0"
-          >About</a
         >
+          About
+        </a>
         <a
           href="http://keenthemes.com/metronic"
           target="_blank"
           class="nav-link px-3"
-          >Team</a
         >
+          Team
+        </a>
         <a
           href="http://keenthemes.com/metronic"
           target="_blank"
           class="nav-link pl-3 pr-0"
-          >Contact</a
         >
+          Contact
+        </a>
       </div>
       <!--end::Nav-->
     </div>

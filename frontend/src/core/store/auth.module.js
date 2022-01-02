@@ -32,9 +32,7 @@ const getters = {
 
 const actions = {
   [LOGIN](context, credentials) {
-    return new Promise((resolve) => {
-
-
+    return new Promise((resolve, reject) => {
       // const data = {
       //   token: 'fsdf',
       //   ...credentials
@@ -50,16 +48,15 @@ const actions = {
         })
         .catch(({ response }) => {
           context.commit(SET_ERROR, response.data.errors);
+          reject();
         });
-
-
     });
   },
   [LOGOUT](context) {
     context.commit(PURGE_AUTH);
   },
   [REGISTER](context, credentials) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       ApiService.post('login', credentials)
         .then(({ data }) => {
           context.commit(SET_AUTH, data);

@@ -11,24 +11,17 @@
         </span>
       </div>
       <div class="alert-text">
-        You can create a new training or update and delete existing trainings.
+        You can create a new request or update and delete existing requests.
       </div>
     </b-alert>
 
     <card>
-      <b-row>
-        <b-col md="12" class="d-flex justify-content-end">
-          <b-button variant="light-success" to="/admin/trainings/create">
-            Create New Training
-          </b-button>
-        </b-col>
-      </b-row>
       <b-row class="mt-5">
         <b-col md="12">
-          <b-table :fields="tableFields" :items="trainings">
+          <b-table :fields="tableFields" :items="requests">
             <template v-slot:cell(actions)="{ item }">
               <b-button
-                :to="'/admin/trainings/' + item.id + '/details'"
+                :to="'/admin/requests/' + item.id + '/details'"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                 v-b-tooltip="'Details'"
               >
@@ -37,7 +30,7 @@
                 </span>
               </b-button>
               <b-button
-                :to="'/admin/trainings/' + item.id + '/update'"
+                :to="'/admin/requests/' + item.id + '/update'"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
                 v-b-tooltip="'Edit'"
               >
@@ -48,7 +41,7 @@
               <b-button
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                 v-b-tooltip="'Delete'"
-                @click="deleteTraining(item)"
+                @click="deleteRequest(item)"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                   <inline-svg src="media/svg/icons/General/Trash.svg" />
@@ -66,26 +59,7 @@
 export default {
   data() {
     return {
-      trainings: [
-        {
-          id: 'f6b706eb-5e12-4c01-8821-155452239a21',
-          title: 'İş Sağlığı ve Güvenliği-UE/001-20',
-          trainer: 'Dickerson',
-          createdBy: 'Macdonald'
-        },
-        {
-          id: 'b36bd5ad-7dad-48d6-98a8-39db9ea37abc',
-          title: 'YAS 117 Bilgi Güvenliği HTML 2021-UE/001-21',
-          trainer: 'Larsen',
-          createdBy: 'Shaw'
-        },
-        {
-          id: '3d5de70c-0b5b-420b-886e-ebfbf9be41eb',
-          title: 'Etik Kurallar ve Çalışma İlkeleri 2020-UE/001-20',
-          trainer: 'Geneva',
-          createdBy: 'Wilson'
-        }
-      ],
+      requests: [],
       tableFields: [
         {
           key: 'title',
@@ -104,25 +78,27 @@ export default {
     };
   },
   async created() {
-    this.getTrainings();
+    this.getRequests();
   },
   methods: {
-    async getTrainings() {
+    async getRequests() {
       try {
-        const { data } = await this.axios.get('/training/getAllTrainings');
-        this.trainings = data.data;
+        const { data } = await this.axios.get(
+          '/training/participation/listAll'
+        );
+        this.requests = data.data;
       } catch (e) {
         console.log(e);
       }
     },
-    async deleteTraining(training) {
+    async deleteRequest(request) {
       try {
         const result = await this.confirmDelete();
         if (!result.isConfirmed) return;
 
-        await this.axios.delete('/training/' + training.id);
+        await this.axios.delete('/request/' + request.id);
 
-        this.getTrainings();
+        this.getRequests();
       } catch (e) {
         console.log(e);
       }
