@@ -27,6 +27,7 @@ public class TrainingController extends BaseController {
         }
     }
 
+
     @PostMapping("/")
     public ResponseEntity<HashMap<String, Object>> createTraining(@RequestBody TrainingModel training) {
         try {
