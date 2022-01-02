@@ -98,5 +98,10 @@ export const locale = {
     apply: 'Apply',
     treeSelectLimit: '{count} more',
     treeSelectNoOption: 'No options available.'
+  },
+  notification: {
+    messages: {
+      wrongCredentials: 'Username or password is invalid!'
+    }
   }
 };
