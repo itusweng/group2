@@ -1,9 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.service;
 
 import com.trainingplatform.trainingservice.trainingservice.model.entity.OfflineLessonModel;
-import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.config.RabbitMQMessagingConfig;
-import com.trainingplatform.trainingservice.trainingservice.model.OfflineLessonModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelRequestMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelResponseMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.request.OfflineLessonRequestDTO;
