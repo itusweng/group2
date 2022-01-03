@@ -1,6 +1,6 @@
 package com.trainingplatform.userservice.controller;
 
-import com.trainingplatform.userservice.model.UserResponseDTO;
+import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.model.mapper.UserMapper;

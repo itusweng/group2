@@ -1,4 +1,4 @@
-package com.trainingplatform.userservice.model;
+package com.trainingplatform.userservice.model.response;
 
 import lombok.*;
 

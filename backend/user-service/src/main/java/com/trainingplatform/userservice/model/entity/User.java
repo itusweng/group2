@@ -75,4 +75,12 @@ public class User {
             columnDefinition = "CHAR(50)"
     )
     private String job_title;
+
+    @Column(
+            name = "manager_group_id",
+            nullable = false,
+            columnDefinition = "BIGINT"
+    )
+    private Long manager_group_id;
+
 }
