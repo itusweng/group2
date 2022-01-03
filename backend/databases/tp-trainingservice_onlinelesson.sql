@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
 --
 -- Host: localhost    Database: tp-trainingservice
 -- ------------------------------------------------------
@@ -39,8 +39,10 @@ CREATE TABLE `onlinelesson` (
 -- Dumping data for table `onlinelesson`
 --
 
+LOCK TABLES `onlinelesson` WRITE;
 /*!40000 ALTER TABLE `onlinelesson` DISABLE KEYS */;
 /*!40000 ALTER TABLE `onlinelesson` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -51,4 +53,4 @@ CREATE TABLE `onlinelesson` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03  0:35:59
+-- Dump completed on 2022-01-03 22:21:54

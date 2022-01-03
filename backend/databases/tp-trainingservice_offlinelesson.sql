@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
 --
 -- Host: localhost    Database: tp-trainingservice
 -- ------------------------------------------------------
@@ -38,9 +38,11 @@ CREATE TABLE `offlinelesson` (
 -- Dumping data for table `offlinelesson`
 --
 
+LOCK TABLES `offlinelesson` WRITE;
 /*!40000 ALTER TABLE `offlinelesson` DISABLE KEYS */;
 INSERT INTO `offlinelesson` VALUES (2,'description1046','files750','title1216',1),(3,'description1046','files750','title1218',1),(4,'description1046','files750','title1221',1),(6,'description1046','files750','title1228',1);
 /*!40000 ALTER TABLE `offlinelesson` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -51,4 +53,4 @@ INSERT INTO `offlinelesson` VALUES (2,'description1046','files750','title1216',1
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03  0:35:59
+-- Dump completed on 2022-01-03 22:21:56

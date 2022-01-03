@@ -36,9 +36,11 @@ CREATE TABLE `CLIENT_ATTRIBUTES` (
 -- Dumping data for table `CLIENT_ATTRIBUTES`
 --
 
+LOCK TABLES `CLIENT_ATTRIBUTES` WRITE;
 /*!40000 ALTER TABLE `CLIENT_ATTRIBUTES` DISABLE KEYS */;
 INSERT INTO `CLIENT_ATTRIBUTES` VALUES ('1dbb1163-f4c3-44ae-a385-46d76862cd86','S256','pkce.code.challenge.method'),('22c20439-6887-43b5-813b-49f191fadb40','false','backchannel.logout.revoke.offline.tokens'),('22c20439-6887-43b5-813b-49f191fadb40','true','backchannel.logout.session.required'),('22c20439-6887-43b5-813b-49f191fadb40','false','client_credentials.use_refresh_token'),('22c20439-6887-43b5-813b-49f191fadb40','false','display.on.consent.screen'),('22c20439-6887-43b5-813b-49f191fadb40','false','exclude.session.state.from.auth.response'),('22c20439-6887-43b5-813b-49f191fadb40','false','id.token.as.detached.signature'),('22c20439-6887-43b5-813b-49f191fadb40','false','oauth2.device.authorization.grant.enabled'),('22c20439-6887-43b5-813b-49f191fadb40','false','oidc.ciba.grant.enabled'),('22c20439-6887-43b5-813b-49f191fadb40','false','require.pushed.authorization.requests'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml_force_name_id_format'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.artifact.binding'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.assertion.signature'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.authnstatement'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.client.signature'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.encrypt'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.force.post.binding'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.multivalued.roles'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.onetimeuse.condition'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.server.signature'),('22c20439-6887-43b5-813b-49f191fadb40','false','saml.server.signature.keyinfo.ext'),('22c20439-6887-43b5-813b-49f191fadb40','false','tls.client.certificate.bound.access.tokens'),('22c20439-6887-43b5-813b-49f191fadb40','true','use.refresh.tokens'),('3694ae68-0198-42f4-8280-bade470681e6','S256','pkce.code.challenge.method'),('6fba9dd5-348e-4bda-b418-58aa1a5a1555','S256','pkce.code.challenge.method'),('bf730706-6231-4f83-ac31-aaf9646a826e','S256','pkce.code.challenge.method');
 /*!40000 ALTER TABLE `CLIENT_ATTRIBUTES` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -49,4 +51,4 @@ INSERT INTO `CLIENT_ATTRIBUTES` VALUES ('1dbb1163-f4c3-44ae-a385-46d76862cd86','
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:23
+-- Dump completed on 2022-01-03 22:21:52
