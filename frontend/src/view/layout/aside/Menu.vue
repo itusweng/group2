@@ -65,14 +65,14 @@
       </li>
     </router-link>
     <router-link
-        to="/admin/users/list"
-        v-slot="{ href, navigate, isActive, isExactActive }"
+      to="/admin/users/list"
+      v-slot="{ href, navigate, isActive, isExactActive }"
     >
       <li
-          aria-haspopup="true"
-          data-menu-toggle="hover"
-          class="menu-item"
-          :class="[
+        aria-haspopup="true"
+        data-menu-toggle="hover"
+        class="menu-item"
+        :class="[
           isActive && 'menu-item-active',
           isExactActive && 'menu-item-active'
         ]"
@@ -80,6 +80,25 @@
         <a :href="href" class="menu-link" @click="navigate">
           <i class="menu-icon flaticon2-list-3"></i>
           <span class="menu-text">Users</span>
+        </a>
+      </li>
+    </router-link>
+    <router-link
+      to="/admin/requests/list"
+      v-slot="{ href, navigate, isActive, isExactActive }"
+    >
+      <li
+        aria-haspopup="true"
+        data-menu-toggle="hover"
+        class="menu-item"
+        :class="[
+          isActive && 'menu-item-active',
+          isExactActive && 'menu-item-active'
+        ]"
+      >
+        <a :href="href" class="menu-link" @click="navigate">
+          <i class="menu-icon flaticon2-list-3"></i>
+          <span class="menu-text">Requests</span>
         </a>
       </li>
     </router-link>

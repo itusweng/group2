@@ -1,10 +1,5 @@
 <template>
   <div>
-    <b-row class="mb-4">
-      <b-col xs="12">
-        <h2>Required Trainings</h2>
-      </b-col>
-    </b-row>
     <b-row>
       <b-col md="4" v-for="(training, index) in trainingList" :key="index">
         <b-card
@@ -41,7 +36,6 @@ export default {
     try {
       const { data } = await this.axios.get('/training/getAllTrainings');
       this.trainingList = data.data;
-      console.log(this.trainingList);
     } catch (e) {
       console.log(e);
     }
