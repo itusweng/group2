@@ -29,33 +29,9 @@ public class TrainingService {
     private final UserClient userClient;
     private final TrainingModelMapper trainingModelMapper;
 
-    public List<TrainingResponseDTO> getAllTrainings() {
-        // TODO: refactor
-
+    public List<TrainingModel> getAllTrainings() {
         List<TrainingModel> trainingModels = trainingRepo.findAll();
-        List<TrainingResponseDTO> trainingResponseDTOS = new ArrayList<>();
-
-        Map<Long, Long> userCreatedList = trainingModels.stream()
-                .collect(Collectors.toMap(TrainingModel::getId, TrainingModel::getUser_created_id));
-
-        Map<Long, Long> userInstructorList = trainingModels.stream()
-                .collect(Collectors.toMap(TrainingModel::getId, TrainingModel::getInstructor_id));
-
-        // Fetch users who are created the trainings
-        Map<Long, UserResponseDTO> createdUsersMap = userClient.getTrainingUsersByID(userCreatedList).getBody();
-
-        // Fetch instructors of trainings
-        Map<Long, UserResponseDTO> instructorsMap = userClient.getTrainingUsersByID(userInstructorList).getBody();
-
-        // Add instructors & created users into dto model
-        trainingModels.forEach(trainingModel -> {
-            TrainingResponseDTO responseDTO = trainingModelMapper.mapToDto(trainingModel);
-            responseDTO.setUser_created(createdUsersMap.get(responseDTO.getId()));
-            responseDTO.setInstructor(instructorsMap.get(responseDTO.getId()));
-            trainingResponseDTOS.add(responseDTO);
-        });
-
-        return trainingResponseDTOS;
+        return trainingModels;
     }
 
     public TrainingModel getTrainingById(Long trainingId) throws TrainingCrudException {
