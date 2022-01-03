@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class ParticipationPendingRequestsListAllRequestDTO extends BaseRequestDTO {
 
-    private Long managerId;
+    private Long managerGroupId;
 
     private Integer page;
 

@@ -83,8 +83,8 @@ public class TrainingParticipationService {
         trainingRequestedRepo.save(requestedTrainingUserModel);
     }
 
-    public List<PendingParticipationResponseDTO> listAllPendingRequests(ParticipationPendingRequestsListAllRequestDTO requestDTO) {
-        List<User_RequestedTrainingModel> requestedList = trainingRequestedRepo.findByManagerGroupIdAndStatusEquals(requestDTO.getManagerId(),
+    public List<PendingParticipationResponseDTO> listAllPendingRequests(ParticipationPendingRequestsListAllRequestDTO requestDTO) throws TrainingUserNotFoundException {
+        List<User_RequestedTrainingModel> requestedList = trainingRequestedRepo.findByManagerGroupIdAndStatusEquals(requestDTO.getManagerGroupId(),
                 Constants.Training.Participation.RequestType.PENDING);
 
         List<PendingParticipationResponseDTO> pendingRequests = new ArrayList<>();
@@ -92,8 +92,8 @@ public class TrainingParticipationService {
 
             Long trainingId = participationRequest.getTrainingId();
             Long userId = participationRequest.getUserId();
-
             Map<String, String> userModelMap = (Map<String, String>) userClient.getUserByID(userId).getBody().get("data");
+
             UserResponseDTO userModelDTO = objectMapper
                     .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
                     .convertValue(userModelMap, UserResponseDTO.class);
