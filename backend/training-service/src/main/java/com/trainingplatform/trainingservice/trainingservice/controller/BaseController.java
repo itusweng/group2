@@ -1,11 +1,13 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +38,12 @@ public abstract class BaseController {
                     .body(createReturnObj(e.getMessage()));
         }
         else if (e instanceof NullPointerException){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createReturnObj(e.getMessage()));
+        }
+        else if (e instanceof DataIntegrityViolationException){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(createReturnObj(e.getMessage()));
+        }
+        else if (e instanceof IOException){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createReturnObj(e.getMessage()));
         }
 

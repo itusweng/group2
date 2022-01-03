@@ -1,6 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.model.request;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -11,7 +12,7 @@ public class OfflineLessonRequestDTO {
 
     private String title;
 
-    private String video_link;
+    private MultipartFile videoFile;
 
     private String files;
 

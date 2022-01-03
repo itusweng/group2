@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,11 +26,19 @@ public abstract class BaseController {
         return (HashMap<String, Object>) returnMap;
     }
 
+
     public ResponseEntity<Map<String, Object>> exceptionHandler(Exception e) {
 
         if (e instanceof EntityNotFoundException) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(createReturnObj(e.getMessage()));
+        }
+        else if (e instanceof IOException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(createReturnObj(e.getMessage()));
+        }
+        else if (e instanceof NullPointerException){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createReturnObj(e.getMessage()));
         }
 
         // Return default exception

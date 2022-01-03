@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/training/offlineLesson/getAllLessons/{trainingId}").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/update/{offlineLessonId}").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/").hasAuthority("ROLE_MANAGER")
-                .antMatchers(HttpMethod.DELETE, "/api/training/offlineLesson/{offlineLessonId}").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.DELETE, "/api/training/offlineLesson/{trainingId}/{offlineLessonId}").hasAuthority("ROLE_MANAGER")
 
                 .antMatchers(HttpMethod.GET, "/api/training/onlineLesson/getAllLessons/{trainingId}").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/training/onlineLesson/update/{onlineLessonId}").hasAuthority("ROLE_MANAGER")

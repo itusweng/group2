@@ -13,8 +13,6 @@ public class OfflineLessonResponseDTO {
 
     private String title;
 
-    private String video_link;
-
     private String files;
 
     private String description;

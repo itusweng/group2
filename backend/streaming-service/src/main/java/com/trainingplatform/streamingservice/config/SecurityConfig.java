@@ -12,20 +12,18 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+public class SecurityConfig extends WebSecurityConfigurerAdapter
+{
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
+    protected void configure(HttpSecurity http) throws Exception
+    {
         final JwtAuthenticationConverter jwtAuthenticationConverter = jwtAuthenticationConverterForKeycloak();
-
         http
                 .cors()
                 .and()
@@ -35,17 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/streaming/test").permitAll()
-                .anyRequest().permitAll()
-                .and()
-                .httpBasic()
+                .antMatchers(HttpMethod.GET, "/api/streaming/stream/{trainingID}/{offlineLessonID}").permitAll()
+                .anyRequest().denyAll()
                 .and()
                 .oauth2ResourceServer()
                 .jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter);
     }
-
-
     public JwtAuthenticationConverter jwtAuthenticationConverterForKeycloak() {
         Converter<Jwt, Collection<GrantedAuthority>> jwtGrantedAuthoritiesConverter = jwt -> {
             Map<String, Collection<String>> realmAccess = jwt.getClaim("realm_access");

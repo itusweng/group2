@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: tp-trainingservice
 -- ------------------------------------------------------
@@ -42,7 +42,7 @@ CREATE TABLE `training` (
 --
 
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
-INSERT INTO `training` VALUES (1,500,NULL,'Training 1 Description',1,1,NULL,'Training 1 Title',NULL,1),(2,100,NULL,'Guzel bir aciklama',2,1,'https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dGh1bWJuYWlsfGVufDB8fDB8fA%3D%3D&w=1000&q=80','Guzel bir egitim',NULL,1);
+INSERT INTO `training` VALUES (1,100,NULL,'Guzel bir aciklama',2,1,'https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dGh1bWJuYWlsfGVufDB8fDB8fA%3D%3D&w=1000&q=80','Guzel bir egitim',NULL,1);
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +54,4 @@ INSERT INTO `training` VALUES (1,500,NULL,'Training 1 Description',1,1,NULL,'Tra
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:24
+-- Dump completed on 2022-01-03  0:35:59
