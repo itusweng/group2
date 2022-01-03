@@ -1,14 +1,19 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
 import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.service.TrainingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,12 +21,45 @@ import java.util.List;
 public class TrainingController extends BaseController {
 
     private final TrainingService trainingService;
+    private final TrainingModelMapper trainingMapper;
 
     @GetMapping("/getAllTrainings")
     public ResponseEntity<HashMap<String, Object>> getAllTrainings() {
         try {
+            // TODO: refactor
             List<TrainingResponseDTO> trainings = trainingService.getAllTrainings();
             return ResponseEntity.ok(createReturnObj("Trainings fetched successfully!", trainings));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/byParticipantId/{participantId}/getAll")
+    public ResponseEntity<HashMap<String, Object>> getTrainingsByParticipantId(@PathVariable Long participantId) {
+        try {
+            List<TrainingModel> trainingModels = trainingService.getTrainingsByParticipantId(participantId);
+            List<TrainingResponseDTO> trainingResponseDTOS = new ArrayList<>();
+            Map<Long, Long> userCreatedList = trainingModels.stream()
+                    .collect(Collectors.toMap(TrainingModel::getId, TrainingModel::getUser_created_id));
+
+            Map<Long, Long> userInstructorList = trainingModels.stream()
+                    .collect(Collectors.toMap(TrainingModel::getId, TrainingModel::getInstructor_id));
+
+            // Fetch users who are created the trainings
+            Map<Long, UserResponseDTO> createdUsersMap = trainingService.getTrainingUsersByID(userCreatedList);
+
+            // Fetch instructors of trainings
+            Map<Long, UserResponseDTO> instructorsMap = trainingService.getTrainingUsersByID(userInstructorList);
+
+            // Add instructors & created users into dto model
+            trainingModels.forEach(trainingModel -> {
+                TrainingResponseDTO responseDTO = trainingMapper.mapToDto(trainingModel);
+                responseDTO.setUser_created(createdUsersMap.get(responseDTO.getId()));
+                responseDTO.setInstructor(instructorsMap.get(responseDTO.getId()));
+                trainingResponseDTOS.add(responseDTO);
+            });
+
+            return ResponseEntity.ok(createReturnObj(String.format("Trainings fetched successfully by participant id: %d!", participantId), trainingResponseDTOS));
         } catch (Exception e) {
             return exceptionHandler(e);
         }

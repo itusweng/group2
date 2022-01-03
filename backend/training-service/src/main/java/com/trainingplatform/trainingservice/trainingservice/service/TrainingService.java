@@ -4,12 +4,14 @@ import com.trainingplatform.trainingservice.trainingservice.communication.UserCl
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
 import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.entity.User_CreatedTrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.User_ParticipatedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
 
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_CreatedTrainingRepo;
+import com.trainingplatform.trainingservice.trainingservice.repository.User_ParticipatedTrainingRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -23,10 +25,13 @@ public class TrainingService {
 
     private final TrainingRepository trainingRepo;
     private final User_CreatedTrainingRepo trainingCreatedUserRepo;
+    private final User_ParticipatedTrainingRepo trainingParticipatedUserRepo;
     private final UserClient userClient;
     private final TrainingModelMapper trainingModelMapper;
 
     public List<TrainingResponseDTO> getAllTrainings() {
+        // TODO: refactor
+
         List<TrainingModel> trainingModels = trainingRepo.findAll();
         List<TrainingResponseDTO> trainingResponseDTOS = new ArrayList<>();
 
@@ -59,6 +64,7 @@ public class TrainingService {
     }
 
     public TrainingResponseDTO createTraining(TrainingModel tm) {
+        // TODO: refactor
 
         // Create training
         TrainingModel savedTraining = trainingRepo.save(tm);
@@ -93,5 +99,16 @@ public class TrainingService {
         } catch (EmptyResultDataAccessException e) {
             throw new TrainingCrudException("Training cannot be deleted! " + e.getMessage());
         }
+    }
+
+    public List<TrainingModel> getTrainingsByParticipantId(Long participantUserId) {
+        List<User_ParticipatedTrainingModel> participatedTrainings = trainingParticipatedUserRepo.findByUserId(participantUserId);
+        List<TrainingModel> trainingModels = participatedTrainings.stream()
+                .map(participatedTraining -> trainingRepo.findById(participatedTraining.getTrainingId()).get()).collect(Collectors.toList());
+        return trainingModels;
+    }
+
+    public Map<Long, UserResponseDTO> getTrainingUsersByID(Map<Long, Long> userList) {
+        return userClient.getTrainingUsersByID(userList).getBody();
     }
 }
