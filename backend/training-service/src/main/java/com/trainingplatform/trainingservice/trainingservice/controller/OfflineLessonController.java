@@ -1,11 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
-import com.trainingplatform.trainingservice.trainingservice.model.entity.OfflineLessonModel;
-import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.request.OfflineLessonRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.OfflineLessonResponseDTO;
-import com.trainingplatform.trainingservice.trainingservice.repository.OfflineLessonRepository;
-import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import com.trainingplatform.trainingservice.trainingservice.service.OfflineLessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +16,6 @@ import java.util.List;
 public class OfflineLessonController extends BaseController{
 
     private final OfflineLessonService offlineLessonService;
-    private final OfflineLessonModelMapper offlineLessonModelMapper;
-    private final OfflineLessonRepository offlineLessonRepo;
-    private final TrainingRepository trainingRepo;
 
     @GetMapping("/getAllLessons/{trainingId}")
     public ResponseEntity<HashMap<String, Object>> getAllTrainings(@PathVariable Long trainingId) {
@@ -35,12 +28,11 @@ public class OfflineLessonController extends BaseController{
     }
 
     @PostMapping("/")
-    public ResponseEntity<HashMap<String, Object>> createOfflineLesson(@RequestBody OfflineLessonRequestDTO offlineLessonRequestDTO) {
-        OfflineLessonModel offlineLesson = offlineLessonModelMapper.mapToEntity(offlineLessonRequestDTO);
-        offlineLesson.setTraining(trainingRepo.getById(offlineLessonRequestDTO.getTraining_id()));
+    @ResponseBody
+    public ResponseEntity<HashMap<String, Object>> createOfflineLesson(@ModelAttribute OfflineLessonRequestDTO offlineLessonRequestDTO) {
         try {
             // TODO: test error cases
-            OfflineLessonResponseDTO new_offlineLesson = offlineLessonService.createOfflineLesson(offlineLesson);
+            OfflineLessonResponseDTO new_offlineLesson = offlineLessonService.createOfflineLesson(offlineLessonRequestDTO);
             return ResponseEntity.ok(createReturnObj("Offline Lesson created successfully!", new_offlineLesson));
         } catch (Exception e) {
             return exceptionHandler(e);
@@ -48,21 +40,19 @@ public class OfflineLessonController extends BaseController{
     }
 
     @PostMapping("/update/{offlineLessonId}")
-    public void updateOfflineLesson(@PathVariable Long offlineLessonId, @RequestBody OfflineLessonRequestDTO offlineLesson){
+    public void updateOfflineLesson(@PathVariable Long offlineLessonId, @RequestBody OfflineLessonRequestDTO offlineLessonRequestDTO){
         try{
-            OfflineLessonModel existingOfflineLesson = offlineLessonRepo.findById(offlineLessonId).get();
-            offlineLessonModelMapper.updateFields(existingOfflineLesson, offlineLesson);
-            offlineLessonRepo.save(existingOfflineLesson);
+            offlineLessonService.updateOfflineLesson(offlineLessonId, offlineLessonRequestDTO);
         }
         catch (Exception e){
             System.out.println(exceptionHandler(e));
         }
     }
 
-    @DeleteMapping("/{offlineLessonId}")
-    public ResponseEntity<HashMap<String, Object>> deleteOfflineLesson(@PathVariable Long offlineLessonId) {
+    @DeleteMapping("/{trainingId}/{offlineLessonId}")
+    public ResponseEntity<HashMap<String, Object>> deleteOfflineLesson(@PathVariable Long trainingId, @PathVariable Long offlineLessonId) {
         try {
-            offlineLessonService.deleteOfflineLesson(offlineLessonId);
+            offlineLessonService.deleteOfflineLesson(trainingId, offlineLessonId);
             return ResponseEntity.ok(createReturnObj("Offline Lesson deleted successfully!", null));
         } catch (Exception e) {
             return exceptionHandler(e);

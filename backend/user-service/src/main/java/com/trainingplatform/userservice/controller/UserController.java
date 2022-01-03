@@ -82,7 +82,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/getTrainingUsersByID")
-    public ResponseEntity<Map<Long, Object>> getTrainingUserByID(@RequestBody Map<Long, Long> trainingIdUserIdMap) {
+    public ResponseEntity<Map<Long, Object>> getTrainingUsersByID(@RequestBody Map<Long, Long> trainingIdUserIdMap) {
         // Key -> Training Id, Value -> User created the training
         Map<Long, Object> userResponseDTOMap = new HashMap<>();
 
