@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Service
@@ -81,5 +82,10 @@ public class UserService {
 
     public boolean checkUserExistsByUserId(Long id) {
         return userRepo.existsById(id);
+    }
+
+    public Long getManagerGroupIdByUserId(Long userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException());
+        return user.getManager_group_id();
     }
 }
