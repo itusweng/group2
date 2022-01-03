@@ -26,9 +26,30 @@ public class TrainingController extends BaseController {
     @GetMapping("/getAllTrainings")
     public ResponseEntity<HashMap<String, Object>> getAllTrainings() {
         try {
-            // TODO: refactor
-            List<TrainingResponseDTO> trainings = trainingService.getAllTrainings();
-            return ResponseEntity.ok(createReturnObj("Trainings fetched successfully!", trainings));
+            List<TrainingModel> trainings = trainingService.getAllTrainings();
+            List<TrainingResponseDTO> trainingResponseDTOS = new ArrayList<>();
+
+            Map<Long, Long> userCreatedList = trainings.stream()
+                    .collect(Collectors.toMap(TrainingModel::getId, TrainingModel::getUser_created_id));
+
+            Map<Long, Long> userInstructorList = trainings.stream()
+                    .collect(Collectors.toMap(TrainingModel::getId, TrainingModel::getInstructor_id));
+
+            // Fetch users who are created the trainings
+            Map<Long, UserResponseDTO> createdUsersMap = trainingService.getTrainingUsersByID(userCreatedList);
+
+            // Fetch instructors of trainings
+            Map<Long, UserResponseDTO> instructorsMap = trainingService.getTrainingUsersByID(userInstructorList);
+
+            // Add instructors & created users into dto model
+            trainings.forEach(trainingModel -> {
+                TrainingResponseDTO responseDTO = trainingMapper.mapToDto(trainingModel);
+                responseDTO.setUser_created(createdUsersMap.get(responseDTO.getId()));
+                responseDTO.setInstructor(instructorsMap.get(responseDTO.getId()));
+                trainingResponseDTOS.add(responseDTO);
+            });
+
+            return ResponseEntity.ok(createReturnObj("Trainings fetched successfully!", trainingResponseDTOS));
         } catch (Exception e) {
             return exceptionHandler(e);
         }
