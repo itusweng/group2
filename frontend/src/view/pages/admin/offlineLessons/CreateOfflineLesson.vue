@@ -114,6 +114,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import Swal from 'sweetalert2';
+const formData = new FormData();
 
 export default {
   validations: {
@@ -135,14 +136,29 @@ export default {
     };
   },
   methods: {
-    save() {
+    async save() {
       try {
-        Swal.fire({
+        formData.set('title', this.form.title);
+        formData.set('description', this.form.description);
+        formData.set('training_id', this.$store.getters.activeTraining.id);
+        formData.set('videoFile', this.form.videoFile);
+
+        await this.axios.post('/training/offlineLesson/', formData, {
+          headers: {
+            accept: 'application/json',
+            'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
+          }
+        });
+
+        await Swal.fire({
           icon: 'success',
           title: 'Offline lesson created successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
+
+        this.$router.back();
+
       } catch (e) {
         console.log(e);
       }

@@ -28,7 +28,7 @@
                     mr-3
                   "
                 >
-                  İş Sağlığı ve Güvenliği-UE/001-20
+                  {{ activeTraining.title }}
                 </a>
               </div>
 
@@ -52,21 +52,21 @@
                     "
                   >
                     <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>
-                    Trainer: Dickerson
+                    Trainer: {{ activeTraining.instructor.first_name }}
+                    {{ activeTraining.instructor.last_name }}
                   </a>
                   <a
                     href="#"
                     class="text-dark-50 text-hover-primary font-weight-bold"
                   >
                     <i class="flaticon2-edit mr-2 font-size-lg"></i>
-                    Created By: Macdonald
+                    Created By: {{ activeTraining.user_created.first_name }}
+                    {{ activeTraining.user_created.last_name }}
                   </a>
                 </div>
 
                 <span class="font-weight-bold text-dark-50">
-                  I distinguish three main text objectives could be merely to
-                  inform people. A second could be persuade people. You want
-                  people to bay objective
+                  {{ activeTraining.description }}
                 </span>
               </div>
             </div>
@@ -94,7 +94,9 @@
             </span>
             <div class="d-flex flex-column text-dark-75">
               <span class="font-weight-bolder font-size-sm">Type</span>
-              <span class="font-weight-bolder font-size-h5">Online</span>
+              <span class="font-weight-bolder font-size-h5">
+                {{ activeTraining.isOnline ? 'Online' : 'Offline' }}
+              </span>
             </div>
           </div>
           <!--end::Item-->
@@ -123,7 +125,7 @@
             </span>
             <div class="d-flex flex-column text-dark-75">
               <span class="font-weight-bolder font-size-sm">Lesson</span>
-              <span class="font-weight-bolder font-size-h5">12</span>
+              <span class="font-weight-bolder font-size-h5">{{lessons.length}}</span>
             </div>
           </div>
 
@@ -197,7 +199,18 @@
               </span>
             </h3>
             <div class="card-toolbar">
-              <b-button to="/admin/onlineLessons/create" variant="light-info">
+              <b-button
+                v-if="activeTraining.isOnline"
+                to="/admin/onlineLessons/create"
+                variant="light-info"
+              >
+                Add Lesson
+              </b-button>
+              <b-button
+                v-else
+                to="/admin/offlineLessons/create"
+                variant="light-info"
+              >
                 Add Lesson
               </b-button>
             </div>
@@ -237,7 +250,10 @@
                         </span>
                       </td>
                       <td class="text-right pr-0">
-                        <b-button :to="'/admin/offlineLessons/'+item.id+'/update'" class="btn btn-icon btn-light btn-sm mx-3">
+                        <b-button
+                          :to="'/admin/offlineLessons/' + item.id + '/update'"
+                          class="btn btn-icon btn-light btn-sm mx-3"
+                        >
                           <span class="svg-icon svg-icon-md svg-icon-primary">
                             <inline-svg
                               src="media/svg/icons/Communication/Write.svg"
@@ -271,68 +287,35 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      lessons: [
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'Yapikredi Mobil Uygulaması iOS/Android Aktarım-Giriş',
-          duration: '20 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483370f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '083450b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        }
-      ]
+      lessons: []
     };
   },
+  created() {
+    this.getLessons();
+  },
   methods: {
+    async getLessons() {
+      try {
+        const trainingId = this.activeTraining.id;
+        const { data } = await this.axios.get(
+          `/training/offlineLesson/getAllLessons/${trainingId}`
+        );
+        this.lessons = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
     deleteLesson(lesson) {
       this.confirmDelete();
       console.log(lesson);
     }
+  },
+  computed: {
+    ...mapGetters(['activeTraining'])
   }
 };
 </script>

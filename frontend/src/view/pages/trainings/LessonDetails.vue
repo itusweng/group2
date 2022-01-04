@@ -99,7 +99,7 @@ export default {
       lesson: {
         title: 'Yapikredi Mobil Uygulaması iOS/Android Aktarım-Giriş',
         videoUrl:
-          'https://my-gym-assistant.s3.eu-central-1.amazonaws.com/exercises/videos/arnoldPressDumbbell.mp4',
+          'https://swetrainingplatform.s3.eu-central-1.amazonaws.com/1_9.mp4',
         description:
         // eslint-disable-next-line max-len
           'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad debitis dignissimos incidunt obcaecati voluptates. Architecto consectetur dolor dolores fugiat in minima nihil numquam, tenetur? Cum quae, qui. Ad alias asperiores, aut consequuntur, cupiditate est exercitationem, maxime possimus provident ratione recusandae repellendus totam veniam. Alias, animi atque consequatur cupiditate dignissimos ducimus esse exercitationem fuga id modi necessitatibus, odio quae quos recusandae rem ullam velit vero. Dolores explicabo fugit illo reiciendis? Alias animi, dolor dolore doloremque expedita explicabo laboriosam nisi odio quo quod, repellat repellendus sed sint sit tenetur ut vel? Beatae doloremque ducimus eos esse eveniet libero minus quos repellat, saepe.'

@@ -141,6 +141,8 @@ export default {
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
+
+        this.$router.push('/admin/trainings/list');
       } catch (e) {
         await Swal.fire({
           icon: 'error',

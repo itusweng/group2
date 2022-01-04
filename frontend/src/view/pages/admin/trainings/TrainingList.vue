@@ -28,7 +28,7 @@
           <b-table :fields="tableFields" :items="trainings">
             <template v-slot:cell(actions)="{ item }">
               <b-button
-                :to="'/admin/trainings/' + item.id + '/details'"
+                @click="goToDetails(item)"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                 v-b-tooltip="'Details'"
               >
@@ -66,26 +66,7 @@
 export default {
   data() {
     return {
-      trainings: [
-        {
-          id: 'f6b706eb-5e12-4c01-8821-155452239a21',
-          title: 'İş Sağlığı ve Güvenliği-UE/001-20',
-          trainer: 'Dickerson',
-          createdBy: 'Macdonald'
-        },
-        {
-          id: 'b36bd5ad-7dad-48d6-98a8-39db9ea37abc',
-          title: 'YAS 117 Bilgi Güvenliği HTML 2021-UE/001-21',
-          trainer: 'Larsen',
-          createdBy: 'Shaw'
-        },
-        {
-          id: '3d5de70c-0b5b-420b-886e-ebfbf9be41eb',
-          title: 'Etik Kurallar ve Çalışma İlkeleri 2020-UE/001-20',
-          trainer: 'Geneva',
-          createdBy: 'Wilson'
-        }
-      ],
+      trainings: [],
       tableFields: [
         {
           key: 'title',
@@ -107,6 +88,10 @@ export default {
     this.getTrainings();
   },
   methods: {
+    goToDetails(item) {
+      this.$store.commit('setTraining', item)
+      this.$router.push('/admin/trainings/' + item.id + '/details');
+    },
     async getTrainings() {
       try {
         const { data } = await this.axios.get('/training/getAllTrainings');

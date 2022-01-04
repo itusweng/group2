@@ -15,10 +15,11 @@
       >
         <a :href="href" class="menu-link" @click="navigate">
           <i class="menu-icon flaticon2-architecture-and-city"></i>
-          <span class="menu-text">Dashboard</span>
+          <span class="menu-text">Home</span>
         </a>
       </li>
     </router-link>
+<!--
 
     <router-link
       to="/builder"
@@ -39,6 +40,7 @@
         </a>
       </li>
     </router-link>
+-->
 
     <li class="menu-section">
       <h4 class="menu-text">Administration</h4>
@@ -102,6 +104,7 @@
         </a>
       </li>
     </router-link>
+<!--
     <li class="menu-section">
       <h4 class="menu-text">Components</h4>
       <i class="menu-icon flaticon-more-v2"></i>
@@ -2070,7 +2073,7 @@
           </router-link>
         </ul>
       </div>
-    </li>
+    </li>-->
   </ul>
 </template>
 
