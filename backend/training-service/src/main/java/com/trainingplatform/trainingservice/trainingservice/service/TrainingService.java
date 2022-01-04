@@ -87,4 +87,9 @@ public class TrainingService {
     public Map<Long, UserResponseDTO> getTrainingUsersByID(Map<Long, Long> userList) {
         return userClient.getTrainingUsersByID(userList).getBody();
     }
+
+    public Boolean isUserParticipated(Long trainingId, Long userId) {
+        boolean isParticipated = trainingParticipatedUserRepo.existsUser_ParticipatedTrainingModelByUserIdAndTrainingId(trainingId, userId);
+        return isParticipated;
+    }
 }

@@ -36,9 +36,11 @@ CREATE TABLE `AUTHENTICATOR_CONFIG` (
 -- Dumping data for table `AUTHENTICATOR_CONFIG`
 --
 
+LOCK TABLES `AUTHENTICATOR_CONFIG` WRITE;
 /*!40000 ALTER TABLE `AUTHENTICATOR_CONFIG` DISABLE KEYS */;
 INSERT INTO `AUTHENTICATOR_CONFIG` VALUES ('5787b67f-15eb-4634-bf88-33d48a3e871f','review profile config','training-platform-realm'),('5d6aa9a5-2133-414e-91ee-91113325edf3','create unique user config','training-platform-realm'),('73810be0-76bc-4eb0-90bd-a0643ed9c9e6','create unique user config','master'),('c8080b28-a10f-4e3d-bda0-b3a00cc7ce15','review profile config','master');
 /*!40000 ALTER TABLE `AUTHENTICATOR_CONFIG` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -49,4 +51,4 @@ INSERT INTO `AUTHENTICATOR_CONFIG` VALUES ('5787b67f-15eb-4634-bf88-33d48a3e871f
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:15
+-- Dump completed on 2022-01-03 22:21:36

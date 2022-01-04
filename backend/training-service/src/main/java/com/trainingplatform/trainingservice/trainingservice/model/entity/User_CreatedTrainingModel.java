@@ -1,6 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.model.entity;
 
-import com.trainingplatform.trainingservice.trainingservice.model.composite_keys.User_TrainingPK;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.composite_keys.User_TrainingPK;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package com.trainingplatform.trainingservice.trainingservice.model.composite_keys;
+package com.trainingplatform.trainingservice.trainingservice.model.entity.composite_keys;
 
 import java.io.Serializable;
 

@@ -1,6 +1,7 @@
 package com.trainingplatform.userservice.controller;
 
-import com.trainingplatform.userservice.model.UserResponseDTO;
+import com.trainingplatform.userservice.model.response.ManagerGroupResponseDTO;
+import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.model.mapper.UserMapper;
@@ -99,6 +100,17 @@ public class UserController extends BaseController {
         try {
             boolean response = userService.checkUserExistsByUserId(userId);
             return ResponseEntity.ok(createReturnObj("User exist query performed successfully!", response));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/getManagerGroupId/byId/{userId}")
+    public ResponseEntity<Map<String, Object>> getManagerGroupId(@PathVariable Long userId) {
+        try {
+            Long managerGroupId = userService.getManagerGroupIdByUserId(userId);
+            ManagerGroupResponseDTO responseDTO = ManagerGroupResponseDTO.builder().managerGroupId(managerGroupId).build();
+            return ResponseEntity.ok(createReturnObj(String.format("User manager group id is fetched by user id:%d", userId), responseDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }

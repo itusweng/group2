@@ -32,7 +32,6 @@ public class TrainingParticipationService {
     private final User_RequestedTrainingRepo trainingRequestedRepo;
     private final UserClient userClient;
     private final TrainingRepository trainingRepo;
-    private final TrainingService trainingService;
     private final TrainingModelMapper trainingMapper;
     private final ObjectMapper objectMapper;
 
@@ -69,23 +68,23 @@ public class TrainingParticipationService {
         return isUserAddedToTrainingMap;
     }
 
-    public void requestParticipation(Long trainingId, Long userId) throws TrainingCrudException {
+    public void requestParticipation(Long trainingId, Long userId) {
         // TODO: CHECK QUOTA IS FULL OR NOT
 
-        TrainingModel training = trainingService.getTrainingById(trainingId);
-        Long instructorId = training.getInstructor_id();
+        Map<String, Object> managerGroupResponse = userClient.getManagerGroupId(userId).getBody();
+        ManagerGroupResponseDTO managerGroupResponseDTO = objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS).convertValue(managerGroupResponse.get("data"), ManagerGroupResponseDTO.class);
         User_RequestedTrainingModel requestedTrainingUserModel = User_RequestedTrainingModel.builder()
                 .userId(userId)
                 .trainingId(trainingId)
-                .managerId(instructorId)
+                .managerGroupId(managerGroupResponseDTO.getManagerGroupId())
                 .createdDate(new Date())
                 .status(Constants.Training.Participation.RequestType.PENDING).build();
 
         trainingRequestedRepo.save(requestedTrainingUserModel);
     }
 
-    public List<PendingParticipationResponseDTO> listAllPendingRequests(ParticipationPendingRequestsListAllRequestDTO requestDTO) {
-        List<User_RequestedTrainingModel> requestedList = trainingRequestedRepo.findByManagerIdAndStatusEquals(requestDTO.getManagerId(),
+    public List<PendingParticipationResponseDTO> listAllPendingRequests(ParticipationPendingRequestsListAllRequestDTO requestDTO) throws TrainingUserNotFoundException {
+        List<User_RequestedTrainingModel> requestedList = trainingRequestedRepo.findByManagerGroupIdAndStatusEquals(requestDTO.getManagerGroupId(),
                 Constants.Training.Participation.RequestType.PENDING);
 
         List<PendingParticipationResponseDTO> pendingRequests = new ArrayList<>();
@@ -93,8 +92,8 @@ public class TrainingParticipationService {
 
             Long trainingId = participationRequest.getTrainingId();
             Long userId = participationRequest.getUserId();
-
             Map<String, String> userModelMap = (Map<String, String>) userClient.getUserByID(userId).getBody().get("data");
+
             UserResponseDTO userModelDTO = objectMapper
                     .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
                     .convertValue(userModelMap, UserResponseDTO.class);

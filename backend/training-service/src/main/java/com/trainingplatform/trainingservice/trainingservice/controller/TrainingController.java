@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,16 @@ public class TrainingController extends BaseController {
             });
 
             return ResponseEntity.ok(createReturnObj("Trainings fetched successfully!", trainingResponseDTOS));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/{trainingId}/isUserParticipated/{userId}")
+    public ResponseEntity<Map<String, Object>> isUserParticipated(@PathVariable Long trainingId, @PathVariable Long userId) {
+        try {
+            Boolean isUserParticipated = trainingService.isUserParticipated(trainingId, userId);
+            return ResponseEntity.ok(createReturnObj("", isUserParticipated));
         } catch (Exception e) {
             return exceptionHandler(e);
         }

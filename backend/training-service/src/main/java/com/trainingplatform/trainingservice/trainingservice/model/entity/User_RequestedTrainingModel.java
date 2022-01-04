@@ -1,6 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.model.entity;
 
-import com.trainingplatform.trainingservice.trainingservice.model.composite_keys.User_TrainingPK;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.composite_keys.User_TrainingPK;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,8 +25,8 @@ public class User_RequestedTrainingModel {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "manager_id")
-    private Long managerId;
+    @Column(name = "manager_group_id")
+    private Long managerGroupId;
 
     @Column(name = "created_date")
     private Date createdDate;

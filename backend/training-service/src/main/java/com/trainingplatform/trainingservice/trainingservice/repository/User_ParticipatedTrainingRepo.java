@@ -9,4 +9,6 @@ import java.util.List;
 public interface User_ParticipatedTrainingRepo extends JpaRepository<User_ParticipatedTrainingModel, Long> {
 
     List<User_ParticipatedTrainingModel> findByUserId(Long userId);
+
+    boolean existsUser_ParticipatedTrainingModelByUserIdAndTrainingId(Long userId, Long trainingId);
 }

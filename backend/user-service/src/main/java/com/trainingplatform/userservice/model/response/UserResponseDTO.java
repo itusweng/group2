@@ -1,4 +1,4 @@
-package com.trainingplatform.userservice.model;
+package com.trainingplatform.userservice.model.response;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserResponseDTO {
+public class UserResponseDTO extends BaseResponseDTO{
 
     private Long id;
 
