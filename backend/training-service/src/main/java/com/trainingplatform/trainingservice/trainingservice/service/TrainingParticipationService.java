@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.trainingplatform.trainingservice.trainingservice.communication.UserClient;
 import com.trainingplatform.trainingservice.trainingservice.constants.Constants;
+import com.trainingplatform.trainingservice.trainingservice.constants.QueueDefinitions;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingParticipationException;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingUserNotFoundException;
@@ -14,12 +15,14 @@ import com.trainingplatform.trainingservice.trainingservice.model.mapper.Trainin
 import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationApproveRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationPendingRequestsListAllRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationRejectRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.notification.UserParticipatedNotificationRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.*;
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_ParticipatedTrainingRepo;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_RequestedTrainingRepo;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -34,6 +37,7 @@ public class TrainingParticipationService {
     private final TrainingRepository trainingRepo;
     private final TrainingModelMapper trainingMapper;
     private final ObjectMapper objectMapper;
+    private final RabbitTemplate rabbitTemplate;
 
     public Map<Long, Boolean> addParticipantsToTraining(Long trainingId, List<Long> participantIdList) throws TrainingCrudException {
         // TODO: CHECK TRAINING QUOTA BEFORE ADDING!
@@ -58,6 +62,8 @@ public class TrainingParticipationService {
                         .build();
 
                 trainingParticipatedRepo.save(trainingParticipatedUser);
+                sendParticipationNotificationToParticipant(trainingId, userId);
+
                 isUserAddedToTrainingMap.put(userId, true);
             } catch (FeignException.NotFound e) {
                 isUserAddedToTrainingMap.put(userId, false);
@@ -162,6 +168,7 @@ public class TrainingParticipationService {
 
                 // Add participant to db
                 addSingleParticipantToTraining(trainingId, userId);
+                sendParticipationNotificationToParticipant(trainingId, userId);
 
                 // Set response dto opStatus as success
                 responseDTO.setOpStatus(Constants.Training.Participation.OpStatus.SUCCESS);
@@ -175,6 +182,13 @@ public class TrainingParticipationService {
         });
 
         return approveResponseDTOList;
+    }
+
+    private void sendParticipationNotificationToParticipant(Long trainingId, Long userId) {
+        UserParticipatedNotificationRequestDTO notificationDTO = new UserParticipatedNotificationRequestDTO(trainingId, userId);
+        rabbitTemplate.convertAndSend(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getExchange(),
+                QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getRoutingKey(), notificationDTO);
+
     }
 
     public List<ParticipationRejectResponseDTO> rejectParticipation(List<ParticipationRejectRequestDTO> requestDTOs) {
