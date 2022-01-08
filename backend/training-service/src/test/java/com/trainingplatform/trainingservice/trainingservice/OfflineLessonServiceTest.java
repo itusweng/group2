@@ -43,12 +43,8 @@ public class OfflineLessonServiceTest {
     void it_should_return_offlinelessonresponsedtlist_when_training_found(){
         //arrange
         OfflineLessonModel offlineLessonModel = mock(OfflineLessonModel.class);
-        TrainingModel trainingModel = mock(TrainingModel.class);
-        when(offlineLessonModel.getTraining()).thenReturn(trainingModel);
-        when(trainingModel.getId()).thenReturn(1L);
         OfflineLessonResponseDTO offlineLessonResponseDTO = mock(OfflineLessonResponseDTO.class);
         List<OfflineLessonResponseDTO> offlineLessonResponseDTOS = new ArrayList<>();
-        when(offlineLessonModel.getTraining().getId()).thenReturn(1L);
         when(offlineLessonRepo.findAllByTrainingID(1L)).thenReturn(List.of(offlineLessonModel));
         when(offlineLessonModelMapper.mapToDto(offlineLessonModel)).thenReturn(offlineLessonResponseDTO);
         offlineLessonResponseDTOS.add(offlineLessonResponseDTO);
