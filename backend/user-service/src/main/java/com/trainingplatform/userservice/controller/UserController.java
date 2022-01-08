@@ -31,24 +31,11 @@ public class UserController extends BaseController {
             Map<String, Object> userDtoMap = new HashMap<>();
             List<UserResponseDTO> userDtoList = new ArrayList<>();
             userDtoMap.put("total", userMap.get("total"));
-            ((List) userMap.get("users")).forEach(user -> {
-                userDtoList.add(userMapper.mapToDto((User) user));
-            });
+            ((List)userMap.get("users")).forEach(user -> {
+                        userDtoList.add(userMapper.mapToDto((User) user));
+                    });
             userDtoMap.put("users", userDtoList);
             return ResponseEntity.ok(createReturnObj("Users fetched successfully!", userDtoMap));
-        } catch (Exception e) {
-            return exceptionHandler(e);
-        }
-    }
-
-    @GetMapping("/getUserProfile/byId/{userId}")
-    @ResponseBody
-    public ResponseEntity<Map<String, Object>> getUserProfileById(@PathVariable Long userId) {
-        try {
-            User userModel = userService.getUserByID(userId);
-            UserResponseDTO userDTO = userMapper.mapToDto(userModel);
-            return ResponseEntity.ok(
-                    createReturnObj(String.format("User profile fetched successfully by id %d!", userId), userDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }
