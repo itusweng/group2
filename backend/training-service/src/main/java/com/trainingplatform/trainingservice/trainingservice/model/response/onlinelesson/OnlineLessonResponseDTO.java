@@ -1,4 +1,4 @@
-package com.trainingplatform.trainingservice.trainingservice.model.response;
+package com.trainingplatform.trainingservice.trainingservice.model.response.onlinelesson;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;

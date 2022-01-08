@@ -1,4 +1,4 @@
-package com.trainingplatform.trainingservice.trainingservice.model.request;
+package com.trainingplatform.trainingservice.trainingservice.model.request.offlinelesson;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
