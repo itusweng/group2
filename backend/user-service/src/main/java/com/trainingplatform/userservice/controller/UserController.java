@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -27,7 +26,6 @@ public class UserController extends BaseController {
 
     // Inject services
     private final UserService userService;
-    private final UserRoleService userRoleService;
     private final UserMapper userMapper;
 
     @GetMapping("/getAllUsers")
@@ -131,47 +129,6 @@ public class UserController extends BaseController {
             Long managerGroupId = userService.getManagerGroupIdByUserId(userId);
             ManagerGroupResponseDTO responseDTO = ManagerGroupResponseDTO.builder().managerGroupId(managerGroupId).build();
             return ResponseEntity.ok(createReturnObj(String.format("User manager group id is fetched by user id:%d", userId), responseDTO));
-        } catch (Exception e) {
-            return exceptionHandler(e);
-        }
-    }
-
-    @PostMapping("/createUserRole")
-    public ResponseEntity<Map<String, Object>> createUserRole(@RequestBody CreateUserRoleRequestDTO requestDTO) {
-        try {
-            userRoleService.createNewUserRole(requestDTO.getRoleName(), requestDTO.getManagerGroupId());
-            return ResponseEntity.ok(createReturnObj(String.format("User role is created: %s", requestDTO.getRoleName()), null));
-        } catch (Exception e) {
-            return exceptionHandler(e);
-        }
-    }
-
-    @PostMapping("/assignUserToUserRole")
-    public ResponseEntity<Map<String, Object>> createUserRole(@RequestBody AssignUserToUserRoleRequestDTO requestDTO) {
-        try {
-            userRoleService.assignUserToUserRole(requestDTO.getUserId(), requestDTO.getRoleId());
-            return ResponseEntity.ok(createReturnObj(String.format("User %d role is assigned to: %s", requestDTO.getUserId()), null));
-        } catch (Exception e) {
-            return exceptionHandler(e);
-        }
-    }
-
-    @GetMapping("/getAllUserRoles/byManagerGroupId/{managerGroupId}")
-    public ResponseEntity<Map<String, Object>> getAllUserRolesByManagerGroupId(@PathVariable Long managerGroupId) {
-        try {
-            List<UserRole> userRoles = userRoleService.getAllUserRolesByManagerGroupId(managerGroupId);
-            List<UserRolesResponseDTO> userRolesResponseDTOS = userRoles
-                    .stream()
-                    .map(userRole -> {
-                        UserRolesResponseDTO userRolesResponseDTO = new UserRolesResponseDTO();
-                        userRolesResponseDTO.setManagerGroupName(userRoleService.getManagerGroupNameByUserRoleId(userRole.getRoleId()));
-                        userRolesResponseDTO.setId(userRole.getRoleId());
-                        userRolesResponseDTO.setRoleName(userRole.getRoleName());
-                        return userRolesResponseDTO;
-                    })
-                    .collect(Collectors.toList());
-
-            return ResponseEntity.ok(createReturnObj(String.format("User roles are fetched by manager group id %d", managerGroupId), userRolesResponseDTOS));
         } catch (Exception e) {
             return exceptionHandler(e);
         }
