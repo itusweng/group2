@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "UserNotificationModel", schema = "tp-notificationservice")
+@Table(name = "UserNotification", schema = "tp-notificationservice")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class UserNotificationModel {
     private Long recipientId;
 
     @Column(name="sender_id")
-    private Long senderID;
+    private Long senderId;
 
     @Column(name="message")
     private String message;
@@ -39,6 +39,6 @@ public class UserNotificationModel {
     private Date createdDate;
 
     @Column(name = "read_date")
-    private String readDate;
+    private Date readDate;
 
 }

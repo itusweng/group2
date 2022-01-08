@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/notification/test").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/notification/user/getAllByUserId").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic()
