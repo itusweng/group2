@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 public class UserParticipatedNotificationRequestDTO extends BaseRequestDTO {
 
-    private Long trainingId;
+    private String trainingTitle;
     private Long userId;
+
 }

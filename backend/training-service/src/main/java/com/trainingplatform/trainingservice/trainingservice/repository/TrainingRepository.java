@@ -15,4 +15,5 @@ public interface TrainingRepository extends JpaRepository<TrainingModel, Long> {
     void deleteById(Long ID);
 
     boolean existsById(Long ID);
+
 }

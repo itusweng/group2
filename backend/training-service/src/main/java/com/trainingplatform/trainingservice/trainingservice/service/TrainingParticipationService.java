@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
 @Service
@@ -185,7 +186,8 @@ public class TrainingParticipationService {
     }
 
     private void sendParticipationNotificationToParticipant(Long trainingId, Long userId) {
-        UserParticipatedNotificationRequestDTO notificationDTO = new UserParticipatedNotificationRequestDTO(trainingId, userId);
+        TrainingModel training = trainingRepo.findById(trainingId).orElseThrow(() -> new EntityNotFoundException("Training not found!"));
+        UserParticipatedNotificationRequestDTO notificationDTO = new UserParticipatedNotificationRequestDTO(training.getTitle() ,userId);
         rabbitTemplate.convertAndSend(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getExchange(),
                 QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getRoutingKey(), notificationDTO);
 
