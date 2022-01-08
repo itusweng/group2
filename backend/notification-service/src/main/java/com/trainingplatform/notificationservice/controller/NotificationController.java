@@ -4,6 +4,7 @@ import com.trainingplatform.notificationservice.constants.QueueDefinitions;
 import com.trainingplatform.notificationservice.model.entity.UserNotificationModel;
 import com.trainingplatform.notificationservice.model.mapper.UserNotificationMapper;
 import com.trainingplatform.notificationservice.model.request.GetAllUserNotificationsRequestDTO;
+import com.trainingplatform.notificationservice.model.request.SetReadNotificationsRequestDTO;
 import com.trainingplatform.notificationservice.model.request.UserParticipatedNotificationRequestDTO;
 import com.trainingplatform.notificationservice.model.response.GetAllUserNotificationsResponseDTO;
 import com.trainingplatform.notificationservice.service.UserNotificationService;
@@ -23,9 +24,9 @@ public class NotificationController extends BaseController {
     private final UserNotificationService userNotificationService;
     private final UserNotificationMapper userNotificationMapper;
 
-    @GetMapping("/user/getAllByUserId")
+    @PostMapping("/user/getAllByUserId")
     public ResponseEntity<Map<String, Object>> getAllUserNotificationsByUserId(@RequestBody GetAllUserNotificationsRequestDTO requestDTO) {
-        try{
+        try {
             Long userId = requestDTO.getUserId();
             Integer page = requestDTO.getPage();
             Integer size = requestDTO.getSize();
@@ -39,11 +40,22 @@ public class NotificationController extends BaseController {
                     .build();
 
             return ResponseEntity.ok(createReturnObj(String.format("User notifications are fetched by user id: %d", userId), responseDTO));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return exceptionHandler(e);
         }
 
+    }
+
+    @PostMapping("/user/notificationsHaveRead")
+    public ResponseEntity<Map<String, Object>> setReadNotificationsByUserId(@RequestBody SetReadNotificationsRequestDTO requestDTO) {
+        try {
+            List<Long> notificationIds = requestDTO.getNotificationIds();
+            userNotificationService.setNotificationsHaveReadById(notificationIds);
+
+            return ResponseEntity.ok(createReturnObj("Notifications updated!", null));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
     }
 
     @RabbitListener(queues = QueueDefinitions.SendTrainingParticipationNotification.QUEUE_NAME)
@@ -52,8 +64,7 @@ public class NotificationController extends BaseController {
             String trainingTitle = requestDTO.getTrainingTitle();
             Long userID = requestDTO.getUserId();
             userNotificationService.createUserParticipatedToTrainingNotification(trainingTitle, userID);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

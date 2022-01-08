@@ -8,7 +8,9 @@ import com.trainingplatform.notificationservice.repository.UserNotificationRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +28,8 @@ public class UserNotificationService {
         return notifications;
     }
 
-    public Long countOfUnreadUserNotificationByUserId(Long userId){
-        return userNotificationRepo.countAllUsers(userId);
+    public Long countOfUnreadUserNotificationByUserId(Long userId) {
+        return userNotificationRepo.countAllUnreadUserNotificationByUserId(userId);
     }
 
     public void createUserParticipatedToTrainingNotification(String trainingTitle, Long userID) {
@@ -43,5 +45,17 @@ public class UserNotificationService {
         userNotificationRepo.save(model);
     }
 
-
+    @Transactional
+    public void setNotificationsHaveReadById(List<Long> notificationIds) throws Exception {
+        try {
+            notificationIds.forEach(id -> {
+                UserNotificationModel notification = userNotificationRepo.getById(id);
+                notification.setRead(true);
+                userNotificationRepo.save(notification);
+            });
+        } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new Exception("Database Error!");
+        }
+    }
 }
