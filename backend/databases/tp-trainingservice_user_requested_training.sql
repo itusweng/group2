@@ -37,11 +37,9 @@ CREATE TABLE `user_requested_training` (
 -- Dumping data for table `user_requested_training`
 --
 
-LOCK TABLES `user_requested_training` WRITE;
 /*!40000 ALTER TABLE `user_requested_training` DISABLE KEYS */;
-INSERT INTO `user_requested_training` VALUES (1,2,'2022-01-03 21:45:42.139000',2,NULL,'pending'),(1,3,NULL,1,NULL,'pending');
+INSERT INTO `user_requested_training` VALUES (1,2,'2022-01-03 21:45:42.139000',2,NULL,'pending'),(1,3,'2022-01-07 05:07:00.873000',2,'2022-01-08 21:28:22.821000','approved');
 /*!40000 ALTER TABLE `user_requested_training` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03 22:21:54
+-- Dump completed on 2022-01-09  0:26:33

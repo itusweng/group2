@@ -47,11 +47,9 @@ CREATE TABLE `USER_ENTITY` (
 -- Dumping data for table `USER_ENTITY`
 --
 
-LOCK TABLES `USER_ENTITY` WRITE;
 /*!40000 ALTER TABLE `USER_ENTITY` DISABLE KEYS */;
 INSERT INTO `USER_ENTITY` VALUES ('0951c69e-9355-4a48-b817-7c779cede052',NULL,'f3419941-1b5f-4db4-bac4-2ff5b1145c0d',_binary '\0',_binary '',NULL,NULL,NULL,'training-platform-realm','test5',1639896174686,NULL,0),('31a8c5a6-4cd9-476c-ac10-d345638833b6',NULL,'b3dda27a-d489-45ec-bf96-23620df33078',_binary '\0',_binary '',NULL,NULL,NULL,'training-platform-realm','service-account-tp-spring-cloud-gateway-client',1637971214280,'22c20439-6887-43b5-813b-49f191fadb40',0),('6cc5f868-c060-4591-93e6-dd347b05999d',NULL,'7aa7c7ef-c653-4ab1-bc41-ce52a97476a1',_binary '\0',_binary '',NULL,NULL,NULL,'training-platform-realm','test1',1637971272674,NULL,1637972507),('7374209f-8cc2-4a1c-ba3f-6b57fe43cc5e','test@gmail.com','test@gmail.com',_binary '\0',_binary '\0',NULL,NULL,NULL,'training-platform-realm','test2',1638132262195,NULL,0),('910f1061-e835-4415-aa7e-49ffbca5a23f',NULL,'07ff9ae1-2c8b-4fe4-88a3-ed2fdd367c9e',_binary '\0',_binary '',NULL,NULL,NULL,'training-platform-realm','test4',1638677752786,NULL,0),('9b0a27c5-e31d-4127-811a-2e078cf3b044',NULL,'670fba5c-a0bf-49bb-83e7-54faa070dc8d',_binary '\0',_binary '',NULL,NULL,NULL,'master','admin',1637966875195,NULL,0),('be5851ce-6318-49ef-89b5-b8d842155eb1',NULL,'8b2ad81b-5bfc-4432-8ea6-71834ec05496',_binary '\0',_binary '',NULL,NULL,NULL,'master','test',1637966911227,NULL,0),('ecb14193-d545-423b-8e02-53097bc765a6','test3@gmail.com','test3@gmail.com',_binary '\0',_binary '\0',NULL,NULL,NULL,'training-platform-realm','test3',1638134463747,NULL,0),('f73a1df4-e961-462f-a1de-2953d1c258ab',NULL,'fcc58ae2-1b00-4ebd-ad2b-4d3ae6e5211d',_binary '',_binary '',NULL,NULL,NULL,'training-platform-realm','test6',1641051190009,NULL,0);
 /*!40000 ALTER TABLE `USER_ENTITY` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -62,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03 22:21:42
+-- Dump completed on 2022-01-09  0:26:53

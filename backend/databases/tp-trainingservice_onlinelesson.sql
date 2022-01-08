@@ -39,10 +39,8 @@ CREATE TABLE `onlinelesson` (
 -- Dumping data for table `onlinelesson`
 --
 
-LOCK TABLES `onlinelesson` WRITE;
 /*!40000 ALTER TABLE `onlinelesson` DISABLE KEYS */;
 /*!40000 ALTER TABLE `onlinelesson` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -53,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03 22:21:54
+-- Dump completed on 2022-01-09  0:26:33
