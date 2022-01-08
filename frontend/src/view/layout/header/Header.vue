@@ -19,7 +19,7 @@
         >
           <span class="svg-icon svg-icon-xxl svg-icon-dark-75">
             <!--begin::Svg Icon | path:assets/media/svg/icons/Text/Align-left.svg-->
-            <inline-svg src="media/svg/icons/Text/Align-left.svg" />
+            <inline-svg src="/media/svg/icons/Text/Align-left.svg" />
             <!--end::Svg Icon-->
           </span>
         </button>
@@ -46,7 +46,7 @@
                 <span class="input-group-text">
                   <span class="svg-icon svg-icon-lg">
                     &lt;!&ndash;begin::Svg Icon | path:assets/media/svg/icons/General/Search.svg&ndash;&gt;
-                    <inline-svg src="media/svg/icons/General/Search.svg" />
+                    <inline-svg src="/media/svg/icons/General/Search.svg" />
                     &lt;!&ndash;end::Svg Icon&ndash;&gt;
                   </span>
                 </span>

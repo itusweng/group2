@@ -256,7 +256,7 @@
                         >
                           <span class="svg-icon svg-icon-md svg-icon-primary">
                             <inline-svg
-                              src="media/svg/icons/Communication/Write.svg"
+                              src="/media/svg/icons/Communication/Write.svg"
                             />
                           </span>
                         </b-button>
@@ -266,7 +266,7 @@
                         >
                           <span class="svg-icon svg-icon-md svg-icon-primary">
                             <inline-svg
-                              src="media/svg/icons/General/Trash.svg"
+                              src="/media/svg/icons/General/Trash.svg"
                             />
                           </span>
                         </b-button>

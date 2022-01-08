@@ -104,7 +104,6 @@
         </a>
       </li>
     </router-link>
-<!--
     <li class="menu-section">
       <h4 class="menu-text">Components</h4>
       <i class="menu-icon flaticon-more-v2"></i>
@@ -2073,7 +2072,7 @@
           </router-link>
         </ul>
       </div>
-    </li>-->
+    </li>
   </ul>
 </template>
 
