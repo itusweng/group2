@@ -33,11 +33,9 @@ CREATE TABLE `manager_group` (
 -- Dumping data for table `manager_group`
 --
 
-LOCK TABLES `manager_group` WRITE;
 /*!40000 ALTER TABLE `manager_group` DISABLE KEYS */;
-INSERT INTO `manager_group` VALUES (1,'MOBIL_BACKEND'),(2,'MOBIL_ANDROID');
+INSERT INTO `manager_group` VALUES (1,'MOBIL'),(2,'INTERNET');
 /*!40000 ALTER TABLE `manager_group` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -48,4 +46,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03 22:21:40
+-- Dump completed on 2022-01-09  0:26:38
