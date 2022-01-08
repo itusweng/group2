@@ -187,7 +187,7 @@ public class TrainingParticipationService {
 
     private void sendParticipationNotificationToParticipant(Long trainingId, Long userId) {
         TrainingModel training = trainingRepo.findById(trainingId).orElseThrow(() -> new EntityNotFoundException("Training not found!"));
-        UserParticipatedNotificationRequestDTO notificationDTO = new UserParticipatedNotificationRequestDTO(trainingId, training.getTitle() ,userId);
+        UserParticipatedNotificationRequestDTO notificationDTO = new UserParticipatedNotificationRequestDTO(training.getTitle() ,userId);
         rabbitTemplate.convertAndSend(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getExchange(),
                 QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getRoutingKey(), notificationDTO);
 

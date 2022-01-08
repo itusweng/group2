@@ -28,10 +28,9 @@ public class NotificationController {
     @RabbitListener(queues = QueueDefinitions.SendTrainingParticipationNotification.QUEUE_NAME)
     public void createUserParticipatedToTrainingNotification(UserParticipatedNotificationRequestDTO requestDTO) {
         try {
-            Long trainingID = requestDTO.getTrainingId();
             String trainingTitle = requestDTO.getTrainingTitle();
             Long userID = requestDTO.getUserId();
-            userNotificationService.createUserParticipatedToTrainingNotification(trainingID, trainingTitle, userID);
+            userNotificationService.createUserParticipatedToTrainingNotification(trainingTitle, userID);
         }
         catch (Exception e){
             e.printStackTrace();

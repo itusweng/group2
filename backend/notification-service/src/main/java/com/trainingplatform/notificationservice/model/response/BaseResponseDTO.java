@@ -1,4 +1,4 @@
-package com.trainingplatform.notificationservice.model.request;
+package com.trainingplatform.notificationservice.model.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,5 +11,5 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @SuperBuilder
 @NoArgsConstructor
-public abstract class BaseRequestDTO {
+public abstract class BaseResponseDTO {
 }
