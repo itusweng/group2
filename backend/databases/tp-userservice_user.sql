@@ -41,11 +41,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES (1,'test@gmail.com','test name','test last name',1,'$2a$10$wwNjYmbCz/4en33BXtdI9epC8ppcucVng2JBJS8Rc7v.xN4xa.GgK','test1','',NULL,1),(2,'test2@gmail.com','test name','test last name',1,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test2','',NULL,2),(3,'test3@gmail.com','test name','test last name',1,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test3','',NULL,2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03 22:21:53
+-- Dump completed on 2022-01-09  0:26:55

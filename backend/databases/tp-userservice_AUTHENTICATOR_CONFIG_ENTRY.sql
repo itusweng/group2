@@ -34,11 +34,9 @@ CREATE TABLE `AUTHENTICATOR_CONFIG_ENTRY` (
 -- Dumping data for table `AUTHENTICATOR_CONFIG_ENTRY`
 --
 
-LOCK TABLES `AUTHENTICATOR_CONFIG_ENTRY` WRITE;
 /*!40000 ALTER TABLE `AUTHENTICATOR_CONFIG_ENTRY` DISABLE KEYS */;
 INSERT INTO `AUTHENTICATOR_CONFIG_ENTRY` VALUES ('5787b67f-15eb-4634-bf88-33d48a3e871f','missing','update.profile.on.first.login'),('5d6aa9a5-2133-414e-91ee-91113325edf3','false','require.password.update.after.registration'),('73810be0-76bc-4eb0-90bd-a0643ed9c9e6','false','require.password.update.after.registration'),('c8080b28-a10f-4e3d-bda0-b3a00cc7ce15','missing','update.profile.on.first.login');
 /*!40000 ALTER TABLE `AUTHENTICATOR_CONFIG_ENTRY` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -49,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03 22:21:37
+-- Dump completed on 2022-01-09  0:26:50

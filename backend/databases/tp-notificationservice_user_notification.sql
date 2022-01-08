@@ -39,11 +39,9 @@ CREATE TABLE `user_notification` (
 -- Dumping data for table `user_notification`
 --
 
-LOCK TABLES `user_notification` WRITE;
 /*!40000 ALTER TABLE `user_notification` DISABLE KEYS */;
 INSERT INTO `user_notification` VALUES (1,'2022-01-08 21:28:25.022000',_binary '','You are assigned to training: Guzel bir egitim',NULL,3,-1,'enrolled_training_notification');
 /*!40000 ALTER TABLE `user_notification` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -54,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-08 22:27:46
+-- Dump completed on 2022-01-09  0:26:32
