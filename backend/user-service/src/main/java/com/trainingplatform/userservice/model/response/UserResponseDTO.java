@@ -2,7 +2,6 @@ package com.trainingplatform.userservice.model.response;
 
 import lombok.*;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
