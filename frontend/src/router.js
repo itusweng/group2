@@ -4,6 +4,7 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/admin',
@@ -396,27 +397,34 @@ export default new Router({
         {
           path: '/profile',
           name: 'profile',
+          redirect: '/profile/overview',
           component: () => import('@/view/pages/profile/Profile.vue'),
           children: [
             {
-              path: 'profile-1',
-              name: 'profile-1',
-              component: () => import('@/view/pages/profile/Profile-1.vue')
+              path: 'overview',
+              name: 'profile-overview',
+              component: () => import('@/view/pages/profile/Overview')
             },
             {
-              path: 'profile-2',
-              name: 'profile-2',
-              component: () => import('@/view/pages/profile/Profile-2.vue')
+              path: 'personal-information',
+              name: 'profile-personal-information',
+              component: () =>
+                import('@/view/pages/profile/PersonalInformation')
             },
             {
-              path: 'profile-3',
-              name: 'profile-3',
-              component: () => import('@/view/pages/profile/Profile-3.vue')
+              path: 'account-info',
+              name: 'profile-account-info',
+              component: () => import('@/view/pages/profile/AccountInformation')
             },
             {
-              path: 'profile-4',
-              name: 'profile-4',
-              component: () => import('@/view/pages/profile/Profile-4.vue')
+              path: 'change-password',
+              name: 'profile-change-password',
+              component: () => import('@/view/pages/profile/ChangePassword')
+            },
+            {
+              path: 'email-settings',
+              name: 'profile-email-settings',
+              component: () => import('@/view/pages/profile/EmailSettings')
             }
           ]
         }

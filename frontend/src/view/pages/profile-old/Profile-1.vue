@@ -99,7 +99,7 @@
               >
                 <span class="navi-icon mr-2">
                   <span class="svg-icon">
-                    <inline-svg src="media/svg/icons/Design/Layers.svg" />
+                    <inline-svg src="/media/svg/icons/Design/Layers.svg" />
                   </span>
                 </span>
                 <span class="navi-text font-size-lg">Profile Overview</span>
@@ -117,7 +117,7 @@
               >
                 <span class="navi-icon mr-2">
                   <span class="svg-icon">
-                    <inline-svg src="media/svg/icons/General/User.svg" />
+                    <inline-svg src="/media/svg/icons/General/User.svg" />
                   </span>
                 </span>
                 <span class="navi-text font-size-lg">Personal Information</span>
@@ -135,7 +135,7 @@
               >
                 <span class="navi-icon mr-2">
                   <span class="svg-icon">
-                    <inline-svg src="media/svg/icons/Code/Compiling.svg" />
+                    <inline-svg src="/media/svg/icons/Code/Compiling.svg" />
                   </span>
                 </span>
                 <span class="navi-text font-size-lg">Account Information</span>
@@ -154,7 +154,7 @@
                 <span class="navi-icon mr-2">
                   <span class="svg-icon">
                     <inline-svg
-                      src="media/svg/icons/Communication/Shield-user.svg"
+                      src="/media/svg/icons/Communication/Shield-user.svg"
                     />
                   </span>
                 </span>
@@ -183,7 +183,7 @@
                 <span class="navi-icon mr-2">
                   <span class="svg-icon">
                     <inline-svg
-                      src="media/svg/icons/Communication/Mail-opened.svg"
+                      src="/media/svg/icons/Communication/Mail-opened.svg"
                     />
                   </span>
                 </span>
@@ -198,7 +198,7 @@
                 <span class="navi-icon mr-2">
                   <span class="svg-icon">
                     <inline-svg
-                      src="media/svg/icons/Layout/Layout-top-panel-6.svg"
+                      src="/media/svg/icons/Layout/Layout-top-panel-6.svg"
                     />
                   </span>
                 </span>
@@ -212,7 +212,7 @@
               >
                 <span class="navi-icon mr-2">
                   <span class="svg-icon">
-                    <inline-svg src="media/svg/icons/Files/File.svg" />
+                    <inline-svg src="/media/svg/icons/Files/File.svg" />
                   </span>
                 </span>
                 <span class="navi-text font-size-lg">Tax information</span>
@@ -234,7 +234,7 @@
               >
                 <span class="navi-icon mr-2">
                   <span class="svg-icon">
-                    <inline-svg src="media/svg/icons/Text/Article.svg" />
+                    <inline-svg src="/media/svg/icons/Text/Article.svg" />
                   </span>
                 </span>
                 <span class="navi-text">Statements</span>
@@ -277,11 +277,11 @@
 import { mapGetters } from 'vuex';
 import { SET_BREADCRUMB } from '@/core/store/breadcrumbs.module';
 import KTDropdown2 from '@/view/components/dropdown/Dropdown2';
-import KTProfileOverview from '@/view/pages/profile/profile-comp-1/ProfileOverview';
-import KTPersonalInformation from '@/view/pages/profile/profile-comp/PersonalInformation';
-import KTAccountInformation from '@/view/pages/profile/profile-comp/AccountInformation';
-import KTChangePassword from '@/view/pages/profile/profile-comp/ChangePassword';
-import KTEmailSettings from '@/view/pages/profile/profile-comp/EmailSettings';
+import KTProfileOverview from '@/view/pages/profile-old/profile-comp-1/ProfileOverview';
+import KTPersonalInformation from '@/view/pages/profile-old/profile-comp/PersonalInformation';
+import KTAccountInformation from '@/view/pages/profile-old/profile-comp/AccountInformation';
+import KTChangePassword from '@/view/pages/profile-old/profile-comp/ChangePassword';
+import KTEmailSettings from '@/view/pages/profile-old/profile-comp/EmailSettings';
 
 export default {
   name: 'custom-page',

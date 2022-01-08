@@ -27,7 +27,7 @@
         ref="kt_aside_tablet_and_mobile_toggle"
       >
         <span>
-          <inline-svg src="media/svg/icons/Text/Align-left.svg" />
+          <inline-svg src="/media/svg/icons/Text/Align-left.svg" />
         </span>
       </button>
       <!--end::Header Menu Mobile Toggle-->
@@ -39,7 +39,7 @@
       >
         <span class="svg-icon svg-icon-xl">
           <!--begin::Svg Icon | path:svg/icons/General/User.svg-->
-          <inline-svg class="svg-icon" src="media/svg/icons/General/User.svg" />
+          <inline-svg class="svg-icon" src="/media/svg/icons/General/User.svg" />
           <!--end::Svg Icon-->
         </span>
       </button>

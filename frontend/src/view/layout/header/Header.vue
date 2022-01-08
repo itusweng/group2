@@ -19,7 +19,7 @@
         >
           <span class="svg-icon svg-icon-xxl svg-icon-dark-75">
             <!--begin::Svg Icon | path:assets/media/svg/icons/Text/Align-left.svg-->
-            <inline-svg src="media/svg/icons/Text/Align-left.svg" />
+            <inline-svg src="/media/svg/icons/Text/Align-left.svg" />
             <!--end::Svg Icon-->
           </span>
         </button>
@@ -35,19 +35,19 @@
         </div>
 
         <!--begin::Desktop Search-->
-        <div
+<!--        <div
           class="quick-search quick-search-inline ml-20 w-300px"
           id="kt_quick_search_inline"
         >
-          <!--begin::Form-->
+          &lt;!&ndash;begin::Form&ndash;&gt;
           <form method="get" class="quick-search-form">
             <div class="input-group rounded bg-light">
               <div class="input-group-prepend">
                 <span class="input-group-text">
                   <span class="svg-icon svg-icon-lg">
-                    <!--begin::Svg Icon | path:assets/media/svg/icons/General/Search.svg-->
-                    <inline-svg src="media/svg/icons/General/Search.svg" />
-                    <!--end::Svg Icon-->
+                    &lt;!&ndash;begin::Svg Icon | path:assets/media/svg/icons/General/Search.svg&ndash;&gt;
+                    <inline-svg src="/media/svg/icons/General/Search.svg" />
+                    &lt;!&ndash;end::Svg Icon&ndash;&gt;
                   </span>
                 </span>
               </div>
@@ -65,15 +65,15 @@
               </div>
             </div>
           </form>
-          <!--end::Form-->
-          <!--begin::Search Toggle-->
+          &lt;!&ndash;end::Form&ndash;&gt;
+          &lt;!&ndash;begin::Search Toggle&ndash;&gt;
           <div
             id="kt_quick_search_toggle"
             data-toggle="dropdown"
             data-offset="0px,1px"
           ></div>
-          <!--end::Search Toggle-->
-          <!--begin::Dropdown-->
+          &lt;!&ndash;end::Search Toggle&ndash;&gt;
+          &lt;!&ndash;begin::Dropdown&ndash;&gt;
           <div
             class="
               dropdown-menu
@@ -89,8 +89,8 @@
               data-mobile-height="200"
             ></div>
           </div>
-          <!--end::Dropdown-->
-        </div>
+          &lt;!&ndash;end::Dropdown&ndash;&gt;
+        </div>-->
         <!--end::Desktop Search-->
       </div>
 

@@ -3,8 +3,8 @@
   "self": {
     "layout": "default",
     "logo": {
-      "default": "media/logos/logo-letter-1.png",
-      "sticky": "media/logos/logo-letter-1.png"
+      "default": "/media/logos/logo-letter-1.png",
+      "sticky": "/media/logos/logo-letter-1.png"
     }
   },
   "loader": {

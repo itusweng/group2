@@ -7,7 +7,7 @@
     >
       <div class="alert-icon">
         <span class="svg-icon svg-icon-lg">
-          <inline-svg src="media/svg/icons/Tools/Compass.svg" />
+          <inline-svg src="/media/svg/icons/Tools/Compass.svg" />
         </span>
       </div>
       <div class="alert-text">
@@ -30,7 +30,7 @@
                 v-b-tooltip="'Approve'"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg src="media/svg/icons/General/Check.svg" />
+                  <inline-svg src="/media/svg/icons/General/Check.svg" />
                 </span>
               </b-button>
               <b-button
@@ -39,7 +39,7 @@
                 v-b-tooltip="'Reject'"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg src="media/svg/icons/Navigation/Close.svg" />
+                  <inline-svg src="/media/svg/icons/Navigation/Close.svg" />
                 </span>
               </b-button>
             </template>

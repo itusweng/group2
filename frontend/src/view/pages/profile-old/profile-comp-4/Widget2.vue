@@ -14,7 +14,7 @@
         <a href="#" class="btn btn-success font-weight-bolder font-size-sm">
           <span class="svg-icon svg-icon-md svg-icon-white">
             <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg-->
-            <inline-svg src="media/svg/icons/Communication/Add-user.svg" />
+            <inline-svg src="/media/svg/icons/Communication/Add-user.svg" />
             <!--end::Svg Icon--> </span
           >Add New Member</a
         >
@@ -132,7 +132,7 @@
                     <span class="svg-icon svg-icon-md svg-icon-primary">
                       <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
                       <inline-svg
-                        src="media/svg/icons/General/Settings-1.svg"
+                        src="/media/svg/icons/General/Settings-1.svg"
                       />
                       <!--end::Svg Icon-->
                     </span>
@@ -144,7 +144,7 @@
                     <span class="svg-icon svg-icon-md svg-icon-primary">
                       <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                       <inline-svg
-                        src="media/svg/icons/Communication/Write.svg"
+                        src="/media/svg/icons/Communication/Write.svg"
                       />
                       <!--end::Svg Icon-->
                     </span>
@@ -155,7 +155,7 @@
                   >
                     <span class="svg-icon svg-icon-md svg-icon-primary">
                       <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
-                      <inline-svg src="media/svg/icons/General/Trash.svg" />
+                      <inline-svg src="/media/svg/icons/General/Trash.svg" />
                       <!--end::Svg Icon-->
                     </span>
                   </a>

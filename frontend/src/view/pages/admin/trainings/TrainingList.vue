@@ -7,7 +7,7 @@
     >
       <div class="alert-icon">
         <span class="svg-icon svg-icon-lg">
-          <inline-svg src="media/svg/icons/Tools/Compass.svg" />
+          <inline-svg src="/media/svg/icons/Tools/Compass.svg" />
         </span>
       </div>
       <div class="alert-text">
@@ -33,7 +33,7 @@
                 v-b-tooltip="'Details'"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg src="media/svg/icons/General/Settings-1.svg" />
+                  <inline-svg src="/media/svg/icons/General/Settings-1.svg" />
                 </span>
               </b-button>
               <b-button
@@ -42,7 +42,7 @@
                 v-b-tooltip="'Edit'"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg src="media/svg/icons/Communication/Write.svg" />
+                  <inline-svg src="/media/svg/icons/Communication/Write.svg" />
                 </span>
               </b-button>
               <b-button
@@ -51,7 +51,7 @@
                 @click="deleteTraining(item)"
               >
                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                  <inline-svg src="media/svg/icons/General/Trash.svg" />
+                  <inline-svg src="/media/svg/icons/General/Trash.svg" />
                 </span>
               </b-button>
             </template>
