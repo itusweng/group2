@@ -1,5 +1,5 @@
 <template>
-  <div class="topbar-item">
+  <div class="topbar-item mr-5">
     <div id="kt_quick_notifications_toggle">
       <div class="btn btn-icon btn-sm btn-primary font-weight-bolder p-0">
         3

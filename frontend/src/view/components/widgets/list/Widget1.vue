@@ -40,7 +40,7 @@
           <span class="nav-icon py-2 w-auto">
             <span class="svg-icon svg-icon-3x">
               <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
-              <inline-svg src="media/svg/icons/Home/Library.svg" />
+              <inline-svg src="/media/svg/icons/Home/Library.svg" />
               <!--end::Svg Icon-->
             </span>
           </span>
@@ -71,7 +71,7 @@
           <span class="nav-icon py-2 w-auto">
             <span class="svg-icon svg-icon-3x">
               <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
-              <inline-svg src="media/svg/icons/Layout/Layout-4-blocks.svg" />
+              <inline-svg src="/media/svg/icons/Layout/Layout-4-blocks.svg" />
               <!--end::Svg Icon-->
             </span>
           </span>
@@ -103,7 +103,7 @@
         >
           <span class="nav-icon py-2 w-auto">
             <span class="svg-icon svg-icon-3x">
-              <inline-svg src="media/svg/icons/Media/Movie-Lane2.svg" />
+              <inline-svg src="/media/svg/icons/Media/Movie-Lane2.svg" />
             </span>
           </span>
           <span
@@ -134,7 +134,7 @@
           <span class="nav-icon py-2 w-auto">
             <span class="svg-icon svg-icon-3x">
               <!--begin::Svg Icon | path:assets/media/svg/icons/Media/Equalizer.svg-->
-              <inline-svg src="media/svg/icons/Media/Equalizer.svg" />
+              <inline-svg src="/media/svg/icons/Media/Equalizer.svg" />
               <!--end::Svg Icon-->
             </span>
           </span>
@@ -163,7 +163,7 @@
         >
           <span class="nav-icon py-2 w-auto">
             <span class="svg-icon svg-icon-3x">
-              <inline-svg src="media/svg/icons/General/Shield-check.svg" />
+              <inline-svg src="/media/svg/icons/General/Shield-check.svg" />
             </span>
           </span>
           <span
@@ -193,7 +193,7 @@
         >
           <span class="nav-icon py-2 w-auto">
             <span class="svg-icon svg-icon-3x">
-              <inline-svg src="media/svg/icons/Communication/Group.svg" />
+              <inline-svg src="/media/svg/icons/Communication/Group.svg" />
             </span>
           </span>
           <span

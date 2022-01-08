@@ -8,7 +8,7 @@
       <div class="alert-icon alert-icon-top">
         <span class="svg-icon svg-icon-3x svg-icon-primary mt-4">
           <!--begin::Svg Icon-->
-          <inline-svg src="media/svg/icons/Tools/Tools.svg" />
+          <inline-svg src="/media/svg/icons/Tools/Tools.svg" />
           <!--end::Svg Icon-->
         </span>
       </div>

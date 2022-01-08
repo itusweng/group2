@@ -5,7 +5,7 @@
       id="kt_quick_panel_toggle"
     >
       <span class="svg-icon svg-icon-lg">
-        <inline-svg src="media/svg/icons/Media/Equalizer.svg" />
+        <inline-svg src="/media/svg/icons/Media/Equalizer.svg" />
       </span>
     </div>
 

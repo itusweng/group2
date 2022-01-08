@@ -12,7 +12,7 @@ export const TEST = 'TEST';
 
 const state = {
   user_personal_info: {
-    photo: 'media/users/300_21.jpg',
+    photo: '/media/users/300_21.jpg',
     name: 'James',
     surname: 'Jones',
     company_name: 'Fifestudios',

@@ -11,5 +11,5 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @SuperBuilder
 @NoArgsConstructor
-public class BaseRequestDTO {
+public abstract class BaseRequestDTO {
 }
