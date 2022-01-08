@@ -81,7 +81,7 @@ export default {
         const { data } = await this.axios.post(
           '/training/participation/listAll',
           {
-            managerId: this.$store.getters.currentUser.id,
+            managerGroupId: this.$store.getters.currentUser.manager_group_id,
             page: 0,
             size: 10
           }
