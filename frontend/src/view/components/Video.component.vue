@@ -6,7 +6,8 @@
 
 <script>
 import videojs from 'video.js';
-import 'video.js/dist/video-js.css'
+import 'video.js/dist/video-js.css';
+
 export default {
   name: 'VideoPlayer',
   props: {
@@ -39,5 +40,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
