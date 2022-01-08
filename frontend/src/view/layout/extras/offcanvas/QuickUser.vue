@@ -24,10 +24,7 @@
           pb-5
         "
       >
-        <h3 class="font-weight-bold m-0">
-          User Profile
-          <small class="text-muted font-size-sm ml-2">12 messages</small>
-        </h3>
+        <h3 class="font-weight-bold m-0">User Profile</h3>
         <a
           href="#"
           class="btn btn-xs btn-icon btn-light btn-hover-primary"
@@ -57,7 +54,7 @@
                 text-dark-75 text-hover-primary
               "
             >
-              James Jones
+              {{ currentUser.first_name }} {{ currentUser.last_name }}
             </a>
             <div class="text-muted mt-1">Application Developer</div>
             <div class="navi mt-2">
@@ -73,7 +70,7 @@
                     </span>
                   </span>
                   <span class="navi-text text-muted text-hover-primary">
-                    jm@softplus.com
+                    {{ currentUser.email }}
                   </span>
                 </span>
               </a>
@@ -89,9 +86,8 @@
         <div class="navi navi-spacer-x-0 p-0">
           <!--begin::Item-->
           <router-link
-            to="/builder"
+            to="/profile/overview"
             @click.native="closeOffcanvas"
-            href="#"
             class="navi-item"
           >
             <div class="navi-link">
@@ -108,26 +104,14 @@
               </div>
               <div class="navi-text">
                 <div class="font-weight-bold">My Profile</div>
-                <div class="text-muted">
-                  Account settings and more
-                  <span
-                    class="
-                      label label-light-danger label-inline
-                      font-weight-bold
-                    "
-                  >
-                    update
-                  </span>
-                </div>
               </div>
             </div>
           </router-link>
           <!--end:Item-->
           <!--begin::Item-->
           <router-link
-            to="/builder"
+            to="/profile/personal-information"
             @click.native="closeOffcanvas"
-            href="#"
             class="navi-item"
           >
             <div class="navi-link">
@@ -135,23 +119,23 @@
                 <div class="symbol-label">
                   <span class="svg-icon svg-icon-md svg-icon-warning">
                     <!--begin::Svg Icon-->
-                    <inline-svg src="/media/svg/icons/Shopping/Chart-bar1.svg" />
+                    <inline-svg
+                      src="/media/svg/icons/Shopping/Chart-bar1.svg"
+                    />
                     <!--end::Svg Icon-->
                   </span>
                 </div>
               </div>
               <div class="navi-text">
-                <div class="font-weight-bold">My Messages</div>
-                <div class="text-muted">Inbox and tasks</div>
+                <div class="font-weight-bold">Personal Info</div>
               </div>
             </div>
           </router-link>
           <!--end:Item-->
           <!--begin::Item-->
           <router-link
-            to="/builder"
+            to="/profile/account-info"
             @click.native="closeOffcanvas"
-            href="#"
             class="navi-item"
           >
             <div class="navi-link">
@@ -159,23 +143,23 @@
                 <div class="symbol-label">
                   <span class="svg-icon svg-icon-md svg-icon-danger">
                     <!--begin::Svg Icon-->
-                    <inline-svg src="/media/svg/icons/Files/Selected-file.svg" />
+                    <inline-svg
+                      src="/media/svg/icons/Files/Selected-file.svg"
+                    />
                     <!--end::Svg Icon-->
                   </span>
                 </div>
               </div>
               <div class="navi-text">
-                <div class="font-weight-bold">My Activities</div>
-                <div class="text-muted">Logs and notifications</div>
+                <div class="font-weight-bold">Account Information</div>
               </div>
             </div>
           </router-link>
           <!--end:Item-->
           <!--begin::Item-->
           <router-link
-            to="/builder"
+            to="/profile/email-settings"
             @click.native="closeOffcanvas"
-            href="#"
             class="navi-item"
           >
             <div class="navi-link">
@@ -191,8 +175,7 @@
                 </div>
               </div>
               <div class="navi-text">
-                <div class="font-weight-bold">My Tasks</div>
-                <div class="text-muted">latest tasks and projects</div>
+                <div class="font-weight-bold">Email Settings</div>
               </div>
             </div>
           </router-link>
@@ -200,55 +183,6 @@
         </div>
         <!--end::Nav-->
         <div class="separator separator-dashed my-7"></div>
-        <!--begin::Notifications-->
-        <div>
-          <!--begin:Heading-->
-          <h5 class="mb-5">Recent Notifications</h5>
-          <!--end:Heading-->
-          <template v-for="(item, i) in list">
-            <!--begin::Item -->
-            <div
-              class="d-flex align-items-center rounded p-5 gutter-b"
-              v-bind:class="`bg-light-${item.type}`"
-              v-bind:key="i"
-            >
-              <span
-                class="svg-icon mr-5"
-                v-bind:class="`svg-icon-${item.type}`"
-              >
-                <span class="svg-icon svg-icon-lg">
-                  <!--begin::Svg Icon-->
-                  <inline-svg :src="item.svg" />
-                  <!--end::Svg Icon-->
-                </span>
-              </span>
-              <div class="d-flex flex-column flex-grow-1 mr-2">
-                <a
-                  href="#"
-                  class="
-                    font-weight-normal
-                    text-dark-75 text-hover-primary
-                    font-size-lg
-                    mb-1
-                  "
-                >
-                  {{ item.title }}
-                </a>
-                <span class="text-muted font-size-sm">
-                  {{ item.desc }}
-                </span>
-              </div>
-              <span
-                class="font-weight-bolder py-1 font-size-lg"
-                v-bind:class="`text-${item.type}`"
-              >
-                {{ item.alt }}
-              </span>
-            </div>
-            <!--end::Item -->
-          </template>
-        </div>
-        <!--end::Notifications-->
       </perfect-scrollbar>
       <!--end::Content-->
     </div>
@@ -265,45 +199,14 @@
 import { LOGOUT } from '@/core/store/auth.module';
 import KTLayoutQuickUser from '@/assets/js/layout/extended/quick-user.js';
 import KTOffcanvas from '@/assets/js/components/offcanvas.js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'KTQuickUser',
   data() {
-    return {
-      list: [
-        {
-          title: 'Another purpose persuade',
-          desc: 'Due in 2 Days',
-          alt: '+28%',
-          svg: 'media/svg/icons/Home/Library.svg',
-          type: 'warning'
-        },
-        {
-          title: 'Would be to people',
-          desc: 'Due in 2 Days',
-          alt: '+50%',
-          svg: 'media/svg/icons/Communication/Write.svg',
-          type: 'success'
-        },
-        {
-          title: 'Purpose would be to persuade',
-          desc: 'Due in 2 Days',
-          alt: '-27%',
-          svg: 'media/svg/icons/Communication/Group-chat.svg',
-          type: 'danger'
-        },
-        {
-          title: 'The best product',
-          desc: 'Due in 2 Days',
-          alt: '+8%',
-          svg: 'media/svg/icons/General/Attachment2.svg',
-          type: 'info'
-        }
-      ]
-    };
+    return {};
   },
   mounted() {
-    // Init Quick User Panel
     KTLayoutQuickUser.init(this.$refs['kt_quick_user']);
   },
   methods: {
@@ -317,6 +220,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['currentUser']),
     picture() {
       return process.env.BASE_URL + 'media/users/300_21.jpg';
     }
