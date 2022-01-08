@@ -29,8 +29,9 @@ public class NotificationController {
     public void createUserParticipatedToTrainingNotification(UserParticipatedNotificationRequestDTO requestDTO) {
         try {
             Long trainingID = requestDTO.getTrainingId();
+            String trainingTitle = requestDTO.getTrainingTitle();
             Long userID = requestDTO.getUserId();
-            userNotificationService.createUserParticipatedToTrainingNotification(trainingID, userID);
+            userNotificationService.createUserParticipatedToTrainingNotification(trainingID, trainingTitle, userID);
         }
         catch (Exception e){
             e.printStackTrace();

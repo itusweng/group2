@@ -22,6 +22,9 @@ public class User_TrainingParticipationNotifModel {
     @Column(name="training_id")
     private Long trainingId;
 
+    @Column(name="training_title")
+    private String trainingTitle;
+
     @Column(name="user_id")
     private Long userId;
 

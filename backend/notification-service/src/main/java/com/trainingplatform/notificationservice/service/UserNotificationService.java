@@ -12,12 +12,13 @@ public class UserNotificationService {
 
     private final User_TrainingParticipationNotifRepo trainingParticipationRepo;
 
-    public void createUserParticipatedToTrainingNotification(Long trainingID, Long userID) {
+    public void createUserParticipatedToTrainingNotification(Long trainingID, String trainingTitle, Long userID) {
         User_TrainingParticipationNotifModel model = User_TrainingParticipationNotifModel.builder()
                 .trainingId(trainingID)
                 .userId(userID)
+                .trainingTitle(trainingTitle)
                 .isRead(false)
-                .message(NotificationMessages.User.TRAINING_PARTICIPATION)
+                .message(String.format(NotificationMessages.User.TRAINING_PARTICIPATION, trainingTitle))
                 .build();
 
         trainingParticipationRepo.save(model);
