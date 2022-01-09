@@ -2,7 +2,7 @@
   <div class="topbar-item mr-5">
     <div id="kt_quick_notifications_toggle">
       <div class="btn btn-icon btn-sm btn-primary font-weight-bolder p-0">
-        3
+        {{ unreadCount }}
       </div>
     </div>
 
@@ -23,7 +23,9 @@
       >
         <h3 class="font-weight-bold m-0">
           Notifications
-          <small class="text-muted font-size-sm ml-2">24 New</small>
+          <small class="text-muted font-size-sm ml-2">
+            {{ unreadCount }} New
+          </small>
         </h3>
         <a
           href="#"
@@ -79,11 +81,13 @@ export default {
           icon: 'flaticon-bell text-success'
         }
       ],
-      total: 0
+      total: 0,
+      unreadCount: 0
     };
   },
   created() {
-    this.getNotifications()
+    this.getNotifications();
+    this.getUnreadNotifications();
   },
   mounted() {
     // Init Quick Offcanvas Panel
@@ -103,6 +107,24 @@ export default {
         );
         this.list = data.data.notifications;
         this.total = data.data.total;
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.loading = false;
+      }
+    },
+    async getUnreadNotifications() {
+      try {
+        this.loading = true;
+        const { data } = await this.axios.post(
+          '/notification/user/getAllUnreadByUserId',
+          {
+            userId: this.$store.getters.currentUser.id,
+            page: 0,
+            size: 10
+          }
+        );
+        this.unreadCount = data.data.total;
       } catch (e) {
         console.log(e);
       } finally {
