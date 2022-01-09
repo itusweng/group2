@@ -135,6 +135,7 @@ public class UserController extends BaseController {
         trainingIdUserIdMap.forEach((trainingId, userId) -> {
             User user = userService.getUserByID(userId);
             UserResponseDTO userResponseDTO = userMapper.mapToDto(user);
+            userResponseDTO.setRole_name(userRoleService.getUserRoleNameByRoleId(user.getRole_id()));
             userResponseDTOMap.put(trainingId, userResponseDTO);
         });
         return ResponseEntity.ok(userResponseDTOMap);
