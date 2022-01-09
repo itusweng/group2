@@ -45,4 +45,8 @@ public class UserRoleService {
         user.setRole_id(roleId);
         userRepo.save(user);
     }
+
+    public String getUserRoleNameByRoleId(Long roleId){
+        return userRoleRepo.findByRoleId(roleId).getRoleName();
+    }
 }

@@ -31,7 +31,7 @@ public class UserService {
     private final UserRoleRepository userRoleRepo;
 
     public Map<String, Object> getAllUsers(Integer page, Integer size) {
-        Map<String, Object> returnMap=new HashMap<>();
+        Map<String, Object> returnMap = new HashMap<>();
         List<User> userList = userRepo.findAll(PageRequest.of(page, size)).getContent();
         long userCount = userRepo.countAllUsers();
 
@@ -93,9 +93,10 @@ public class UserService {
         return user.getManager_group_id();
     }
 
-    public String getUserRoleNameByUserRoleId(Long userId){
+    public String getUserRoleNameByUserRoleId(Long userId) {
         return userRoleRepo.findByRoleId(userId).getRoleName();
     }
+
     public Set<User> getAllUsersByUserRoleId(Long userRoleId) {
         Set<User> userSet = userRepo.findAllByByRole_id(userRoleId);
         return userSet;
