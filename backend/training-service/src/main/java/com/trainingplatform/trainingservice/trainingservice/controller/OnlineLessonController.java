@@ -20,7 +20,6 @@ import java.util.List;
 public class OnlineLessonController extends BaseController{
     private final OnlineLessonService onlineLessonService;
     private final OnlineLessonModelMapper onlineLessonModelMapper;
-    private final OnlineLessonRepository onlineLessonRepo;
     private final TrainingRepository trainingRepo;
 
     @GetMapping("/getAllLessons/{trainingId}")
