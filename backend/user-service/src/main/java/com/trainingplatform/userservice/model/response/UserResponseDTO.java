@@ -21,4 +21,6 @@ public class UserResponseDTO extends BaseResponseDTO{
 
     private String profile_photo;
 
+    private String email;
+
 }
