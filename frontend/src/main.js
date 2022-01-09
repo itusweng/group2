@@ -33,8 +33,10 @@ import { toolMixin } from '@/core/utils/mixins/tool';
 
 // Global Components
 import Card from '@/view/components/Card';
+import Pagination from '@/view/components/Pagination';
 
 Vue.component('card', Card);
+Vue.component('pagination', Pagination);
 
 Vue.mixin(validationMixin);
 Vue.mixin(toolMixin);
@@ -59,5 +61,5 @@ new Vue({
   router,
   store,
   i18n,
-  render: (h) => h(App)
+  render: h => h(App)
 }).$mount('#app');
