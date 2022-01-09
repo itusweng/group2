@@ -4,9 +4,9 @@ import com.trainingplatform.trainingservice.trainingservice.model.entity.Offline
 import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelRequestMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelResponseMapper;
-import com.trainingplatform.trainingservice.trainingservice.model.request.OfflineLessonRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.request.OfflineLessonStreamRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.OfflineLessonResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.offlinelesson.OfflineLessonRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.offlinelesson.OfflineLessonStreamRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.offlinelesson.OfflineLessonResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.repository.OfflineLessonRepository;
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import com.trainingplatform.trainingservice.trainingservice.service.OfflineLessonService;
