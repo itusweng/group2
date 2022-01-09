@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/training/participationRequest").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/training/byParticipantId/{participantId}/getAll").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/training/{trainingId}/isUserParticipated/{userId}").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/training/getTraining/byId/{trainingId}").authenticated()
 
                 .antMatchers(HttpMethod.GET, "/api/training/offlineLesson/getAllLessons/{trainingId}").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/update/{offlineLessonId}").hasAuthority("ROLE_MANAGER")
