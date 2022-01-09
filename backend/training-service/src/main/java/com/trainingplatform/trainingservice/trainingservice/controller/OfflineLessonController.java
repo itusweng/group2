@@ -1,7 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
-import com.trainingplatform.trainingservice.trainingservice.model.request.OfflineLessonRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.OfflineLessonResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.offlinelesson.OfflineLessonRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.offlinelesson.OfflineLessonResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.service.OfflineLessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

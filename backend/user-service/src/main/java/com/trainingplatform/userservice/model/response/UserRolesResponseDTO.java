@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class GetAllUserRolesResponseDTO extends BaseResponseDTO{
+public class UserRolesResponseDTO extends BaseResponseDTO {
 
     private Long id;
     private String roleName;

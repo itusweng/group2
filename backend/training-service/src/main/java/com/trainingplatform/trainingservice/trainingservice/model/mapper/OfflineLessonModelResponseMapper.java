@@ -1,7 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.model.mapper;
 
 import com.trainingplatform.trainingservice.trainingservice.model.entity.OfflineLessonModel;
-import com.trainingplatform.trainingservice.trainingservice.model.response.OfflineLessonResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.offlinelesson.OfflineLessonResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 

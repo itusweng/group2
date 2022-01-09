@@ -1,10 +1,15 @@
 package com.trainingplatform.userservice.controller;
 
+import com.trainingplatform.userservice.model.entity.UserRole;
+import com.trainingplatform.userservice.model.request.AssignUserToUserRoleRequestDTO;
+import com.trainingplatform.userservice.model.request.CreateUserRoleRequestDTO;
 import com.trainingplatform.userservice.model.response.ManagerGroupResponseDTO;
 import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.model.mapper.UserMapper;
+import com.trainingplatform.userservice.model.response.UserRolesResponseDTO;
+import com.trainingplatform.userservice.service.UserRoleService;
 import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,6 +41,19 @@ public class UserController extends BaseController {
             });
             userDtoMap.put("users", userDtoList);
             return ResponseEntity.ok(createReturnObj("Users fetched successfully!", userDtoMap));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/getAllUsers/byUserRoleId/{userRoleId}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAllUsersByUserRoleId(@PathVariable Long userRoleId) {
+        try {
+            Set<User> users = userService.getAllUsersByUserRoleId(userRoleId);
+            Set<UserResponseDTO> userDtoList = userMapper.mapToDto(users);
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("Users fetched successfully by role id %d!", userRoleId), userDtoList));
         } catch (Exception e) {
             return exceptionHandler(e);
         }
@@ -129,4 +147,5 @@ public class UserController extends BaseController {
         }
     }
 }
+
 
