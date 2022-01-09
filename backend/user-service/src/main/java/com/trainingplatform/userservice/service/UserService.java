@@ -101,4 +101,14 @@ public class UserService {
         Set<User> userSet = userRepo.findAllByByRole_id(userRoleId);
         return userSet;
     }
+
+    public User updateUser(User updatedUser) {
+        User existingUser = userRepo
+                .findById(updatedUser.getId())
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No user found by id %d", updatedUser.getId())));
+        userMapper.updateFields(existingUser, updatedUser);
+
+        userRepo.save(existingUser);
+        return existingUser;
+    }
 }

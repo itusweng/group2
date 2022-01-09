@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -102,5 +103,16 @@ public class TrainingService {
     public Boolean isUserParticipated(Long trainingId, Long userId) {
         boolean isParticipated = trainingParticipatedUserRepo.existsUser_ParticipatedTrainingModelByUserIdAndTrainingId(trainingId, userId);
         return isParticipated;
+    }
+
+    public void updateTraining(TrainingModel training) {
+        TrainingModel existingTraining = trainingRepo
+                .findById(training.getId())
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No training found by id %d", training.getId())));
+
+        trainingModelMapper.updateFields(existingTraining, training);
+        existingTraining.setUpdated_date(new Date());
+
+        trainingRepo.save(existingTraining);
     }
 }

@@ -105,6 +105,18 @@ public class UserController extends BaseController {
         }
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<Map<String, Object>> updateUser(@RequestBody User user) {
+        try {
+            User updatedUser = userService.updateUser(user);
+            UserResponseDTO userDTO = userMapper.mapToDto(updatedUser);
+            userDTO.setRole_name(userRoleService.getUserRoleNameByRoleId(updatedUser.getRole_id()));
+            return ResponseEntity.ok(createReturnObj(String.format("User id:%d updated successfully!", user.getId()), userDTO));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginWithPassword(@RequestBody UserCredentials userCredentials) {
         try {
@@ -123,6 +135,7 @@ public class UserController extends BaseController {
         trainingIdUserIdMap.forEach((trainingId, userId) -> {
             User user = userService.getUserByID(userId);
             UserResponseDTO userResponseDTO = userMapper.mapToDto(user);
+            userResponseDTO.setRole_name(userRoleService.getUserRoleNameByRoleId(user.getRole_id()));
             userResponseDTOMap.put(trainingId, userResponseDTO);
         });
         return ResponseEntity.ok(userResponseDTOMap);
