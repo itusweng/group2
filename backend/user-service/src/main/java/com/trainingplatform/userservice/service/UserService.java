@@ -3,7 +3,8 @@ package com.trainingplatform.userservice.service;
 import com.trainingplatform.userservice.exception.UserNotCreatedException;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
-import com.trainingplatform.userservice.model.entity.UserRole;
+import com.trainingplatform.userservice.model.mapper.UserMapper;
+import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.repository.UserRepository;
 import com.trainingplatform.userservice.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,8 @@ public class UserService {
     private final UserRepository userRepo;
     private final KeycloakService keycloakService;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+    private final UserRoleRepository userRoleRepo;
 
     public Map<String, Object> getAllUsers(Integer page, Integer size) {
         Map<String, Object> returnMap=new HashMap<>();
@@ -73,7 +76,9 @@ public class UserService {
         User user = getUserByUsername(userCredentials.getUsername());
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
-        response.put("user", user);
+        UserResponseDTO userDTO = userMapper.mapToDto(user);
+        userDTO.setRole_name(getUserRoleNameByUserRoleId(user.getRole_id()));
+        response.put("user", userDTO);
         return response;
     }
 
@@ -89,5 +94,9 @@ public class UserService {
     public Long getManagerGroupIdByUserId(Long userId) {
         User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException());
         return user.getManager_group_id();
+    }
+
+    public String getUserRoleNameByUserRoleId(Long userId){
+        return userRoleRepo.findByRoleId(userId).getRoleName();
     }
 }
