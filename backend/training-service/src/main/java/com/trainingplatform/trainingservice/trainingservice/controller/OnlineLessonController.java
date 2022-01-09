@@ -24,10 +24,21 @@ public class OnlineLessonController extends BaseController{
     private final TrainingRepository trainingRepo;
 
     @GetMapping("/getAllLessons/{trainingId}")
-    public ResponseEntity<HashMap<String, Object>> getAllTrainings(@PathVariable Long trainingId) {
+    public ResponseEntity<HashMap<String, Object>> getAllOnlineLessons(@PathVariable Long trainingId) {
         try {
             List<OnlineLessonResponseDTO> onlineLessons = onlineLessonService.getOnlineLessons(trainingId);
             return ResponseEntity.ok(createReturnObj("Online lessons fetched successfully!", onlineLessons));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/getLesson/byId/{lessonId}")
+    public ResponseEntity<HashMap<String, Object>> getOnlineLessonById(@PathVariable Long lessonId) {
+        try {
+            OnlineLessonModel onlineLessonModel = onlineLessonService.getOnlineLessonById(lessonId);
+            OnlineLessonResponseDTO onlineLessonDTO = onlineLessonModelMapper.mapToDto(onlineLessonModel);
+            return ResponseEntity.ok(createReturnObj("Online lessons fetched successfully!", onlineLessonDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }

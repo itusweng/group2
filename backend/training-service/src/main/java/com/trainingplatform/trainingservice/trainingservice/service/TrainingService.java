@@ -1,5 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.trainingplatform.trainingservice.trainingservice.communication.UserClient;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
 import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
@@ -28,6 +30,7 @@ public class TrainingService {
     private final User_ParticipatedTrainingRepo trainingParticipatedUserRepo;
     private final UserClient userClient;
     private final TrainingModelMapper trainingModelMapper;
+    private final ObjectMapper objectMapper;
 
     public List<TrainingModel> getAllTrainings() {
         List<TrainingModel> trainingModels = trainingRepo.findAll();
@@ -87,6 +90,14 @@ public class TrainingService {
     public Map<Long, UserResponseDTO> getTrainingUsersByID(Map<Long, Long> userList) {
         return userClient.getTrainingUsersByID(userList).getBody();
     }
+
+    public UserResponseDTO getSingleTrainingUserByID(Long userId) {
+        Map<String, Object> userResponseMap = userClient.getUserByID(userId).getBody();
+        UserResponseDTO userResponseDTO = objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                .convertValue(userResponseMap.get("data"), UserResponseDTO.class);
+        return userResponseDTO;
+    }
+
 
     public Boolean isUserParticipated(Long trainingId, Long userId) {
         boolean isParticipated = trainingParticipatedUserRepo.existsUser_ParticipatedTrainingModelByUserIdAndTrainingId(trainingId, userId);

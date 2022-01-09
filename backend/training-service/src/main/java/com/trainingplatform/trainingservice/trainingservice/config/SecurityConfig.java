@@ -42,16 +42,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/training/participationRequest").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/training/byParticipantId/{participantId}/getAll").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/training/{trainingId}/isUserParticipated/{userId}").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/training/getTraining/byId/{trainingId}").authenticated()
 
                 .antMatchers(HttpMethod.GET, "/api/training/offlineLesson/getAllLessons/{trainingId}").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/update/{offlineLessonId}").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/offlineLesson/").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.DELETE, "/api/training/offlineLesson/{trainingId}/{offlineLessonId}").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.GET, "/api/training/offlineLesson/getLesson/byId/{lessonId}").authenticated()
 
                 .antMatchers(HttpMethod.GET, "/api/training/onlineLesson/getAllLessons/{trainingId}").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/training/onlineLesson/update/{onlineLessonId}").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/onlineLesson/").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.DELETE, "/api/training/onlineLesson/{onlineLessonId}").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.GET, "/api/training/onlineLesson/getLesson/byId/{lessonId}").authenticated()
 
                 .antMatchers(HttpMethod.POST, "/api/training/participation/request").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/training/participation/listAll").hasAuthority("ROLE_MANAGER")
