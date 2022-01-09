@@ -84,7 +84,7 @@
           <form-group name="is_online" lg="9" xl="6" no-label no-margin>
             <span
               slot-scope="{ attrs, listeners }"
-              class="switch switch-sm switch-primary"
+              class="switch switch-sm"
             >
               <label>
                 <input
