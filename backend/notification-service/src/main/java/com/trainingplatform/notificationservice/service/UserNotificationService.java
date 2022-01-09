@@ -37,7 +37,7 @@ public class UserNotificationService {
     }
 
     public Long countOfAllUserNotificationByUserId(Long userId) {
-        return userNotificationRepo.countAllUnreadUserNotificationByUserId(userId);
+        return userNotificationRepo.countAllUserNotificationByUserId(userId);
     }
 
     public Long countOfUnreadUserNotificationByUserId(Long userId) {
