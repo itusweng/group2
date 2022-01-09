@@ -2,7 +2,6 @@ package com.trainingplatform.userservice.model.response;
 
 import lombok.*;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,6 +14,8 @@ public class UserResponseDTO extends BaseResponseDTO{
     private String first_name;
 
     private String last_name;
+
+    private Long role_id;
 
     private String role;
 

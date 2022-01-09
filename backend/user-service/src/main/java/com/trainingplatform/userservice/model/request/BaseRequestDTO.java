@@ -1,4 +1,15 @@
-package com.trainingplatform.userservice.model.response;
+package com.trainingplatform.userservice.model.request;
 
-public abstract class BaseResponseDTO {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+@Getter
+@Setter
+@ToString
+@SuperBuilder
+@NoArgsConstructor
+public abstract class BaseRequestDTO {
 }

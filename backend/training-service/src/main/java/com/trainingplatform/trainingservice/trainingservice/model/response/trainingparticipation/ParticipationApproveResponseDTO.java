@@ -1,5 +1,6 @@
-package com.trainingplatform.trainingservice.trainingservice.model.response;
+package com.trainingplatform.trainingservice.trainingservice.model.response.trainingparticipation;
 
+import com.trainingplatform.trainingservice.trainingservice.model.response.BaseResponseDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
