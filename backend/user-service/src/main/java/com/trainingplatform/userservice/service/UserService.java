@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -89,5 +86,10 @@ public class UserService {
     public Long getManagerGroupIdByUserId(Long userId) {
         User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException());
         return user.getManager_group_id();
+    }
+
+    public Set<User> getAllUsersByUserRoleId(Long userRoleId) {
+        Set<User> userSet = userRepo.findAllByByRole_id(userRoleId);
+        return userSet;
     }
 }

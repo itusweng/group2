@@ -26,10 +26,16 @@ import com.trainingplatform.trainingservice.trainingservice.repository.User_Requ
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.cloud.client.loadbalancer.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transaction;
+import javax.transaction.Transactional;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -188,9 +194,33 @@ public class TrainingParticipationService {
         return approveResponseDTOList;
     }
 
+
+    @Transactional
+    public void approveParticipationRequestsByUserRoleId(Long userRoleId) throws Exception {
+        try {
+            Map<String, Object> usersResponseMap = userClient.getAllUsersByUserRoleId(userRoleId).getBody();
+            Set<Long> userIdSet = (Set<Long>) ((List)usersResponseMap.get("data")).stream()
+                    .map(user -> objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                                .convertValue(user, UserResponseDTO.class ).getId())
+                    .collect(Collectors.toSet());
+
+            List<User_RequestedTrainingModel> pendingRequests = trainingRequestedRepo.findAllIfContainsRoleId(userIdSet);
+            pendingRequests.forEach(request -> {
+                request.setRespondedDate(new Date());
+                request.setStatus(Constants.Training.Participation.RequestType.APPROVED);
+                sendParticipationNotificationToParticipant(request.getTrainingId(), request.getUserId());
+            });
+
+        } catch (Exception e) {
+            // if an error is occured, rollback the changes
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new Exception();
+        }
+    }
+
     private void sendParticipationNotificationToParticipant(Long trainingId, Long userId) {
         TrainingModel training = trainingRepo.findById(trainingId).orElseThrow(() -> new EntityNotFoundException("Training not found!"));
-        UserParticipatedNotificationRequestDTO notificationDTO = new UserParticipatedNotificationRequestDTO(training.getTitle() ,userId);
+        UserParticipatedNotificationRequestDTO notificationDTO = new UserParticipatedNotificationRequestDTO(training.getTitle(), userId);
         rabbitTemplate.convertAndSend(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getExchange(),
                 QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getRoutingKey(), notificationDTO);
 
