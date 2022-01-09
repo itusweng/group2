@@ -23,9 +23,21 @@ public class UserNotificationService {
     public List<UserNotificationModel> getAllUserNotificationByUserId(Long userId, Integer page, Integer size) {
 
         List<UserNotificationModel> notifications = userNotificationRepo
+                .findAllByRecipientId(userId, PageRequest.of(page, size)).getContent();
+
+        return notifications;
+    }
+
+    public List<UserNotificationModel> getAllUnreadUserNotificationByUserId(Long userId, Integer page, Integer size) {
+
+        List<UserNotificationModel> notifications = userNotificationRepo
                 .findAllByIsReadIsFalseAndRecipientId(userId, PageRequest.of(page, size)).getContent();
 
         return notifications;
+    }
+
+    public Long countOfAllUserNotificationByUserId(Long userId) {
+        return userNotificationRepo.countAllUnreadUserNotificationByUserId(userId);
     }
 
     public Long countOfUnreadUserNotificationByUserId(Long userId) {

@@ -32,6 +32,27 @@ public class NotificationController extends BaseController {
             Integer size = requestDTO.getSize();
 
             List<UserNotificationModel> notifications = userNotificationService.getAllUserNotificationByUserId(userId, page, size);
+            Long notificationCount = userNotificationService.countOfAllUserNotificationByUserId(userId);
+
+            GetAllUserNotificationsResponseDTO responseDTO = GetAllUserNotificationsResponseDTO.builder()
+                    .notifications(userNotificationMapper.mapToDto(notifications))
+                    .total(notificationCount)
+                    .build();
+
+            return ResponseEntity.ok(createReturnObj(String.format("All user notifications are fetched by user id: %d", userId), responseDTO));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @PostMapping("/user/getAllUnreadByUserId")
+    public ResponseEntity<Map<String, Object>> getAllUnreadUserNotificationsByUserId(@RequestBody GetAllUserNotificationsRequestDTO requestDTO) {
+        try {
+            Long userId = requestDTO.getUserId();
+            Integer page = requestDTO.getPage();
+            Integer size = requestDTO.getSize();
+
+            List<UserNotificationModel> notifications = userNotificationService.getAllUnreadUserNotificationByUserId(userId, page, size);
             Long notificationCount = userNotificationService.countOfUnreadUserNotificationByUserId(userId);
 
             GetAllUserNotificationsResponseDTO responseDTO = GetAllUserNotificationsResponseDTO.builder()
@@ -39,11 +60,10 @@ public class NotificationController extends BaseController {
                     .total(notificationCount)
                     .build();
 
-            return ResponseEntity.ok(createReturnObj(String.format("User notifications are fetched by user id: %d", userId), responseDTO));
+            return ResponseEntity.ok(createReturnObj(String.format("Unread user notifications are fetched by user id: %d", userId), responseDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }
-
     }
 
     @PostMapping("/user/notificationsHaveRead")
