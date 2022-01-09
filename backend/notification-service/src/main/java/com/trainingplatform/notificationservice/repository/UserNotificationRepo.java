@@ -11,6 +11,11 @@ public interface UserNotificationRepo extends JpaRepository<UserNotificationMode
 
     Page<UserNotificationModel> findAllByIsReadIsFalseAndRecipientId(Long recipientId, Pageable pageable);
 
+    Page<UserNotificationModel> findAllByRecipientId(Long recipientId, Pageable pageable);
+
+    @Query("select count(*) from UserNotificationModel n where n.recipientId = ?1")
+    long countAllUserNotificationByUserId(Long userId);
+
     @Query("select count(*) from UserNotificationModel n where n.recipientId = ?1 and n.isRead=false")
     long countAllUnreadUserNotificationByUserId(Long userId);
 
