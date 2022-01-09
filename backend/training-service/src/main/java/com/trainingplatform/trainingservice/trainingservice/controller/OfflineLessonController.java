@@ -40,12 +40,14 @@ public class OfflineLessonController extends BaseController{
     }
 
     @PostMapping("/update/{offlineLessonId}")
-    public void updateOfflineLesson(@PathVariable Long offlineLessonId, @RequestBody OfflineLessonRequestDTO offlineLessonRequestDTO){
+    public ResponseEntity<HashMap<String, Object>> updateOfflineLesson(@PathVariable Long offlineLessonId, @RequestBody OfflineLessonRequestDTO offlineLessonRequestDTO){
         try{
             offlineLessonService.updateOfflineLesson(offlineLessonId, offlineLessonRequestDTO);
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("Offline lesson updated by id successfully!", offlineLessonId), null));
         }
         catch (Exception e){
-            System.out.println(exceptionHandler(e));
+            return exceptionHandler(e);
         }
     }
 

@@ -47,14 +47,17 @@ public class OnlineLessonController extends BaseController{
     }
 
     @PostMapping("/update/{onlineLessonId}")
-    public void updateOnlineLesson(@PathVariable Long onlineLessonId, @RequestBody OnlineLessonRequestDTO onlineLesson){
+    public ResponseEntity<HashMap<String, Object>> updateOnlineLesson(@PathVariable Long onlineLessonId, @RequestBody OnlineLessonRequestDTO onlineLesson){
         try{
-            OnlineLessonModel existingOnlineLesson = onlineLessonRepo.findById(onlineLessonId).get();
-            onlineLessonModelMapper.updateFields(existingOnlineLesson, onlineLesson);
-            onlineLessonRepo.save(existingOnlineLesson);
+            OnlineLessonModel onlineLessonModel = onlineLessonModelMapper.mapToEntity(onlineLesson);
+            onlineLessonModel.setId(onlineLessonId);
+
+            onlineLessonService.updateOnlineLesson(onlineLessonModel);
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("Offline lesson updated by id successfully!", onlineLessonId), null));
         }
         catch (Exception e){
-            System.out.println(exceptionHandler(e));
+            return exceptionHandler(e);
         }
     }
 
