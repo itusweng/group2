@@ -29,4 +29,10 @@ public interface OnlineLessonModelMapper {
     @Mapping(target = "meeting_date", source = "meeting_date")
     @Mapping(target = "zoom_link", source = "zoom_link")
     void updateFields(@MappingTarget OnlineLessonModel onlineLessonModel, OnlineLessonRequestDTO onlineLessonRequestDTO);
+
+    @Mapping(target = "title", source = "title")
+    @Mapping(target = "description", source = "description")
+    @Mapping(target = "meeting_date", source = "meeting_date")
+    @Mapping(target = "zoom_link", source = "zoom_link")
+    void updateFields(@MappingTarget OnlineLessonModel onlineLessonModel, OnlineLessonModel onlineLessonRequestDTO);
 }

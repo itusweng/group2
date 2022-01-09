@@ -5,6 +5,7 @@ import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.model.mapper.UserMapper;
+import com.trainingplatform.userservice.service.UserRoleService;
 import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class UserController extends BaseController {
 
     // Inject services
     private final UserService userService;
+    private final UserRoleService userRoleService;
     private final UserMapper userMapper;
 
     @GetMapping("/getAllUsers")
@@ -32,7 +34,9 @@ public class UserController extends BaseController {
             List<UserResponseDTO> userDtoList = new ArrayList<>();
             userDtoMap.put("total", userMap.get("total"));
             ((List) userMap.get("users")).forEach(user -> {
-                userDtoList.add(userMapper.mapToDto((User) user));
+                UserResponseDTO userDTO = userMapper.mapToDto((User) user);
+                userDTO.setRole_name(userRoleService.getUserRoleNameByRoleId(((User) user).getRole_id()));
+                userDtoList.add(userDTO);
             });
             userDtoMap.put("users", userDtoList);
             return ResponseEntity.ok(createReturnObj("Users fetched successfully!", userDtoMap));

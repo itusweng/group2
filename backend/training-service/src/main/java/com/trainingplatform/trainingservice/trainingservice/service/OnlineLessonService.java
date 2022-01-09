@@ -45,4 +45,12 @@ public class OnlineLessonService {
         return onlineLessonRepo.findById(lessonId)
                 .orElseThrow(()-> new EntityNotFoundException(String.format("No online lesson found by id %d", lessonId)));
     }
+
+    public void updateOnlineLesson(OnlineLessonModel onlineLesson) {
+        OnlineLessonModel existingOnlineLesson = onlineLessonRepo.findById(onlineLesson.getId())
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No online lesson found by id %d", onlineLesson.getId())));
+
+        onlineLessonModelMapper.updateFields(existingOnlineLesson, onlineLesson);
+        onlineLessonRepo.save(existingOnlineLesson);
+    }
 }
