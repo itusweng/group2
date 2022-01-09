@@ -26,13 +26,13 @@ CREATE TABLE `user_notification` (
   `id` bigint NOT NULL,
   `created_date` datetime(6) DEFAULT NULL,
   `is_read` bit(1) DEFAULT NULL,
-  `message` varchar(255) DEFAULT NULL,
-  `read_date` varchar(255) DEFAULT NULL,
+  `message` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `read_date` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `recipient_id` bigint DEFAULT NULL,
   `sender_id` bigint DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `user_notification` (
 --
 
 /*!40000 ALTER TABLE `user_notification` DISABLE KEYS */;
-INSERT INTO `user_notification` VALUES (1,'2022-01-08 21:28:25.022000',_binary '','You are assigned to training: Guzel bir egitim',NULL,3,-1,'enrolled_training_notification');
+INSERT INTO `user_notification` VALUES (1,'2022-01-08 21:28:25.022000',_binary '','You are assigned to training: Guzel bir egitim',NULL,3,-1,'enrolled_training_notification'),(2,'2022-01-09 03:12:25.908000',_binary '\0','You are assigned to training: Guzel bir egitim',NULL,2,-1,'enrolled_training_notification');
 /*!40000 ALTER TABLE `user_notification` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +52,4 @@ INSERT INTO `user_notification` VALUES (1,'2022-01-08 21:28:25.022000',_binary '
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:32
+-- Dump completed on 2022-01-09  3:55:08

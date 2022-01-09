@@ -23,15 +23,15 @@ DROP TABLE IF EXISTS `USER_ATTRIBUTE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `USER_ATTRIBUTE` (
-  `NAME` varchar(255) NOT NULL,
+  `NAME` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `VALUE` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `USER_ID` varchar(36) NOT NULL,
-  `ID` varchar(36) NOT NULL DEFAULT 'sybase-needs-something-here',
+  `USER_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'sybase-needs-something-here',
   PRIMARY KEY (`ID`),
   KEY `IDX_USER_ATTRIBUTE` (`USER_ID`),
   KEY `IDX_USER_ATTRIBUTE_NAME` (`NAME`,`VALUE`),
   CONSTRAINT `FK_5HRM2VLF9QL5FU043KQEPOVBR` FOREIGN KEY (`USER_ID`) REFERENCES `USER_ENTITY` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,4 +50,4 @@ CREATE TABLE `USER_ATTRIBUTE` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:50
+-- Dump completed on 2022-01-09  3:55:25
