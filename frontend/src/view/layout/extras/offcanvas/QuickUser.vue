@@ -56,7 +56,9 @@
             >
               {{ currentUser.first_name }} {{ currentUser.last_name }}
             </a>
-            <div class="text-muted mt-1">Application Developer</div>
+            <div class="text-muted mt-1">
+              {{ currentUser.role_name }}
+            </div>
             <div class="navi mt-2">
               <a href="#" class="navi-item">
                 <span class="navi-link p-0 pb-2">
