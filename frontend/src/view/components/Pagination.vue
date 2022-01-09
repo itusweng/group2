@@ -17,6 +17,7 @@
       :text="`${perPage}`"
       variant="outline-primary"
       block
+      size="sm"
       class="d-inline-block float-right mr-2"
     >
       <b-dropdown-item

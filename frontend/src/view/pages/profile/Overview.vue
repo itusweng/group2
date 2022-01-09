@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!--end::Row-->
+    <Widget2></Widget2>
     <!--begin::Row-->
     <div class="row">
       <div class="col-lg-6">
@@ -9,17 +11,16 @@
         <Widget1></Widget1>
       </div>
     </div>
-    <!--end::Row-->
-    <Widget2></Widget2>
+
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import { SET_BREADCRUMB } from '@/core/store/breadcrumbs.module';
-import Widget1 from '@/view/pages/profile-old/profile-comp-2/Widget1';
-import Widget2 from '@/view/pages/profile-old/profile-comp-2/Widget2';
-import Widget14 from '@/view/pages/profile-old/profile-comp-2/Widget14';
+import Widget1 from '@/view/pages/profile/overview-comp/Widget1';
+import Widget2 from '@/view/pages/profile/overview-comp/Widget2';
+import Widget14 from '@/view/pages/profile/overview-comp/Widget14';
 
 export default {
   data() {
