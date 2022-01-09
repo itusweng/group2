@@ -108,6 +108,17 @@ public class TrainingController extends BaseController {
         }
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<HashMap<String, Object>> updateTraining(@RequestBody TrainingModel training) {
+        try {
+            trainingService.updateTraining(training);
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("Training id:%d updated successfully!", training.getId()), null));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
     @DeleteMapping("/{trainingId}")
     public ResponseEntity<HashMap<String, Object>> deleteTraining(@PathVariable Long trainingId) {
         try {
