@@ -1,15 +1,10 @@
 package com.trainingplatform.userservice.controller;
 
-import com.trainingplatform.userservice.model.entity.UserRole;
-import com.trainingplatform.userservice.model.request.AssignUserToUserRoleRequestDTO;
-import com.trainingplatform.userservice.model.request.CreateUserRoleRequestDTO;
 import com.trainingplatform.userservice.model.response.ManagerGroupResponseDTO;
 import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.model.mapper.UserMapper;
-import com.trainingplatform.userservice.model.response.UserRolesResponseDTO;
-import com.trainingplatform.userservice.service.UserRoleService;
 import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -65,6 +60,7 @@ public class UserController extends BaseController {
         try {
             User userModel = userService.getUserByID(userId);
             UserResponseDTO userDTO = userMapper.mapToDto(userModel);
+            userDTO.setRole_name(userService.getUserRoleNameByUserRoleId(userModel.getRole_id()));
             return ResponseEntity.ok(
                     createReturnObj(String.format("User profile fetched successfully by id %d!", userId), userDTO));
         } catch (Exception e) {
@@ -76,7 +72,9 @@ public class UserController extends BaseController {
     public ResponseEntity<Map<String, Object>> getUserByUsername(@PathVariable String username) {
         try {
             User user = userService.getUserByUsername(username);
-            return ResponseEntity.ok(createReturnObj("User fetched successfully!", user));
+            UserResponseDTO userDTO = userMapper.mapToDto(user);
+            userDTO.setRole_name(userService.getUserRoleNameByUserRoleId(user.getRole_id()));
+            return ResponseEntity.ok(createReturnObj("User fetched successfully!", userDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }

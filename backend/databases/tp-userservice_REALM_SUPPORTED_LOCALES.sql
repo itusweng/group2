@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `REALM_SUPPORTED_LOCALES`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `REALM_SUPPORTED_LOCALES` (
-  `REALM_ID` varchar(36) NOT NULL,
-  `VALUE` varchar(255) NOT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `VALUE` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`REALM_ID`,`VALUE`),
   KEY `IDX_REALM_SUPP_LOCAL_REALM` (`REALM_ID`),
   CONSTRAINT `FK_SUPPORTED_LOCALES_REALM` FOREIGN KEY (`REALM_ID`) REFERENCES `REALM` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,4 +47,4 @@ CREATE TABLE `REALM_SUPPORTED_LOCALES` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:35
+-- Dump completed on 2022-01-09  3:55:11

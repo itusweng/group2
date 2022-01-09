@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `KEYCLOAK_GROUP`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `KEYCLOAK_GROUP` (
-  `ID` varchar(36) NOT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   `NAME` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `PARENT_GROUP` varchar(36) NOT NULL,
-  `REALM_ID` varchar(36) DEFAULT NULL,
+  `PARENT_GROUP` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `SIBLING_NAMES` (`REALM_ID`,`PARENT_GROUP`,`NAME`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,4 +48,4 @@ CREATE TABLE `KEYCLOAK_GROUP` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:55
+-- Dump completed on 2022-01-09  3:55:30

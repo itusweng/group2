@@ -23,14 +23,14 @@ DROP TABLE IF EXISTS `REALM_REQUIRED_CREDENTIAL`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `REALM_REQUIRED_CREDENTIAL` (
-  `TYPE` varchar(255) NOT NULL,
-  `FORM_LABEL` varchar(255) DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `FORM_LABEL` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `INPUT` bit(1) NOT NULL DEFAULT b'0',
   `SECRET` bit(1) NOT NULL DEFAULT b'0',
-  `REALM_ID` varchar(36) NOT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`REALM_ID`,`TYPE`),
   CONSTRAINT `FK_5HG65LYBEVAVKQFKI3KPONH9V` FOREIGN KEY (`REALM_ID`) REFERENCES `REALM` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,4 +50,4 @@ INSERT INTO `REALM_REQUIRED_CREDENTIAL` VALUES ('password','password',_binary '
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:35
+-- Dump completed on 2022-01-09  3:55:11

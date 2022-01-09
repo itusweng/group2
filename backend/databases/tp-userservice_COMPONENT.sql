@@ -23,18 +23,18 @@ DROP TABLE IF EXISTS `COMPONENT`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `COMPONENT` (
-  `ID` varchar(36) NOT NULL,
-  `NAME` varchar(255) DEFAULT NULL,
-  `PARENT_ID` varchar(36) DEFAULT NULL,
-  `PROVIDER_ID` varchar(36) DEFAULT NULL,
-  `PROVIDER_TYPE` varchar(255) DEFAULT NULL,
-  `REALM_ID` varchar(36) DEFAULT NULL,
-  `SUB_TYPE` varchar(255) DEFAULT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `NAME` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `PARENT_ID` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `PROVIDER_ID` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `PROVIDER_TYPE` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `SUB_TYPE` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDX_COMPONENT_REALM` (`REALM_ID`),
   KEY `IDX_COMPONENT_PROVIDER_TYPE` (`PROVIDER_TYPE`),
   CONSTRAINT `FK_COMPONENT_REALM` FOREIGN KEY (`REALM_ID`) REFERENCES `REALM` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,4 +54,4 @@ INSERT INTO `COMPONENT` VALUES ('001634f4-96c6-4bbe-b616-dc3d0a74cf86','Full Sco
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:49
+-- Dump completed on 2022-01-09  3:55:24
