@@ -7,6 +7,7 @@ import com.trainingplatform.trainingservice.trainingservice.repository.OnlineLes
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,5 +39,10 @@ public class OnlineLessonService {
     public void deleteOnlineLesson(Long offlineLessonId) {
         //TODO CATCH EXCEPTION
         onlineLessonRepo.deleteById(offlineLessonId);
+    }
+
+    public OnlineLessonModel getOnlineLessonById(Long lessonId) {
+        return onlineLessonRepo.findById(lessonId)
+                .orElseThrow(()-> new EntityNotFoundException(String.format("No online lesson found by id %d", lessonId)));
     }
 }

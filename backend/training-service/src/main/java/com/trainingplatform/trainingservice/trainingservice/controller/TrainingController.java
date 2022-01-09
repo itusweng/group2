@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -114,6 +113,29 @@ public class TrainingController extends BaseController {
         try {
             trainingService.deleteTraining(trainingId);
             return ResponseEntity.ok(createReturnObj("Training deleted successfully!", null));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/getTraining/byId/{trainingId}")
+    public ResponseEntity<HashMap<String, Object>> getTrainingById(@PathVariable Long trainingId) {
+        try {
+            TrainingModel trainingModel = trainingService.getTrainingById(trainingId);
+
+            // Fetch the user who are created the training
+            UserResponseDTO createdUser = trainingService.getSingleTrainingUserByID(trainingModel.getUser_created_id());
+
+            // Fetch the instructor of training
+            UserResponseDTO instructor = trainingService.getSingleTrainingUserByID(trainingModel.getInstructor_id());
+
+            // Add instructors & created users into dto model
+            TrainingResponseDTO responseDTO = trainingMapper.mapToDto(trainingModel);
+            responseDTO.setUser_created(createdUser);
+            responseDTO.setInstructor(instructor);
+
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("Training fetched by id %d successfully!", trainingId), responseDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }
