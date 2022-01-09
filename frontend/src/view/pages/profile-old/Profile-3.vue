@@ -306,10 +306,10 @@
 <script>
 import { mapGetters } from 'vuex';
 import { SET_BREADCRUMB } from '@/core/store/breadcrumbs.module';
-import Widget2 from '@/view/pages/profile/profile-comp-3/Widget2';
-import Widget13 from '@/view/pages/profile/profile-comp-3/Widget13';
-import Widget15 from '@/view/pages/profile/profile-comp-3/Widget15';
-import Widget3 from '@/view/pages/profile/profile-comp-3/Widget3';
+import Widget2 from '@/view/pages/profile-old/profile-comp-3/Widget2';
+import Widget13 from '@/view/pages/profile-old/profile-comp-3/Widget13';
+import Widget15 from '@/view/pages/profile-old/profile-comp-3/Widget15';
+import Widget3 from '@/view/pages/profile-old/profile-comp-3/Widget3';
 
 export default {
   name: 'custom-page',

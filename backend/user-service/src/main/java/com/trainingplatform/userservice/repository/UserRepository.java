@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
+import java.util.Set;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -26,4 +27,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     long countAllUsers();
 
     boolean existsById(Long ID);
+
+    @Query("select u from User u where u.role_id = ?1")
+    Set<User> findAllByByRole_id(Long roleId);
+
+
 }

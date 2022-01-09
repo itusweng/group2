@@ -105,7 +105,7 @@
                     <span class="svg-icon svg-icon-md svg-icon-success">
                       <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
                       <inline-svg
-                        src="media/svg/icons/Navigation/Arrow-right.svg"
+                        src="/media/svg/icons/Navigation/Arrow-right.svg"
                       ></inline-svg>
                       <!--end::Svg Icon-->
                     </span>

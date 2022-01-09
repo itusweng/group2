@@ -8,7 +8,7 @@
     >
       <div class="alert-icon">
         <span class="svg-icon svg-icon-lg">
-          <inline-svg src="media/svg/icons/Tools/Compass.svg" />
+          <inline-svg src="/media/svg/icons/Tools/Compass.svg" />
         </span>
       </div>
       <div class="alert-text">

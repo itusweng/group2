@@ -124,7 +124,7 @@
                     <span class="svg-icon svg-icon-md svg-icon-primary">
                       <!--begin::Svg Icon-->
                       <inline-svg
-                        src="media/svg/icons/General/Settings-1.svg"
+                        src="/media/svg/icons/General/Settings-1.svg"
                       ></inline-svg>
                       <!--end::Svg Icon-->
                     </span>
@@ -133,7 +133,7 @@
                     <span class="svg-icon svg-icon-md svg-icon-primary">
                       <!--begin::Svg Icon-->
                       <inline-svg
-                        src="media/svg/icons/Communication/Write.svg"
+                        src="/media/svg/icons/Communication/Write.svg"
                       ></inline-svg>
                       <!--end::Svg Icon-->
                     </span>
@@ -142,7 +142,7 @@
                     <span class="svg-icon svg-icon-md svg-icon-primary">
                       <!--begin::Svg Icon-->
                       <inline-svg
-                        src="media/svg/icons/General/Trash.svg"
+                        src="/media/svg/icons/General/Trash.svg"
                       ></inline-svg>
                       <!--end::Svg Icon-->
                     </span>

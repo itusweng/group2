@@ -41,6 +41,19 @@ public class UserController extends BaseController {
         }
     }
 
+    @GetMapping("/getAllUsers/byUserRoleId/{userRoleId}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAllUsersByUserRoleId(@PathVariable Long userRoleId) {
+        try {
+            Set<User> users = userService.getAllUsersByUserRoleId(userRoleId);
+            Set<UserResponseDTO> userDtoList = userMapper.mapToDto(users);
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("Users fetched successfully by role id %d!", userRoleId), userDtoList));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
     @GetMapping("/getUserProfile/byId/{userId}")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getUserProfileById(@PathVariable Long userId) {

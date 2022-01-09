@@ -64,6 +64,18 @@ public class TrainingParticipationController extends BaseController {
         }
     }
 
+    @GetMapping("/participation/approve/byUserRoleId/{userRoleId}")
+    public ResponseEntity<Map<String, Object>> approveParticipationRequestByUserRoleId(@PathVariable Long userRoleId){
+        try {
+            participationService.approveParticipationRequestsByUserRoleId(userRoleId);
+            return ResponseEntity.ok(createReturnObj(String.format("Participation requests are approved by %d", userRoleId), null));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+
+
     @PostMapping("/participation/reject")
     public ResponseEntity<Map<String, Object>> rejectParticipationRequest(@RequestBody List<ParticipationRejectRequestDTO> requestDTOs){
         try {

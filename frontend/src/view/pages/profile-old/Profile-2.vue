@@ -226,13 +226,13 @@
 <script>
 import { mapGetters } from 'vuex';
 import { SET_BREADCRUMB } from '@/core/store/breadcrumbs.module';
-import Widget1 from '@/view/pages/profile/profile-comp-2/Widget1';
-import Widget2 from '@/view/pages/profile/profile-comp-2/Widget2';
-import Widget14 from '@/view/pages/profile/profile-comp-2/Widget14';
-import KTPersonalInformation from '@/view/pages/profile/profile-comp/PersonalInformation';
-import KTAccountInformation from '@/view/pages/profile/profile-comp/AccountInformation';
-import KTChangePassword from '@/view/pages/profile/profile-comp/ChangePassword';
-import KTEmailSettings from '@/view/pages/profile/profile-comp/EmailSettings';
+import Widget1 from '@/view/pages/profile-old/profile-comp-2/Widget1';
+import Widget2 from '@/view/pages/profile-old/profile-comp-2/Widget2';
+import Widget14 from '@/view/pages/profile-old/profile-comp-2/Widget14';
+import KTPersonalInformation from '@/view/pages/profile-old/profile-comp/PersonalInformation';
+import KTAccountInformation from '@/view/pages/profile-old/profile-comp/AccountInformation';
+import KTChangePassword from '@/view/pages/profile-old/profile-comp/ChangePassword';
+import KTEmailSettings from '@/view/pages/profile-old/profile-comp/EmailSettings';
 
 export default {
   name: 'Profile-2',

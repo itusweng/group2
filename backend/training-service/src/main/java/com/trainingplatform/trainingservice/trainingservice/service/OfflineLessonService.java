@@ -29,8 +29,8 @@ public class OfflineLessonService {
     private final OfflineLessonModelRequestMapper offlineLessonModelRequestMapper;
     private final TrainingRepository trainingRepo;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    //@Autowired
+    private final RabbitTemplate rabbitTemplate;
 
     public List<OfflineLessonResponseDTO> getOfflineLessons(Long trainingID) {
         List<OfflineLessonModel> offlineLessonModels = offlineLessonRepo.findAllByTrainingID(trainingID);

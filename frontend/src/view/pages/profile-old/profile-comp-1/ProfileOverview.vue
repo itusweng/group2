@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import KTWidget2 from '@/view/pages/profile/profile-comp-1/Widget2';
-import KTWidget3 from '@/view/pages/profile/profile-comp-1/Widget3';
-import KTWidget14 from '@/view/pages/profile/profile-comp-1/Widget14';
+import KTWidget2 from '@/view/pages/profile-old/profile-comp-1/Widget2';
+import KTWidget3 from '@/view/pages/profile-old/profile-comp-1/Widget3';
+import KTWidget14 from '@/view/pages/profile-old/profile-comp-1/Widget14';
 
 export default {
   name: 'ProfileOverview',

@@ -144,10 +144,10 @@
 import { mapGetters } from 'vuex';
 import { SET_BREADCRUMB } from '@/core/store/breadcrumbs.module';
 import Dropdown3 from '@/view/components/dropdown/Dropdown3';
-import Widget1 from '@/view/pages/profile/profile-comp-4/Widget1';
-import Widget2 from '@/view/pages/profile/profile-comp-4/Widget2';
-import Widget13 from '@/view/pages/profile/profile-comp-4/Widget13';
-import Widget14 from '@/view/pages/profile/profile-comp-4/Widget14';
+import Widget1 from '@/view/pages/profile-old/profile-comp-4/Widget1';
+import Widget2 from '@/view/pages/profile-old/profile-comp-4/Widget2';
+import Widget13 from '@/view/pages/profile-old/profile-comp-4/Widget13';
+import Widget14 from '@/view/pages/profile-old/profile-comp-4/Widget14';
 
 export default {
   name: 'Profile-4.vue',
