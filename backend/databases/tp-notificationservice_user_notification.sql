@@ -40,7 +40,7 @@ CREATE TABLE `user_notification` (
 --
 
 /*!40000 ALTER TABLE `user_notification` DISABLE KEYS */;
-INSERT INTO `user_notification` VALUES (1,'2022-01-08 21:28:25.022000',_binary '','You are assigned to training: Guzel bir egitim',NULL,3,-1,'enrolled_training_notification'),(2,'2022-01-09 03:12:25.908000',_binary '\0','You are assigned to training: Guzel bir egitim',NULL,2,-1,'enrolled_training_notification');
+INSERT INTO `user_notification` VALUES (1,'2022-01-08 21:28:25.022000',_binary '','You are assigned to training: Guzel bir egitim',NULL,3,-1,'enrolled_training_notification'),(2,'2022-01-09 03:12:25.908000',_binary '\0','You are assigned to training: Guzel bir egitim',NULL,2,-1,'enrolled_training_notification'),(3,'2022-01-09 04:52:55.644000',_binary '\0','You are assigned to training: Guzel bir egitim',NULL,3,-1,'enrolled_training_notification'),(4,'2022-01-09 04:53:12.316000',_binary '\0','You are assigned to training: Guzel bir egitim',NULL,2,-1,'enrolled_training_notification'),(5,'2022-01-09 04:53:28.365000',_binary '\0','You are assigned to training: Guzel bir egitim',NULL,2,-1,'enrolled_training_notification');
 /*!40000 ALTER TABLE `user_notification` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +52,4 @@ INSERT INTO `user_notification` VALUES (1,'2022-01-08 21:28:25.022000',_binary '
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  3:55:08
+-- Dump completed on 2022-01-09 14:39:04

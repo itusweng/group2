@@ -46,4 +46,4 @@ INSERT INTO `manager_manager_group` VALUES (1,5),(2,1);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  3:55:26
+-- Dump completed on 2022-01-09 14:39:11

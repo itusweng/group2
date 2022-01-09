@@ -38,7 +38,7 @@ CREATE TABLE `user_requested_training` (
 --
 
 /*!40000 ALTER TABLE `user_requested_training` DISABLE KEYS */;
-INSERT INTO `user_requested_training` VALUES (1,2,'2022-01-09 03:53:06.613000',2,NULL,'pending'),(1,3,'2022-01-07 05:07:00.873000',2,'2022-01-08 21:28:22.821000','approved');
+INSERT INTO `user_requested_training` VALUES (1,2,'2022-01-09 04:53:19.002000',2,'2022-01-09 04:53:28.363000','approved'),(1,3,'2022-01-07 05:07:00.873000',2,'2022-01-09 04:52:55.522000','approved');
 /*!40000 ALTER TABLE `user_requested_training` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +50,4 @@ INSERT INTO `user_requested_training` VALUES (1,2,'2022-01-09 03:53:06.613000',2
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  3:55:09
+-- Dump completed on 2022-01-09 14:39:14

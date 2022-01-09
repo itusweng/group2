@@ -54,4 +54,4 @@ INSERT INTO `training` VALUES (1,100,NULL,'Guzel bir aciklama',2,1,'https://imag
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  3:55:09
+-- Dump completed on 2022-01-09 14:39:15
