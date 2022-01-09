@@ -27,20 +27,19 @@
             {{ unreadCount }} New
           </small>
         </h3>
-        <a
-          href="#"
+        <button
+          @click="fetchData"
           class="btn btn-xs btn-icon btn-light btn-hover-primary"
-          id="kt_quick_notifications_close"
         >
-          <i class="ki ki-close icon-xs text-muted"></i>
-        </a>
+          <i class="ki ki-refresh icon-xs text-muted"></i>
+        </button>
       </div>
       <!--begin::Content-->
       <div class="offcanvas-content pr-5 mr-n5">
         <div class="navi navi-icon-circle navi-spacer-x-0">
           <template v-for="(item, i) in list">
             <!--begin::Item-->
-            <a href="#" @click="markAsRead(item)" class="navi-item" v-bind:key="i">
+            <a href="#" @click="markAsRead(item)" class="navi-item" :key="i">
               <div class="navi-link rounded">
                 <div class="symbol symbol-50 mr-3">
                   <div class="symbol-label">
@@ -60,6 +59,11 @@
             <!--end::Item-->
           </template>
         </div>
+        <div class="text-center pt-5" v-if="list.length < total">
+          <b-button @click="loadMore" variant="light-primary">
+            Load More
+          </b-button>
+        </div>
       </div>
       <!--end::Content-->
     </div>
@@ -74,15 +78,10 @@ export default {
   name: 'KTQuickPanel',
   data() {
     return {
-      list: [
-        {
-          title: '5 new user generated report',
-          desc: 'Reports based on sales',
-          icon: 'flaticon-bell text-success'
-        }
-      ],
+      list: [],
       total: 0,
-      unreadCount: 0
+      unreadCount: 0,
+      page: 0
     };
   },
   created() {
@@ -94,6 +93,7 @@ export default {
   },
   methods: {
     fetchData() {
+      this.page = 0;
       this.getNotifications();
       this.getUnreadNotifications();
     },
@@ -104,12 +104,16 @@ export default {
           '/notification/user/getAllByUserId',
           {
             userId: this.$store.getters.currentUser.id,
-            page: 0,
+            page: this.page,
             size: 10
           }
         );
-        this.list = data.data.notifications;
-        this.total = data.data.total;
+        if (this.page === 0) {
+          this.list = data.data.notifications;
+          this.total = data.data.total;
+        } else {
+          this.list = [...this.list, ...data.data.notifications];
+        }
       } catch (e) {
         console.log(e);
       } finally {
@@ -140,10 +144,16 @@ export default {
           notificationIds: [notification.id]
         });
 
-        this.fetchData();
+        notification.read = true;
+        this.unreadCount--;
       } catch (e) {
         console.log(e);
       }
+    },
+    loadMore() {
+      this.page++;
+
+      this.getNotifications();
     }
   }
 };
