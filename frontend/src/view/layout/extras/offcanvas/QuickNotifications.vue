@@ -36,21 +36,21 @@
       <!--begin::Content-->
       <div class="offcanvas-content pr-5 mr-n5">
         <div class="navi navi-icon-circle navi-spacer-x-0">
-          <template v-for="(item, i) in list1">
+          <template v-for="(item, i) in list">
             <!--begin::Item-->
             <a href="#" class="navi-item" v-bind:key="i">
               <div class="navi-link rounded">
                 <div class="symbol symbol-50 mr-3">
                   <div class="symbol-label">
-                    <i class="icon-lg" v-bind:class="item.icon" />
+                    <i class="icon-lg flaticon-bell text-success" />
                   </div>
                 </div>
                 <div class="navi-text">
-                  <div class="font-weight-bold font-size-lg">
-                    {{ item.title }}
+                  <div class="font-weight-bold font-size-lg" v-if="!item.read">
+                    {{ item.message }}
                   </div>
-                  <div class="text-muted">
-                    {{ item.desc }}
+                  <div class="text-muted" v-else>
+                    {{ item.message }}
                   </div>
                 </div>
               </div>
@@ -72,79 +72,43 @@ export default {
   name: 'KTQuickPanel',
   data() {
     return {
-      list1: [
+      list: [
         {
           title: '5 new user generated report',
           desc: 'Reports based on sales',
           icon: 'flaticon-bell text-success'
-        },
-        {
-          title: '2 new items submited',
-          desc: 'by Grog John',
-          icon: 'flaticon2-box text-danger'
-        },
-        {
-          title: '79 PSD files generated',
-          desc: 'Reports based on sales',
-          icon: 'flaticon-psd text-primary'
-        },
-        {
-          title: '$2900 worth producucts sold',
-          desc: 'Total 234 items',
-          icon: 'flaticon2-supermarket text-warning'
-        },
-        {
-          title: '4.5h-avarage response time',
-          desc: 'Fostest is Barry',
-          icon: 'flaticon-paper-plane-1 text-success'
-        },
-        {
-          title: '3 Defence alerts',
-          desc: '40% less alerts thar last week',
-          icon: 'flaticon-safe-shield-protection text-danger'
-        },
-        {
-          title: 'Avarage 4 blog posts per author',
-          desc: 'Most posted 12 time',
-          icon: 'flaticon-notepad text-primary'
-        },
-        {
-          title: '16 authors joined last week',
-          desc: '9 photodrapehrs, 7 designer',
-          icon: 'flaticon-users-1 text-warning'
-        },
-        {
-          title: '2 new items have been submited',
-          desc: 'by Grog John',
-          icon: 'flaticon2-box text-info'
-        },
-        {
-          title: '2.8 GB-total downloads size',
-          desc: 'Mostly PSD end  AL concepts',
-          icon: 'flaticon2-download text-success'
-        },
-        {
-          title: '$2900 worth producucts sold',
-          desc: 'Total 234 items',
-          icon: 'flaticon2-supermarket text-danger'
-        },
-        {
-          title: '7 new user generated report',
-          desc: 'Reports based on sales',
-          icon: 'flaticon-bell text-primary'
-        },
-        {
-          title: '4.5h-avarage response time',
-          desc: 'Fostest is Barry',
-          icon: 'flaticon-paper-plane-1 text-success'
         }
-      ]
+      ],
+      total: 0
     };
+  },
+  created() {
+    this.getNotifications()
   },
   mounted() {
     // Init Quick Offcanvas Panel
     KTLayoutQuickNotifications.init(this.$refs['kt_quick_notifications']);
   },
-  methods: {}
+  methods: {
+    async getNotifications() {
+      try {
+        this.loading = true;
+        const { data } = await this.axios.post(
+          '/notification/user/getAllByUserId',
+          {
+            userId: this.$store.getters.currentUser.id,
+            page: 0,
+            size: 10
+          }
+        );
+        this.list = data.data.notifications;
+        this.total = data.data.total;
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
 };
 </script>
