@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `USER_GROUP_MEMBERSHIP`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `USER_GROUP_MEMBERSHIP` (
-  `GROUP_ID` varchar(36) NOT NULL,
-  `USER_ID` varchar(36) NOT NULL,
+  `GROUP_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `USER_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`GROUP_ID`,`USER_ID`),
   KEY `IDX_USER_GROUP_MAPPING` (`USER_ID`),
   CONSTRAINT `FK_USER_GROUP_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USER_ENTITY` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,4 +47,4 @@ CREATE TABLE `USER_GROUP_MEMBERSHIP` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:45
+-- Dump completed on 2022-01-09  3:55:20

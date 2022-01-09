@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `manager_group`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `manager_group` (
   `manager_group_id` bigint NOT NULL,
-  `group_name` varchar(255) DEFAULT NULL,
+  `group_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`manager_group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,4 +46,4 @@ INSERT INTO `manager_group` VALUES (1,'MOBIL'),(2,'INTERNET');
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:38
+-- Dump completed on 2022-01-09  3:55:14

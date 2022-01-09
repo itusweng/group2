@@ -23,18 +23,18 @@ DROP TABLE IF EXISTS `REQUIRED_ACTION_PROVIDER`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `REQUIRED_ACTION_PROVIDER` (
-  `ID` varchar(36) NOT NULL,
-  `ALIAS` varchar(255) DEFAULT NULL,
-  `NAME` varchar(255) DEFAULT NULL,
-  `REALM_ID` varchar(36) DEFAULT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `ALIAS` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `NAME` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `ENABLED` bit(1) NOT NULL DEFAULT b'0',
   `DEFAULT_ACTION` bit(1) NOT NULL DEFAULT b'0',
-  `PROVIDER_ID` varchar(255) DEFAULT NULL,
+  `PROVIDER_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `PRIORITY` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDX_REQ_ACT_PROV_REALM` (`REALM_ID`),
   CONSTRAINT `FK_REQ_ACT_REALM` FOREIGN KEY (`REALM_ID`) REFERENCES `REALM` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,4 +54,4 @@ INSERT INTO `REQUIRED_ACTION_PROVIDER` VALUES ('02e8aa9a-edb4-4fc7-846d-ee83b969
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:39
+-- Dump completed on 2022-01-09  3:55:15

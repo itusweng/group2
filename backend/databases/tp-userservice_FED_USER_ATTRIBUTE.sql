@@ -23,15 +23,15 @@ DROP TABLE IF EXISTS `FED_USER_ATTRIBUTE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `FED_USER_ATTRIBUTE` (
-  `ID` varchar(36) NOT NULL,
-  `NAME` varchar(255) NOT NULL,
-  `USER_ID` varchar(255) NOT NULL,
-  `REALM_ID` varchar(36) NOT NULL,
-  `STORAGE_PROVIDER_ID` varchar(36) DEFAULT NULL,
-  `VALUE` text,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `NAME` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `USER_ID` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `STORAGE_PROVIDER_ID` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `VALUE` text COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`ID`),
   KEY `IDX_FU_ATTRIBUTE` (`USER_ID`,`REALM_ID`,`NAME`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,4 +50,4 @@ CREATE TABLE `FED_USER_ATTRIBUTE` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:51
+-- Dump completed on 2022-01-09  3:55:27

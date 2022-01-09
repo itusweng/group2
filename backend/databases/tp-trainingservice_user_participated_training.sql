@@ -27,7 +27,7 @@ CREATE TABLE `user_participated_training` (
   `user_id` bigint NOT NULL,
   `participated_date` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`training_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,4 +47,4 @@ INSERT INTO `user_participated_training` VALUES (1,3,'2022-01-08 21:28:22.841000
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:34
+-- Dump completed on 2022-01-09  3:55:10

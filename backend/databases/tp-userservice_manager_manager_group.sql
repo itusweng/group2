@@ -26,7 +26,7 @@ CREATE TABLE `manager_manager_group` (
   `manager_group_id` bigint NOT NULL,
   `manager_id` bigint NOT NULL,
   PRIMARY KEY (`manager_group_id`,`manager_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,4 +46,4 @@ INSERT INTO `manager_manager_group` VALUES (1,5),(2,1);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:51
+-- Dump completed on 2022-01-09  3:55:26

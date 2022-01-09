@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `CLIENT_SCOPE_CLIENT`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `CLIENT_SCOPE_CLIENT` (
-  `CLIENT_ID` varchar(255) NOT NULL,
-  `SCOPE_ID` varchar(255) NOT NULL,
+  `CLIENT_ID` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `SCOPE_ID` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `DEFAULT_SCOPE` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`CLIENT_ID`,`SCOPE_ID`),
   KEY `IDX_CLSCOPE_CL` (`CLIENT_ID`),
   KEY `IDX_CL_CLSCOPE` (`SCOPE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,4 +49,4 @@ INSERT INTO `CLIENT_SCOPE_CLIENT` VALUES ('014dd004-06d5-49dd-a89a-293f7c5974a2'
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09  0:26:46
+-- Dump completed on 2022-01-09  3:55:21
