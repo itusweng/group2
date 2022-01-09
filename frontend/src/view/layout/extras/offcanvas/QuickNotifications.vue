@@ -40,7 +40,7 @@
         <div class="navi navi-icon-circle navi-spacer-x-0">
           <template v-for="(item, i) in list">
             <!--begin::Item-->
-            <a href="#" class="navi-item" v-bind:key="i">
+            <a href="#" @click="markAsRead(item)" class="navi-item" v-bind:key="i">
               <div class="navi-link rounded">
                 <div class="symbol symbol-50 mr-3">
                   <div class="symbol-label">
@@ -86,14 +86,17 @@ export default {
     };
   },
   created() {
-    this.getNotifications();
-    this.getUnreadNotifications();
+    this.fetchData();
   },
   mounted() {
     // Init Quick Offcanvas Panel
     KTLayoutQuickNotifications.init(this.$refs['kt_quick_notifications']);
   },
   methods: {
+    fetchData() {
+      this.getNotifications();
+      this.getUnreadNotifications();
+    },
     async getNotifications() {
       try {
         this.loading = true;
@@ -129,6 +132,17 @@ export default {
         console.log(e);
       } finally {
         this.loading = false;
+      }
+    },
+    async markAsRead(notification) {
+      try {
+        await this.axios.post('/notification/user/notificationsHaveRead', {
+          notificationIds: [notification.id]
+        });
+
+        this.fetchData();
+      } catch (e) {
+        console.log(e);
       }
     }
   }
