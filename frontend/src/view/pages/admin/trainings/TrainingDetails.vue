@@ -104,7 +104,7 @@
             <div class="d-flex flex-column text-dark-75">
               <span class="font-weight-bolder font-size-sm">Type</span>
               <span class="font-weight-bolder font-size-h5">
-                {{ training.isOnline ? 'Online' : 'Offline' }}
+                {{ training.is_online ? 'Online' : 'Offline' }}
               </span>
             </div>
           </div>
@@ -211,15 +211,19 @@
             </h3>
             <div class="card-toolbar">
               <b-button
-                v-if="training.isOnline"
-                to="/admin/onlineLessons/create"
+                v-if="training.is_online"
+                :to="
+                  '/admin/trainings/' + training.id + '/onlineLessons/create'
+                "
                 variant="light-info"
               >
                 Add Lesson
               </b-button>
               <b-button
                 v-else
-                to="/admin/offlineLessons/create"
+                :to="
+                  '/admin/trainings/' + training.id + '/offlineLessons/create'
+                "
                 variant="light-info"
               >
                 Add Lesson
@@ -262,7 +266,13 @@
                       </td>
                       <td class="text-right pr-0">
                         <b-button
-                          :to="'/admin/offlineLessons/' + item.id + '/update'"
+                          :to="
+                            (training.is_online
+                              ? '/admin/onlineLessons/'
+                              : '/admin/offlineLessons/') +
+                            item.id +
+                            '/update'
+                          "
                           class="btn btn-icon btn-light btn-sm mx-3"
                         >
                           <span class="svg-icon svg-icon-md svg-icon-primary">
@@ -310,7 +320,6 @@ export default {
   },
   created() {
     this.getTraining();
-    this.getLessons();
   },
   methods: {
     async getTraining() {
@@ -320,6 +329,8 @@ export default {
         );
 
         this.training = data.data;
+
+        this.getLessons();
       } catch (e) {
         console.log(e);
       }
@@ -327,17 +338,36 @@ export default {
     async getLessons() {
       try {
         const trainingId = this.$route.params.id;
-        const { data } = await this.axios.get(
-          `/training/offlineLesson/getAllLessons/${trainingId}`
-        );
+
+        let url;
+        if (this.training.is_online) {
+          url = `/training/onlineLesson/getAllLessons/${trainingId}`;
+        } else {
+          url = `/training/offlineLesson/getAllLessons/${trainingId}`;
+        }
+        const { data } = await this.axios.get(url);
         this.lessons = data.data;
       } catch (e) {
         console.log(e);
       }
     },
-    deleteLesson(lesson) {
-      this.confirmDelete();
-      console.log(lesson);
+    async deleteLesson(lesson) {
+      try {
+        const { isConfirmed } = await this.confirmDelete();
+        if (!isConfirmed) return;
+
+        let url;
+        if (this.training.is_online) {
+          url = `/training/onlineLesson/${lesson.id}`;
+        } else {
+          url = `/training/offlineLesson/${lesson.id}`;
+        }
+        await this.axios.delete(url);
+
+        this.getLessons();
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };
