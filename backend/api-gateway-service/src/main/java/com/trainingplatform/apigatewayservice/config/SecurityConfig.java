@@ -38,6 +38,7 @@ public class SecurityConfig {
                 .pathMatchers("/api/training/**").permitAll()
                 .pathMatchers("/api/notification/**").permitAll()
                 .pathMatchers("/api/reporting/**").permitAll()
+                .pathMatchers("/api/uploading/**").permitAll()
 
                 // Authentication is required for remaining endpoints
                 .anyExchange().authenticated()
