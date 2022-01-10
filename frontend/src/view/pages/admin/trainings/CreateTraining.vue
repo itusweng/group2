@@ -80,6 +80,18 @@
           </form-group>
         </div>
         <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Capacity</label>
+          <form-group name="thumbnail" lg="9" xl="6" no-label no-margin>
+            <b-input
+              slot-scope="{ attrs, listeners }"
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.capacity"
+            />
+          </form-group>
+        </div>
+        <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Is Online</label>
           <form-group name="is_online" lg="9" xl="6" no-label no-margin>
             <span
@@ -122,6 +134,7 @@ export default {
         instructor_id: 2,
         description: '',
         thumbnail: '',
+        capacity: '',
         is_online: false
       }
     };

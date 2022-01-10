@@ -8,7 +8,11 @@
           <!--begin: Pic-->
           <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
             <img
-              src="https://picsum.photos/600/300/?image=22"
+              :src="
+                training.thumbnail
+                  ? training.thumbnail
+                  : '/media/other/no-img.jpeg'
+              "
               alt="image"
               style="max-width: 300px"
             />
@@ -28,12 +32,17 @@
                     mr-3
                   "
                 >
-                  {{ activeTraining.title }}
+                  {{ training.title }}
                 </a>
               </div>
 
               <div class="my-lg-0 my-3">
-                <b-button variant="light-primary">Update</b-button>
+                <b-button
+                  :to="'/admin/trainings/' + training.id + '/update'"
+                  variant="light-primary"
+                >
+                  Update
+                </b-button>
               </div>
             </div>
             <!--end::Title-->
@@ -52,21 +61,21 @@
                     "
                   >
                     <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>
-                    Trainer: {{ activeTraining.instructor.first_name }}
-                    {{ activeTraining.instructor.last_name }}
+                    Trainer: {{ training.instructor.first_name }}
+                    {{ training.instructor.last_name }}
                   </a>
                   <a
                     href="#"
                     class="text-dark-50 text-hover-primary font-weight-bold"
                   >
                     <i class="flaticon2-edit mr-2 font-size-lg"></i>
-                    Created By: {{ activeTraining.user_created.first_name }}
-                    {{ activeTraining.user_created.last_name }}
+                    Created By: {{ training.user_created.first_name }}
+                    {{ training.user_created.last_name }}
                   </a>
                 </div>
 
                 <span class="font-weight-bold text-dark-50">
-                  {{ activeTraining.description }}
+                  {{ training.description }}
                 </span>
               </div>
             </div>
@@ -95,7 +104,7 @@
             <div class="d-flex flex-column text-dark-75">
               <span class="font-weight-bolder font-size-sm">Type</span>
               <span class="font-weight-bolder font-size-h5">
-                {{ activeTraining.isOnline ? 'Online' : 'Offline' }}
+                {{ training.isOnline ? 'Online' : 'Offline' }}
               </span>
             </div>
           </div>
@@ -125,7 +134,9 @@
             </span>
             <div class="d-flex flex-column text-dark-75">
               <span class="font-weight-bolder font-size-sm">Lesson</span>
-              <span class="font-weight-bolder font-size-h5">{{lessons.length}}</span>
+              <span class="font-weight-bolder font-size-h5">
+                {{ lessons.length }}
+              </span>
             </div>
           </div>
 
@@ -142,35 +153,35 @@
                 data-toggle="tooltip"
                 title="Mark Stone"
               >
-                <img alt="Pic" src="media/users/300_25.jpg" />
+                <img alt="Pic" src="/media/users/300_25.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Charlie Stone"
               >
-                <img alt="Pic" src="media/users/300_19.jpg" />
+                <img alt="Pic" src="/media/users/300_19.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Luca Doncic"
               >
-                <img alt="Pic" src="media/users/300_22.jpg" />
+                <img alt="Pic" src="/media/users/300_22.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Nick Mana"
               >
-                <img alt="Pic" src="media/users/300_23.jpg" />
+                <img alt="Pic" src="/media/users/300_23.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Teresa Fox"
               >
-                <img alt="Pic" src="media/users/300_18.jpg" />
+                <img alt="Pic" src="/media/users/300_18.jpg" />
               </div>
               <div class="symbol symbol-30 symbol-circle symbol-light">
                 <span class="symbol-label font-weight-bold">5+</span>
@@ -200,7 +211,7 @@
             </h3>
             <div class="card-toolbar">
               <b-button
-                v-if="activeTraining.isOnline"
+                v-if="training.isOnline"
                 to="/admin/onlineLessons/create"
                 variant="light-info"
               >
@@ -287,20 +298,35 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
+      training: {
+        instructor: {},
+        user_created: {}
+      },
       lessons: []
     };
   },
   created() {
+    this.getTraining();
     this.getLessons();
   },
   methods: {
+    async getTraining() {
+      try {
+        const { data } = await this.axios.get(
+          '/training/getTraining/byId/' + this.$route.params.id
+        );
+
+        this.training = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
     async getLessons() {
       try {
-        const trainingId = this.activeTraining.id;
+        const trainingId = this.$route.params.id;
         const { data } = await this.axios.get(
           `/training/offlineLesson/getAllLessons/${trainingId}`
         );
@@ -313,9 +339,6 @@ export default {
       this.confirmDelete();
       console.log(lesson);
     }
-  },
-  computed: {
-    ...mapGetters(['activeTraining'])
   }
 };
 </script>

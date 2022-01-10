@@ -140,35 +140,35 @@
                 data-toggle="tooltip"
                 title="Mark Stone"
               >
-                <img alt="Pic" src="media/users/300_25.jpg" />
+                <img alt="Pic" src="/media/users/300_25.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Charlie Stone"
               >
-                <img alt="Pic" src="media/users/300_19.jpg" />
+                <img alt="Pic" src="/media/users/300_19.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Luca Doncic"
               >
-                <img alt="Pic" src="media/users/300_22.jpg" />
+                <img alt="Pic" src="/media/users/300_22.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Nick Mana"
               >
-                <img alt="Pic" src="media/users/300_23.jpg" />
+                <img alt="Pic" src="/media/users/300_23.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Teresa Fox"
               >
-                <img alt="Pic" src="media/users/300_18.jpg" />
+                <img alt="Pic" src="/media/users/300_18.jpg" />
               </div>
               <div class="symbol symbol-30 symbol-circle symbol-light">
                 <span class="symbol-label font-weight-bold">5+</span>

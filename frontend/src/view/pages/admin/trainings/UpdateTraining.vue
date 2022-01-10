@@ -161,7 +161,7 @@ export default {
       }
     },
     cancel() {
-      this.$router.push('/admin/trainings/list');
+      this.$router.back();
     }
   }
 };
