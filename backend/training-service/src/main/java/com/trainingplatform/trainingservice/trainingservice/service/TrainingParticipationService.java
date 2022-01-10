@@ -121,6 +121,7 @@ public class TrainingParticipationService {
                     .builder()
                     .requested_training(trainingModelDTO)
                     .requested_user(userModelDTO)
+                    .requested_date(participationRequest.getCreatedDate())
                     .status(Constants.Training.Participation.RequestType.PENDING)
                     .build();
 

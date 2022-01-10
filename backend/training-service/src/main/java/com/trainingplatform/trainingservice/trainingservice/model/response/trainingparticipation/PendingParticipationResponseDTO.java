@@ -6,6 +6,8 @@ import com.trainingplatform.trainingservice.trainingservice.model.response.UserR
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @SuperBuilder
@@ -15,6 +17,8 @@ public class PendingParticipationResponseDTO extends BaseResponseDTO {
     private UserResponseDTO requested_user;
 
     private TrainingResponseDTO requested_training;
+
+    private Date requested_date;
 
     private String status;
 

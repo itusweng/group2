@@ -26,6 +26,5 @@ public interface TrainingModelMapper {
     @Mapping(target = "capacity", source = "capacity")
     @Mapping(target = "title", source = "title")
     @Mapping(target = "description", source = "description")
-    @Mapping(target = "thumbnail", source = "thumbnail")
     void updateFields(@MappingTarget TrainingModel existingTraining, TrainingModel updatedTraining);
 }

@@ -88,7 +88,9 @@ public class UserController extends BaseController {
     ResponseEntity<Map<String, Object>> getUserByID(@PathVariable Long userId) {
         try {
             User user = userService.getUserByID(userId);
-            return ResponseEntity.ok(createReturnObj("User fetched successfully!", user));
+            UserResponseDTO userDTO = userMapper.mapToDto(user);
+            userDTO.setRole_name(userService.getUserRoleNameByUserRoleId(user.getRole_id()));
+            return ResponseEntity.ok(createReturnObj("User fetched successfully!", userDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }
