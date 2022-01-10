@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="(item, i) in list">
+          <template v-for="(item, i) in lessons">
             <tr v-bind:key="i">
               <td class="pl-0 py-5 font-weight-bolder">
                 {{ i + 1 }}
@@ -95,72 +95,10 @@ const completionStatuses = {
 };
 
 export default {
-  name: 'widget-2',
+  props: ['lessons'],
   data() {
     return {
       completionStatuses,
-      list: [
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'Yapikredi Mobil Uygulaması iOS/Android Aktarım-Giriş',
-          duration: '20 min',
-          completionStatus: completionStatuses.FINISHED
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483370f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.FINISHED
-        },
-        {
-          id: '083450b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.STARTED
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.NOT_STARTED
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.NOT_STARTED
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.NOT_STARTED
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.NOT_STARTED
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.NOT_STARTED
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.NOT_STARTED
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min',
-          completionStatus: completionStatuses.NOT_STARTED
-        }
-      ]
     };
   },
   components: {

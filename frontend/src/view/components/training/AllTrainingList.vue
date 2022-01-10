@@ -1,10 +1,24 @@
 <template>
   <div>
     <b-row>
-      <b-col md="4" v-for="(training, index) in trainingList" :key="index">
+      <b-col md="12">
+        <b-input-group class="mb-2">
+          <b-input-group-prepend is-text>
+            <span class="svg-icon svg-icon-primary">
+              <inline-svg src="media/svg/icons/General/Search.svg" />
+            </span>
+          </b-input-group-prepend>
+          <b-input placeholder="Search" v-model="search" />
+        </b-input-group>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col md="4" v-for="(training, index) in filteredList" :key="index">
         <b-card
           :title="training.title"
-          :img-src="training.thumbnail ? training.thumbnail : '/media/other/no-img.jpeg'"
+          :img-src="
+            training.thumbnail ? training.thumbnail : '/media/other/no-img.jpeg'
+          "
           img-alt="Image"
           img-top
           tag="article"
@@ -16,6 +30,10 @@
           </b-button>
         </b-card>
       </b-col>
+
+      <b-col md="12" class="text-center" v-if="filteredList.length === 0">
+        There are no trainings.
+      </b-col>
     </b-row>
   </div>
 </template>
@@ -26,6 +44,7 @@ import Swal from 'sweetalert2';
 export default {
   data() {
     return {
+      search: '',
       trainingList: []
     };
   },
@@ -68,6 +87,15 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    }
+  },
+  computed: {
+    filteredList() {
+      if (!this.search) return this.trainingList;
+      return this.trainingList.filter(
+        training =>
+          training.title.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
+      );
     }
   }
 };
