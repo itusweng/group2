@@ -133,6 +133,7 @@ export default {
       username: { required },
       password: { required, minLength: minLength(6) },
       email: { required, email },
+      profile_photo: {},
       role_id: { required },
       description: {}
     }
@@ -148,7 +149,6 @@ export default {
         profile_photo: '',
         role_id: ''
       },
-      role_id: null,
       roles: []
     };
   },
@@ -173,23 +173,18 @@ export default {
 
         if (this.$v.$anyError) return;
 
-        const { data } = await this.axios.post('/user/', {
+        await this.axios.post('/user/', {
           ...this.form,
-          role_id: this.form.role_id.toString(),
           manager_group_id: this.$store.getters.currentUser.manager_group_id
         });
 
-        console.log(data);
         await Swal.fire({
           icon: 'success',
           title: 'User created successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
-/*
-        this.$router.push(
-          '/admin/users/f6b706eb-5e12-4c01-8821-155452239a21/details'
-        );*/
+        this.$router.back();
       } catch (e) {
         Swal.fire({
           icon: 'error',
@@ -202,14 +197,6 @@ export default {
     },
     cancel() {
       this.$router.push('/admin/users/list');
-    }
-  },
-  watch: {
-    form: {
-      deep: true,
-      handler(e){
-        console.log(e);
-      }
     }
   }
 };
