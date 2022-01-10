@@ -86,5 +86,16 @@ public class TrainingParticipationController extends BaseController {
         }
     }
 
+    @GetMapping("/{trainingId}/participant/getIds")
+    public ResponseEntity<List<Long>> getAllParticipantIdsByTrainingId(@PathVariable Long trainingId) {
+        try {
+            List<Long> participantIds = participationService.getAllParticipantIdsByTrainingId(trainingId);
+            return ResponseEntity.ok(participantIds);
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+
 
 }

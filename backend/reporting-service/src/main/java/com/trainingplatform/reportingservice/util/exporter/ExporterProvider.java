@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-public class ExporterProvider implements IExporter {
+public class ExporterProvider implements IPDFExporter {
 
     @Override
     public void setResponse(HttpServletResponse response, String fileName) {

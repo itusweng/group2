@@ -11,4 +11,6 @@ public interface User_ParticipatedTrainingRepo extends JpaRepository<User_Partic
     List<User_ParticipatedTrainingModel> findByUserId(Long userId);
 
     boolean existsUser_ParticipatedTrainingModelByUserIdAndTrainingId(Long userId, Long trainingId);
+
+    List<User_ParticipatedTrainingModel> findByTrainingId(Long id);
 }
