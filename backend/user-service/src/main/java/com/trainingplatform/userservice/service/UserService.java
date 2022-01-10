@@ -45,12 +45,11 @@ public class UserService {
         userCredentials.setUsername(newUser.getUsername());
         userCredentials.setPassword(newUser.getPassword());
 
-        ResponseEntity responseWithAccessToken;
-        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        ResponseEntity responseWithAccessToken = null;
         Response response = keycloakService.createKeycloakUser(newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
-
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         switch (response.getStatus()) {
-            case 200: // Successful case
+            case 201: // Created case
                 userRepo.save(newUser);
                 break;
             case 403: // Forbidden case
