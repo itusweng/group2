@@ -17,7 +17,8 @@ public class UserRequestDTO implements Serializable {
     private String last_name;
     private String email;
     private String role_id;
-    private MultipartFile profile_photo;
+    private MultipartFile profile_photoFile;
     private String job_title;
+    private Long manager_group_id;
 
 }

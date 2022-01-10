@@ -67,7 +67,7 @@ public class UserService {
                 throw new UserNotCreatedException("This username is already in use!");
         }
 
-        UserUploadRequestDTO userUploadRequestDTO = new UserUploadRequestDTO(newUser.getId(), newUser.getUsername(), userRequestDTO.getProfile_photo().getBytes());
+        UserUploadRequestDTO userUploadRequestDTO = new UserUploadRequestDTO(newUser.getId(), newUser.getUsername(), userRequestDTO.getProfile_photoFile().getBytes());
         rabbitTemplate.convertAndSend(RabbitMQMessagingConfig.EXCHANGE,RabbitMQMessagingConfig.ROUTING_KEY_UPLOAD_PP, userUploadRequestDTO);
 
         responseWithAccessToken = ResponseEntity.ok(keycloakService.loginToKeycloak(userCredentials));
