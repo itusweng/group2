@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     goToDetails(item) {
-      this.$store.commit('setTraining', item);
       this.$router.push('/trainings/' + item.id);
     }
   }

@@ -15,7 +15,7 @@
             />
           </b-col>
           <b-col md="3">
-            {{ activeTraining.title }}
+            {{ training.title }}
           </b-col>
           <b-col md="3">
             <div>Start Date: 16 EYL 2021 00:00</div>
@@ -29,29 +29,62 @@
       </div>
     </div>
 
-    <LessonList></LessonList>
+    <OfflineLessonList :lessons="lessons" />
   </div>
 </template>
 
 <script>
 import Widget13 from '@/view/components/training/TrainingProgress';
-import LessonList from '@/view/components/training/LessonList';
-import { mapGetters } from 'vuex';
+import OfflineLessonList from '@/view/components/training/OfflineLessonList';
 
 export default {
   name: 'dashboard',
   components: {
     Widget13,
-    LessonList
+    OfflineLessonList
   },
   data() {
     return {
+      training: {
+        instructor: {},
+        user_created: {}
+      },
       lessons: []
     };
   },
+  created() {
+    this.getTraining();
+  },
+  methods: {
+    async getTraining() {
+      try {
+        const { data } = await this.axios.get(
+          '/training/getTraining/byId/' + this.$route.params.id
+        );
 
-  computed: {
-    ...mapGetters(['activeTraining'])
+        this.training = data.data;
+
+        this.getLessons();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getLessons() {
+      try {
+        const trainingId = this.$route.params.id;
+
+        let url;
+        if (this.training.is_online) {
+          url = `/training/onlineLesson/getAllLessons/${trainingId}`;
+        } else {
+          url = `/training/offlineLesson/getAllLessons/${trainingId}`;
+        }
+        const { data } = await this.axios.get(url);
+        this.lessons = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 };
 </script>
