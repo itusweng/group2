@@ -30,7 +30,6 @@ CREATE TABLE `user` (
   `role_id` bigint NOT NULL,
   `password` text COLLATE utf8mb4_general_ci NOT NULL,
   `username` text COLLATE utf8mb4_general_ci NOT NULL,
-  `job_title` char(50) COLLATE utf8mb4_general_ci NOT NULL,
   `profile_photo` text COLLATE utf8mb4_general_ci,
   `manager_group_id` bigint NOT NULL,
   PRIMARY KEY (`id`)
@@ -41,9 +40,11 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
+LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'test@gmail.com','test name','test last name',11,'$2a$10$wwNjYmbCz/4en33BXtdI9epC8ppcucVng2JBJS8Rc7v.xN4xa.GgK','test1','','https://pbs.twimg.com/profile_images/726356653105369088/uVI0RTjg_400x400.jpg',1),(2,'test2@gmail.com','test name','test last name',11,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test2','','https://pbs.twimg.com/profile_images/433220085964996608/eXGd_0r2_400x400.jpeg',2),(3,'test3@gmail.com','test name','test last name',12,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test3','','https://pbs.twimg.com/profile_images/963467043726086145/rN-JP6SI_400x400.jpg',2),(4,'test4@gmail.com','test name','test last name',12,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test4','','https://pbs.twimg.com/profile_images/1127127014148923393/t5xi827B_400x400.jpg',2),(5,'test5@gmail.com','test name','test last name',12,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test5','','https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/10/07/23/web-ali-g-getty.jpg?width=982&height=726&auto=webp&quality=75',1),(6,'test6@gmail.com','test name','test last name',11,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test6','','https://cf.kizlarsoruyor.com/q12682016/532f0290-9ef6-4f7c-9e67-5f31b544d0c4-m.jpg',1);
+INSERT INTO `user` VALUES (1,'updated_email@gmail.com','Updated name','Updated last name',11,'$2a$10$wwNjYmbCz/4en33BXtdI9epC8ppcucVng2JBJS8Rc7v.xN4xa.GgK','test1','https://pbs.twimg.com/profile_images/726356653105369088/uVI0RTjg_400x400.jpg',1),(2,'test2@gmail.com','test name','test last name',11,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test2','https://pbs.twimg.com/profile_images/433220085964996608/eXGd_0r2_400x400.jpeg',2),(3,'test3@gmail.com','test name','test last name',12,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test3','https://pbs.twimg.com/profile_images/963467043726086145/rN-JP6SI_400x400.jpg',2),(4,'test4@gmail.com','test name','test last name',12,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test4','https://pbs.twimg.com/profile_images/1127127014148923393/t5xi827B_400x400.jpg',2),(5,'test5@gmail.com','test name','test last name',12,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test5','https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/10/07/23/web-ali-g-getty.jpg?width=982&height=726&auto=webp&quality=75',1),(6,'test6@gmail.com','test name','test last name',11,'$2a$10$tqADviqbqNATOCPEdIuY.O/U4.ltZ.uUlYlymaajiSIBCaLFTjVSW','test6','https://cf.kizlarsoruyor.com/q12682016/532f0290-9ef6-4f7c-9e67-5f31b544d0c4-m.jpg',1),(23,'deneme7@gmail.com','Test 8 First Name','Test 8 last name',11,'$2a$10$5P6y8qIhj2tOMirDrcBQUeDIUuWLRtXH1JGLYo07.YafO8DlZybDe','deneme7','https://i.imgur.com/Au7tMN8.jpg',1),(24,'deneme8@gmail.com','Test 8 First Name','Test 8 last name',11,'$2a$10$v7UWuwas7HhP.cNBfUjgnuu3eh5TpliimYSoTP3hs7.kOyRyhAfMq','deneme8','https://i.imgur.com/Au7tMN8.jpg',1),(25,'deneme9@gmail.com','Test 8 First Name','Test 8 last name',11,'$2a$10$3LUWMMV/6UdtUMNzt8bj0usPzI7reTTCgbaZFhKwC5WLGFhHk1W8O','deneme9','https://i.imgur.com/Au7tMN8.jpg',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -54,4 +55,4 @@ INSERT INTO `user` VALUES (1,'test@gmail.com','test name','test last name',11,'$
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09 14:39:04
+-- Dump completed on 2022-01-10 22:30:55

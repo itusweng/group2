@@ -46,7 +46,10 @@ public abstract class BaseController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(createReturnObj(e.getMessage()));
         }
-
+        else if(e instanceof HttpClientErrorException.Conflict){
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(createReturnObj(e.getMessage()));
+        }
         // Return default exception
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(createReturnObj("An error is occured!"));
     }

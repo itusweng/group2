@@ -34,9 +34,11 @@ CREATE TABLE `user_role` (
 -- Dumping data for table `user_role`
 --
 
+LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
 INSERT INTO `user_role` VALUES (11,1,'Mobil Backend Developer'),(12,1,'Mobil Android Developer');
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -47,4 +49,4 @@ INSERT INTO `user_role` VALUES (11,1,'Mobil Backend Developer'),(12,1,'Mobil And
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09 14:39:08
+-- Dump completed on 2022-01-10 22:30:58

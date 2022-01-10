@@ -10,6 +10,8 @@ import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -100,6 +102,7 @@ public class UserController extends BaseController {
     @PostMapping("/")
     public ResponseEntity createUser(@RequestBody User user) {
         try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             ResponseEntity accessToken = userService.createUser(user);
             return ResponseEntity.status(HttpStatus.OK).body(accessToken);
         } catch (Exception e) {

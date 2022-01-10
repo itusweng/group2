@@ -39,8 +39,11 @@ CREATE TABLE `onlinelesson` (
 -- Dumping data for table `onlinelesson`
 --
 
+LOCK TABLES `onlinelesson` WRITE;
 /*!40000 ALTER TABLE `onlinelesson` DISABLE KEYS */;
+INSERT INTO `onlinelesson` VALUES (15,'deneme0','2021-12-27','updatedTitle44534','updatedLink434534',1),(16,'deneme0','2021-12-27','deneme0','deneme2',1),(17,'deneme0','2021-12-27','deneme0','deneme2',1);
 /*!40000 ALTER TABLE `onlinelesson` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -51,4 +54,4 @@ CREATE TABLE `onlinelesson` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09 14:39:15
+-- Dump completed on 2022-01-10 22:31:03

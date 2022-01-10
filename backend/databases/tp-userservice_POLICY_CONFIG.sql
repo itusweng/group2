@@ -35,9 +35,11 @@ CREATE TABLE `POLICY_CONFIG` (
 -- Dumping data for table `POLICY_CONFIG`
 --
 
+LOCK TABLES `POLICY_CONFIG` WRITE;
 /*!40000 ALTER TABLE `POLICY_CONFIG` DISABLE KEYS */;
 INSERT INTO `POLICY_CONFIG` VALUES ('569333c0-cae6-49da-9919-e37778d34d7d','defaultResourceType','urn:tp-spring-cloud-gateway-client:resources:default'),('9ba80fba-01c4-4590-8ae0-1ca2052ef1de','code','// by default, grants any permission associated with this policy\n$evaluation.grant();\n');
 /*!40000 ALTER TABLE `POLICY_CONFIG` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -48,4 +50,4 @@ INSERT INTO `POLICY_CONFIG` VALUES ('569333c0-cae6-49da-9919-e37778d34d7d','defa
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09 14:39:10
+-- Dump completed on 2022-01-10 22:31:02

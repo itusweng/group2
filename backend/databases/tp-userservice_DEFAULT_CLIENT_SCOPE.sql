@@ -37,9 +37,11 @@ CREATE TABLE `DEFAULT_CLIENT_SCOPE` (
 -- Dumping data for table `DEFAULT_CLIENT_SCOPE`
 --
 
+LOCK TABLES `DEFAULT_CLIENT_SCOPE` WRITE;
 /*!40000 ALTER TABLE `DEFAULT_CLIENT_SCOPE` DISABLE KEYS */;
-INSERT INTO `DEFAULT_CLIENT_SCOPE` VALUES ('master','34559097-c6b4-4792-a1db-769bdc8edf2e',_binary ''),('master','4a8471d8-56ec-4846-b47c-31aa1a54562e',_binary ''),('master','54e97e7e-8161-4cf0-b0ca-ef8b0aab2aef',_binary '\0'),('master','5caba6be-7ab6-4904-97a1-abdef217c6a8',_binary '\0'),('master','8082bc35-e261-4d30-9254-45deb40f5bc8',_binary ''),('master','b2bf91f6-0f19-4e95-ad89-0a65982e4b02',_binary ''),('master','dee9a228-fe60-41d5-b484-47cd90246224',_binary '\0'),('master','fca7e2c0-3c2d-40df-a1be-21cd54e377da',_binary '\0'),('master','fd787c51-5ed4-464e-86be-237d209128ba',_binary ''),('training-platform-realm','0b1eee33-4741-4903-a2ca-c2d3442d537c',_binary '\0'),('training-platform-realm','1b6aa6a2-33b3-4645-87be-c658959367b9',_binary '\0'),('training-platform-realm','2f736949-d74b-449b-b367-9a8970657a85',_binary ''),('training-platform-realm','4858aea6-d749-4166-8c1a-3de16228b1ce',_binary ''),('training-platform-realm','5b9e322d-b418-424e-af31-dca243472f08',_binary ''),('training-platform-realm','5f9e5bfb-8e90-4396-8972-4e0928890ad8',_binary ''),('training-platform-realm','b9148a9a-42d3-4e90-bbcf-33b03b44a0e9',_binary '\0'),('training-platform-realm','fb94fb3d-5ac9-425b-94b4-559d9f67d9d2',_binary '\0');
+INSERT INTO `DEFAULT_CLIENT_SCOPE` VALUES ('fdgdg','021c2314-036f-4ec8-8d05-26bd3d8f5162',_binary ''),('fdgdg','0f8d27bd-ecd5-4529-8353-5ab3828f4747',_binary '\0'),('fdgdg','137f1bc9-e0c5-4663-901e-702fbc14cbaa',_binary '\0'),('fdgdg','3cc52dc2-cc4b-4b45-9669-06c016d2cec4',_binary '\0'),('fdgdg','5f13d656-eef1-4801-bd50-c31e56f66521',_binary ''),('fdgdg','6a629849-2e41-4f20-af54-8e3727699879',_binary ''),('fdgdg','b2476ed0-d50d-475a-9fd1-903283449594',_binary ''),('fdgdg','cc1832c3-a3e7-4d3a-8564-32e6aaadc312',_binary ''),('fdgdg','f9438407-4811-454b-9ef1-345f65a6355b',_binary '\0'),('master','34559097-c6b4-4792-a1db-769bdc8edf2e',_binary ''),('master','4a8471d8-56ec-4846-b47c-31aa1a54562e',_binary ''),('master','54e97e7e-8161-4cf0-b0ca-ef8b0aab2aef',_binary '\0'),('master','5caba6be-7ab6-4904-97a1-abdef217c6a8',_binary '\0'),('master','8082bc35-e261-4d30-9254-45deb40f5bc8',_binary ''),('master','b2bf91f6-0f19-4e95-ad89-0a65982e4b02',_binary ''),('master','dee9a228-fe60-41d5-b484-47cd90246224',_binary '\0'),('master','fca7e2c0-3c2d-40df-a1be-21cd54e377da',_binary '\0'),('master','fd787c51-5ed4-464e-86be-237d209128ba',_binary ''),('training-platform-realm','0b1eee33-4741-4903-a2ca-c2d3442d537c',_binary '\0'),('training-platform-realm','1b6aa6a2-33b3-4645-87be-c658959367b9',_binary '\0'),('training-platform-realm','2f736949-d74b-449b-b367-9a8970657a85',_binary ''),('training-platform-realm','4858aea6-d749-4166-8c1a-3de16228b1ce',_binary ''),('training-platform-realm','5b9e322d-b418-424e-af31-dca243472f08',_binary ''),('training-platform-realm','5f9e5bfb-8e90-4396-8972-4e0928890ad8',_binary ''),('training-platform-realm','b9148a9a-42d3-4e90-bbcf-33b03b44a0e9',_binary '\0'),('training-platform-realm','fb94fb3d-5ac9-425b-94b4-559d9f67d9d2',_binary '\0');
 /*!40000 ALTER TABLE `DEFAULT_CLIENT_SCOPE` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -50,4 +52,4 @@ INSERT INTO `DEFAULT_CLIENT_SCOPE` VALUES ('master','34559097-c6b4-4792-a1db-769
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09 14:39:08
+-- Dump completed on 2022-01-10 22:31:02
