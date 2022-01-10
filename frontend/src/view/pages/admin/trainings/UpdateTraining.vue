@@ -11,7 +11,7 @@
         <button
           type="reset"
           class="btn btn-success mr-2"
-          @click="save()"
+          @click="save"
           ref="kt_save_changes"
         >
           Save Changes
@@ -42,18 +42,6 @@
           </form-group>
         </div>
         <div class="form-group row">
-          <label class="col-xl-3 col-lg-3 col-form-label">Trainer</label>
-          <form-group name="trainer" lg="9" xl="6" no-label no-margin>
-            <b-input
-              slot-scope="{ attrs, listeners }"
-              v-bind="attrs"
-              v-on="listeners"
-              class="form-control form-control-lg form-control-solid"
-              v-model="form.trainer"
-            />
-          </form-group>
-        </div>
-        <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Description</label>
           <form-group name="description" lg="9" xl="6" no-label no-margin>
             <b-form-textarea
@@ -66,18 +54,39 @@
           </form-group>
         </div>
         <div class="form-group row">
-          <label class="col-xl-3 col-lg-3 col-form-label">Is Online</label>
-          <form-group name="isOnline" lg="9" xl="6" no-label no-margin>
-            <span
+          <label class="col-xl-3 col-lg-3 col-form-label">Image URL</label>
+          <form-group name="thumbnail" lg="9" xl="6" no-label no-margin>
+            <b-input
               slot-scope="{ attrs, listeners }"
-              class="switch switch-sm switch-primary"
-            >
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.thumbnail"
+            />
+          </form-group>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Capacity</label>
+          <form-group name="thumbnail" lg="9" xl="6" no-label no-margin>
+            <b-input
+              slot-scope="{ attrs, listeners }"
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.capacity"
+            />
+          </form-group>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Is Online</label>
+          <form-group name="is_online" lg="9" xl="6" no-label no-margin>
+            <span slot-scope="{ attrs, listeners }" class="switch switch-sm">
               <label>
                 <input
                   type="checkbox"
                   v-bind="attrs"
                   v-on="listeners"
-                  v-model="form.isOnline"
+                  v-model="form.is_online"
                 />
                 <span></span>
               </label>
@@ -104,29 +113,55 @@ export default {
   data() {
     return {
       form: {
-        title: 'İş Sağlığı ve Güvenliği-UE/001-20',
-        trainer: 'Dickerson',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam amet cumque doloribus ducimus error explicabo iste labore repudiandae saepe.',
-        isOnline: false
+        title: '',
+        description: '',
+        capacity: '',
+        is_online: false,
+        instructor_id: 2,
+        thumbnail: ''
       }
     };
   },
+  created() {
+    this.getTraining();
+  },
   methods: {
-    save() {
+    async getTraining() {
       try {
-        Swal.fire({
+        const { data } = await this.axios.get(
+          '/training/getTraining/byId/' + this.$route.params.id
+        );
+
+        this.form = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async save() {
+      try {
+        await this.axios.post('/training/update', {
+          ...this.form,
+          id: this.$route.params.id
+        });
+
+        await Swal.fire({
           icon: 'success',
           title: 'Training updated successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
       } catch (e) {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Training cannot updated!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        });
         console.log(e);
       }
     },
     cancel() {
-      this.$router.push('/admin/trainings/list');
+      this.$router.back();
     }
   }
 };
