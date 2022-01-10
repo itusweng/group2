@@ -69,12 +69,6 @@ public class TrainingModel implements Serializable {
     )
     private String description;
 
-    @Column(
-            name="thumbnail",
-            columnDefinition = "TEXT"
-    )
-    private String thumbnail;
-
     private Date created_date;
 
     private Date updated_date;

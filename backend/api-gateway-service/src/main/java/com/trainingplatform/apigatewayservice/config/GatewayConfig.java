@@ -30,6 +30,9 @@ public class GatewayConfig {
 
                 .route("reporting-service", r -> r.path("/api/reporting/**")
                         .uri("lb://reporting-service"))
+
+                .route("uploading-service", r -> r.path("/api/uploading/**")
+                        .uri("lb://uploading-service"))
                 .build();
     }
 

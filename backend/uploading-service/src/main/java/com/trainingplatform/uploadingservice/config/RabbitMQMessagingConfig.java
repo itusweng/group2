@@ -1,6 +1,5 @@
-package com.trainingplatform.trainingservice.trainingservice.config;
+package com.trainingplatform.uploadingservice.config;
 
-import com.trainingplatform.trainingservice.trainingservice.constants.QueueDefinitions;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -13,38 +12,25 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQMessagingConfig {
 
-    public static final String QUEUE_UPLOAD = "OfflineLessonUploadQueue";
-    public static final String QUEUE_DELETE = "OfflineLessonDeleteQueue";
+    public static final String QUEUE_UPLOAD_PP = "UserProfilePictureUploadQueue";
+    public static final String QUEUE_DELETE_PP = "UserProfilePictureDeleteQueue";
     public static final String QUEUE_UPLOAD_TRAINING_THUMBNAIL = "TrainingThumbnailUploadQueue";
     public static final String QUEUE_DELETE_TRAINING_THUMBNAIL = "TrainingThumbnailDeleteQueue";
     public static final String EXCHANGE = "OfflineLessonStreamingExchange";
-    public static final String ROUTING_KEY_UPLOAD = "OfflineLessonUploadRoutingKey";
-    public static final String ROUTING_KEY_DELETE = "OfflineLessonDeleteRoutingKey";
+    public static final String ROUTING_KEY_UPLOAD_PP = "UserProfilePictureUploadRoutingKey";
+    public static final String ROUTING_KEY_DELETE_PP = "UserProfilePictureDeleteRoutingKey";
     public static final String ROUTING_KEY_UPLOAD_TRAINING_THUMBNAIL = "TrainingThumbnailUploadRoutingKey";
     public static final String ROUTING_KEY_DELETE_TRAINING_THUMBNAIL = "TrainingThumbnailDeleteRoutingKey";
 
     @Bean
-    public Queue queueSendTrainingParticipationNotification(){
-        return new Queue(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getQueueName());
+    public Queue queueUploadPP() {
+        return new Queue(QUEUE_UPLOAD_PP);
     }
 
     @Bean
-    public TopicExchange exchangeSendTrainingParticipationNotification(){
-        return new TopicExchange(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getExchange());
+    public Queue queueDeletePP() {
+        return new Queue(QUEUE_DELETE_PP);
     }
-
-    @Bean
-    public Binding bindingSendTrainingParticipationNotification(@Qualifier("queueSendTrainingParticipationNotification") Queue queue, @Qualifier("exchangeSendTrainingParticipationNotification") TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getRoutingKey());
-    }
-
-    @Bean
-    public Queue queueUpload() {
-        return new Queue(QUEUE_UPLOAD);
-    }
-
-    @Bean
-    public Queue queueDelete() { return new Queue(QUEUE_DELETE); }
 
     @Bean
     public Queue queueUploadTrainingThumbnail() {
@@ -56,20 +42,19 @@ public class RabbitMQMessagingConfig {
         return new Queue(QUEUE_DELETE_TRAINING_THUMBNAIL);
     }
 
-
     @Bean
     public TopicExchange exchange() {
         return new TopicExchange(EXCHANGE);
     }
 
     @Bean
-    public Binding bindingUpload(@Qualifier("queueUpload") Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY_UPLOAD);
+    public Binding bindingUpload(@Qualifier("queueUploadPP") Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY_UPLOAD_PP);
     }
 
     @Bean
-    public Binding bindingDelete(@Qualifier("queueDelete") Queue queue, TopicExchange exchange){
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY_DELETE);
+    public Binding bindingDelete(@Qualifier("queueDeletePP") Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY_DELETE_PP);
     }
 
     @Bean
