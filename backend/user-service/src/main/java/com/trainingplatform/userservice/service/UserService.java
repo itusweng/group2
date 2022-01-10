@@ -1,13 +1,18 @@
 package com.trainingplatform.userservice.service;
 
+import com.trainingplatform.userservice.config.RabbitMQMessagingConfig;
 import com.trainingplatform.userservice.exception.UserNotCreatedException;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.model.mapper.UserMapper;
+import com.trainingplatform.userservice.model.mapper.UserRequestMapper;
+import com.trainingplatform.userservice.model.request.UserRequestDTO;
+import com.trainingplatform.userservice.model.request.UserUploadRequestDTO;
 import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.repository.UserRepository;
 import com.trainingplatform.userservice.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -29,6 +35,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final UserRoleRepository userRoleRepo;
+    private final UserRequestMapper userRequestMapper;
+    private final RabbitTemplate rabbitTemplate;
 
     public Map<String, Object> getAllUsers(Integer page, Integer size) {
         Map<String, Object> returnMap = new HashMap<>();
@@ -40,7 +48,8 @@ public class UserService {
         return returnMap;
     }
 
-    public ResponseEntity createUser(User newUser) throws UserNotCreatedException {
+    public ResponseEntity createUser(UserRequestDTO userRequestDTO) throws UserNotCreatedException, IOException {
+        User newUser = userRequestMapper.mapToEntity(userRequestDTO);
         UserCredentials userCredentials = new UserCredentials();
         userCredentials.setUsername(newUser.getUsername());
         userCredentials.setPassword(newUser.getPassword());
@@ -57,6 +66,9 @@ public class UserService {
             case 409: // Conflict case
                 throw new UserNotCreatedException("This username is already in use!");
         }
+
+        UserUploadRequestDTO userUploadRequestDTO = new UserUploadRequestDTO(newUser.getId(), newUser.getUsername(), userRequestDTO.getProfile_photo().getBytes());
+        rabbitTemplate.convertAndSend(RabbitMQMessagingConfig.EXCHANGE,RabbitMQMessagingConfig.ROUTING_KEY_UPLOAD_PP, userUploadRequestDTO);
 
         responseWithAccessToken = ResponseEntity.ok(keycloakService.loginToKeycloak(userCredentials));
         return responseWithAccessToken;

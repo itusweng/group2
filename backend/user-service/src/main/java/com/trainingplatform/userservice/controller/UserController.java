@@ -1,5 +1,6 @@
 package com.trainingplatform.userservice.controller;
 
+import com.trainingplatform.userservice.model.request.UserRequestDTO;
 import com.trainingplatform.userservice.model.response.ManagerGroupResponseDTO;
 import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.model.entity.User;
@@ -100,10 +101,10 @@ public class UserController extends BaseController {
 
 
     @PostMapping("/")
-    public ResponseEntity createUser(@RequestBody User user) {
+    public ResponseEntity createUser(@ModelAttribute UserRequestDTO userRequestDTO) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            ResponseEntity accessToken = userService.createUser(user);
+            ResponseEntity accessToken = userService.createUser(userRequestDTO);
             return ResponseEntity.status(HttpStatus.OK).body(accessToken);
         } catch (Exception e) {
             return exceptionHandler(e);
