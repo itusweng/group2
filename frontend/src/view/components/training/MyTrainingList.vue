@@ -17,7 +17,7 @@
           <b-button v-if="training.started" href="#" variant="primary">
             Continue
           </b-button>
-          <b-button v-else :to="'/trainings/' + training.id" variant="success">
+          <b-button v-else @click="goToDetails(training)" variant="success">
             Start
           </b-button>
         </b-card>
@@ -42,6 +42,12 @@ export default {
       this.trainingList = data.data;
     } catch (e) {
       console.log(e);
+    }
+  },
+  methods: {
+    goToDetails(item) {
+      this.$store.commit('setTraining', item);
+      this.$router.push('/trainings/' + item.id);
     }
   }
 };

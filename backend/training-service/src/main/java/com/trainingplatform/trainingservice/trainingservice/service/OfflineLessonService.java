@@ -4,9 +4,9 @@ import com.trainingplatform.trainingservice.trainingservice.model.entity.Offline
 import com.trainingplatform.trainingservice.trainingservice.config.RabbitMQMessagingConfig;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelRequestMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OfflineLessonModelResponseMapper;
-import com.trainingplatform.trainingservice.trainingservice.model.request.OfflineLessonRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.request.OfflineLessonStreamRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.OfflineLessonResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.offlinelesson.OfflineLessonRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.offlinelesson.OfflineLessonStreamRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.offlinelesson.OfflineLessonResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.repository.OfflineLessonRepository;
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +14,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,8 +30,8 @@ public class OfflineLessonService {
     private final OfflineLessonModelRequestMapper offlineLessonModelRequestMapper;
     private final TrainingRepository trainingRepo;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    //@Autowired
+    private final RabbitTemplate rabbitTemplate;
 
     public List<OfflineLessonResponseDTO> getOfflineLessons(Long trainingID) {
         List<OfflineLessonModel> offlineLessonModels = offlineLessonRepo.findAllByTrainingID(trainingID);
@@ -74,4 +75,8 @@ public class OfflineLessonService {
         offlineLessonRepo.save(existingOfflineLesson);
     }
 
+    public OfflineLessonModel getOfflineLessonById(Long lessonId) {
+        return offlineLessonRepo.findById(lessonId)
+                .orElseThrow(()-> new EntityNotFoundException(String.format("No offline lesson found by id %d", lessonId)));
+    }
 }

@@ -31,7 +31,7 @@ public class StreamingService {
         Long trainingID = offlineLessonStreamRequestDTO.getTrainingId();
         Long offlineLessonID = offlineLessonStreamRequestDTO.getOfflineLessonId();
 
-        String fileName = trainingID + "_" + offlineLessonID;
+        String fileName = "video/" + trainingID + "/" + offlineLessonID + ".mp4";
         //TODO make uploading multithread
         putVideo(file, fileName);
     }
@@ -42,6 +42,7 @@ public class StreamingService {
         try {
             PutObjectRequest putOb = PutObjectRequest.builder()
                     .bucket(bucketName)
+                    .acl("public-read")
                     .key(fileName)
                     .build();
 

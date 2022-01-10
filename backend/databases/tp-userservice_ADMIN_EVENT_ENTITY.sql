@@ -23,20 +23,20 @@ DROP TABLE IF EXISTS `ADMIN_EVENT_ENTITY`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ADMIN_EVENT_ENTITY` (
-  `ID` varchar(36) NOT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   `ADMIN_EVENT_TIME` bigint DEFAULT NULL,
-  `REALM_ID` varchar(255) DEFAULT NULL,
-  `OPERATION_TYPE` varchar(255) DEFAULT NULL,
-  `AUTH_REALM_ID` varchar(255) DEFAULT NULL,
-  `AUTH_CLIENT_ID` varchar(255) DEFAULT NULL,
-  `AUTH_USER_ID` varchar(255) DEFAULT NULL,
-  `IP_ADDRESS` varchar(255) DEFAULT NULL,
-  `RESOURCE_PATH` text,
-  `REPRESENTATION` text,
-  `ERROR` varchar(255) DEFAULT NULL,
-  `RESOURCE_TYPE` varchar(64) DEFAULT NULL,
+  `REALM_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `OPERATION_TYPE` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `AUTH_REALM_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `AUTH_CLIENT_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `AUTH_USER_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `IP_ADDRESS` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `RESOURCE_PATH` text COLLATE utf8mb4_general_ci,
+  `REPRESENTATION` text COLLATE utf8mb4_general_ci,
+  `ERROR` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `RESOURCE_TYPE` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,4 +55,4 @@ CREATE TABLE `ADMIN_EVENT_ENTITY` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:15
+-- Dump completed on 2022-01-09 14:39:11

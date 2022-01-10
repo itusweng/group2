@@ -23,20 +23,20 @@ DROP TABLE IF EXISTS `USER_SESSION`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `USER_SESSION` (
-  `ID` varchar(36) NOT NULL,
-  `AUTH_METHOD` varchar(255) DEFAULT NULL,
-  `IP_ADDRESS` varchar(255) DEFAULT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `AUTH_METHOD` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `IP_ADDRESS` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `LAST_SESSION_REFRESH` int DEFAULT NULL,
-  `LOGIN_USERNAME` varchar(255) DEFAULT NULL,
-  `REALM_ID` varchar(255) DEFAULT NULL,
+  `LOGIN_USERNAME` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `REALM_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `REMEMBER_ME` bit(1) NOT NULL DEFAULT b'0',
   `STARTED` int DEFAULT NULL,
-  `USER_ID` varchar(255) DEFAULT NULL,
+  `USER_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `USER_SESSION_STATE` int DEFAULT NULL,
-  `BROKER_SESSION_ID` varchar(255) DEFAULT NULL,
-  `BROKER_USER_ID` varchar(255) DEFAULT NULL,
+  `BROKER_SESSION_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `BROKER_USER_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,4 +55,4 @@ CREATE TABLE `USER_SESSION` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:16
+-- Dump completed on 2022-01-09 14:39:13

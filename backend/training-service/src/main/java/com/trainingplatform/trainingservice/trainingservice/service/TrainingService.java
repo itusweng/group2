@@ -1,5 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.trainingplatform.trainingservice.trainingservice.communication.UserClient;
 import com.trainingplatform.trainingservice.trainingservice.config.RabbitMQMessagingConfig;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
@@ -21,7 +23,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+
 import java.io.IOException;
+import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,6 +40,7 @@ public class TrainingService {
     private final TrainingModelMapper trainingModelMapper;
     private final TrainingRequestMapper trainingRequestMapper;
     private final RabbitTemplate rabbitTemplate;
+    private final ObjectMapper objectMapper;
 
     public List<TrainingModel> getAllTrainings() {
         List<TrainingModel> trainingModels = trainingRepo.findAll();
@@ -99,5 +104,29 @@ public class TrainingService {
 
     public Map<Long, UserResponseDTO> getTrainingUsersByID(Map<Long, Long> userList) {
         return userClient.getTrainingUsersByID(userList).getBody();
+    }
+
+    public UserResponseDTO getSingleTrainingUserByID(Long userId) {
+        Map<String, Object> userResponseMap = userClient.getUserByID(userId).getBody();
+        UserResponseDTO userResponseDTO = objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                .convertValue(userResponseMap.get("data"), UserResponseDTO.class);
+        return userResponseDTO;
+    }
+
+
+    public Boolean isUserParticipated(Long trainingId, Long userId) {
+        boolean isParticipated = trainingParticipatedUserRepo.existsUser_ParticipatedTrainingModelByUserIdAndTrainingId(trainingId, userId);
+        return isParticipated;
+    }
+
+    public void updateTraining(TrainingModel training) {
+        TrainingModel existingTraining = trainingRepo
+                .findById(training.getId())
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No training found by id %d", training.getId())));
+
+        trainingModelMapper.updateFields(existingTraining, training);
+        existingTraining.setUpdated_date(new Date());
+
+        trainingRepo.save(existingTraining);
     }
 }

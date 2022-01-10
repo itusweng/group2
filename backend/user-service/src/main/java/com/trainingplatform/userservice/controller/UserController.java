@@ -1,9 +1,11 @@
 package com.trainingplatform.userservice.controller;
 
-import com.trainingplatform.userservice.model.UserResponseDTO;
+import com.trainingplatform.userservice.model.response.ManagerGroupResponseDTO;
+import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.model.mapper.UserMapper;
+import com.trainingplatform.userservice.service.UserRoleService;
 import com.trainingplatform.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ public class UserController extends BaseController {
 
     // Inject services
     private final UserService userService;
+    private final UserRoleService userRoleService;
     private final UserMapper userMapper;
 
     @GetMapping("/getAllUsers")
@@ -30,11 +33,40 @@ public class UserController extends BaseController {
             Map<String, Object> userDtoMap = new HashMap<>();
             List<UserResponseDTO> userDtoList = new ArrayList<>();
             userDtoMap.put("total", userMap.get("total"));
-            ((List)userMap.get("users")).forEach(user -> {
-                        userDtoList.add(userMapper.mapToDto((User) user));
-                    });
+            ((List) userMap.get("users")).forEach(user -> {
+                UserResponseDTO userDTO = userMapper.mapToDto((User) user);
+                userDTO.setRole_name(userRoleService.getUserRoleNameByRoleId(((User) user).getRole_id()));
+                userDtoList.add(userDTO);
+            });
             userDtoMap.put("users", userDtoList);
             return ResponseEntity.ok(createReturnObj("Users fetched successfully!", userDtoMap));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/getAllUsers/byUserRoleId/{userRoleId}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAllUsersByUserRoleId(@PathVariable Long userRoleId) {
+        try {
+            Set<User> users = userService.getAllUsersByUserRoleId(userRoleId);
+            Set<UserResponseDTO> userDtoList = userMapper.mapToDto(users);
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("Users fetched successfully by role id %d!", userRoleId), userDtoList));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/getUserProfile/byId/{userId}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getUserProfileById(@PathVariable Long userId) {
+        try {
+            User userModel = userService.getUserByID(userId);
+            UserResponseDTO userDTO = userMapper.mapToDto(userModel);
+            userDTO.setRole_name(userService.getUserRoleNameByUserRoleId(userModel.getRole_id()));
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("User profile fetched successfully by id %d!", userId), userDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }
@@ -44,7 +76,9 @@ public class UserController extends BaseController {
     public ResponseEntity<Map<String, Object>> getUserByUsername(@PathVariable String username) {
         try {
             User user = userService.getUserByUsername(username);
-            return ResponseEntity.ok(createReturnObj("User fetched successfully!", user));
+            UserResponseDTO userDTO = userMapper.mapToDto(user);
+            userDTO.setRole_name(userService.getUserRoleNameByUserRoleId(user.getRole_id()));
+            return ResponseEntity.ok(createReturnObj("User fetched successfully!", userDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }
@@ -71,6 +105,18 @@ public class UserController extends BaseController {
         }
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<Map<String, Object>> updateUser(@RequestBody User user) {
+        try {
+            User updatedUser = userService.updateUser(user);
+            UserResponseDTO userDTO = userMapper.mapToDto(updatedUser);
+            userDTO.setRole_name(userRoleService.getUserRoleNameByRoleId(updatedUser.getRole_id()));
+            return ResponseEntity.ok(createReturnObj(String.format("User id:%d updated successfully!", user.getId()), userDTO));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginWithPassword(@RequestBody UserCredentials userCredentials) {
         try {
@@ -89,6 +135,7 @@ public class UserController extends BaseController {
         trainingIdUserIdMap.forEach((trainingId, userId) -> {
             User user = userService.getUserByID(userId);
             UserResponseDTO userResponseDTO = userMapper.mapToDto(user);
+            userResponseDTO.setRole_name(userRoleService.getUserRoleNameByRoleId(user.getRole_id()));
             userResponseDTOMap.put(trainingId, userResponseDTO);
         });
         return ResponseEntity.ok(userResponseDTOMap);
@@ -103,5 +150,17 @@ public class UserController extends BaseController {
             return exceptionHandler(e);
         }
     }
+
+    @GetMapping("/getManagerGroupId/byId/{userId}")
+    public ResponseEntity<Map<String, Object>> getManagerGroupId(@PathVariable Long userId) {
+        try {
+            Long managerGroupId = userService.getManagerGroupIdByUserId(userId);
+            ManagerGroupResponseDTO responseDTO = ManagerGroupResponseDTO.builder().managerGroupId(managerGroupId).build();
+            return ResponseEntity.ok(createReturnObj(String.format("User manager group id is fetched by user id:%d", userId), responseDTO));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
 }
+
 

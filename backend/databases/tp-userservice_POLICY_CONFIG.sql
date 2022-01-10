@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `POLICY_CONFIG`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `POLICY_CONFIG` (
-  `POLICY_ID` varchar(36) NOT NULL,
-  `NAME` varchar(255) NOT NULL,
-  `VALUE` longtext,
+  `POLICY_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `NAME` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `VALUE` longtext COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`POLICY_ID`,`NAME`),
   CONSTRAINT `FKDC34197CF864C4E43` FOREIGN KEY (`POLICY_ID`) REFERENCES `RESOURCE_SERVER_POLICY` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,4 +48,4 @@ INSERT INTO `POLICY_CONFIG` VALUES ('569333c0-cae6-49da-9919-e37778d34d7d','defa
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:16
+-- Dump completed on 2022-01-09 14:39:10

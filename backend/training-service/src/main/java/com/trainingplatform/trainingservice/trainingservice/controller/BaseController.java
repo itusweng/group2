@@ -1,6 +1,7 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
+import feign.FeignException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,10 @@ public abstract class BaseController {
 
     public ResponseEntity exceptionHandler(Exception e) {
         if (e instanceof EntityNotFoundException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(createReturnObj(e.getMessage()));
+        }
+        else if (e instanceof FeignException.NotFound) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(createReturnObj(e.getMessage()));
         }

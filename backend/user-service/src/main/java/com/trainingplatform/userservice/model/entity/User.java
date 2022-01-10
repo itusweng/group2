@@ -70,9 +70,10 @@ public class User {
     private String profile_photo;
 
     @Column(
-            name = "job_title",
+            name = "manager_group_id",
             nullable = false,
-            columnDefinition = "CHAR(50)"
+            columnDefinition = "BIGINT"
     )
-    private String job_title;
+    private Long manager_group_id;
+
 }

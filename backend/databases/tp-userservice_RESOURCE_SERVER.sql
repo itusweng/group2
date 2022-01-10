@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `RESOURCE_SERVER`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RESOURCE_SERVER` (
-  `ID` varchar(36) NOT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   `ALLOW_RS_REMOTE_MGMT` bit(1) NOT NULL DEFAULT b'0',
-  `POLICY_ENFORCE_MODE` varchar(15) NOT NULL,
+  `POLICY_ENFORCE_MODE` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
   `DECISION_STRATEGY` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,4 +48,4 @@ INSERT INTO `RESOURCE_SERVER` VALUES ('22c20439-6887-43b5-813b-49f191fadb40',_bi
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:12
+-- Dump completed on 2022-01-09 14:39:14

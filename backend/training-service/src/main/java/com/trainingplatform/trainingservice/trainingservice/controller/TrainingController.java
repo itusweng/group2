@@ -56,6 +56,16 @@ public class TrainingController extends BaseController {
         }
     }
 
+    @GetMapping("/{trainingId}/isUserParticipated/{userId}")
+    public ResponseEntity<Map<String, Object>> isUserParticipated(@PathVariable Long trainingId, @PathVariable Long userId) {
+        try {
+            Boolean isUserParticipated = trainingService.isUserParticipated(trainingId, userId);
+            return ResponseEntity.ok(createReturnObj("", isUserParticipated));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
     @GetMapping("/byParticipantId/{participantId}/getAll")
     public ResponseEntity<HashMap<String, Object>> getTrainingsByParticipantId(@PathVariable Long participantId) {
         try {
@@ -99,11 +109,45 @@ public class TrainingController extends BaseController {
         }
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<HashMap<String, Object>> updateTraining(@RequestBody TrainingModel training) {
+        try {
+            trainingService.updateTraining(training);
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("Training id:%d updated successfully!", training.getId()), null));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
     @DeleteMapping("/{trainingId}")
     public ResponseEntity<HashMap<String, Object>> deleteTraining(@PathVariable Long trainingId) {
         try {
             trainingService.deleteTraining(trainingId);
             return ResponseEntity.ok(createReturnObj("Training deleted successfully!", null));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/getTraining/byId/{trainingId}")
+    public ResponseEntity<HashMap<String, Object>> getTrainingById(@PathVariable Long trainingId) {
+        try {
+            TrainingModel trainingModel = trainingService.getTrainingById(trainingId);
+
+            // Fetch the user who are created the training
+            UserResponseDTO createdUser = trainingService.getSingleTrainingUserByID(trainingModel.getUser_created_id());
+
+            // Fetch the instructor of training
+            UserResponseDTO instructor = trainingService.getSingleTrainingUserByID(trainingModel.getInstructor_id());
+
+            // Add instructors & created users into dto model
+            TrainingResponseDTO responseDTO = trainingMapper.mapToDto(trainingModel);
+            responseDTO.setUser_created(createdUser);
+            responseDTO.setInstructor(instructor);
+
+            return ResponseEntity.ok(
+                    createReturnObj(String.format("Training fetched by id %d successfully!", trainingId), responseDTO));
         } catch (Exception e) {
             return exceptionHandler(e);
         }

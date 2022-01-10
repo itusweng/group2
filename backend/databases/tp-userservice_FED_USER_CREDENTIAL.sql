@@ -23,21 +23,21 @@ DROP TABLE IF EXISTS `FED_USER_CREDENTIAL`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `FED_USER_CREDENTIAL` (
-  `ID` varchar(36) NOT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   `SALT` tinyblob,
-  `TYPE` varchar(255) DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `CREATED_DATE` bigint DEFAULT NULL,
-  `USER_ID` varchar(255) NOT NULL,
-  `REALM_ID` varchar(36) NOT NULL,
-  `STORAGE_PROVIDER_ID` varchar(36) DEFAULT NULL,
-  `USER_LABEL` varchar(255) DEFAULT NULL,
-  `SECRET_DATA` longtext,
-  `CREDENTIAL_DATA` longtext,
+  `USER_ID` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `STORAGE_PROVIDER_ID` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `USER_LABEL` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `SECRET_DATA` longtext COLLATE utf8mb4_general_ci,
+  `CREDENTIAL_DATA` longtext COLLATE utf8mb4_general_ci,
   `PRIORITY` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDX_FU_CREDENTIAL` (`USER_ID`,`TYPE`),
   KEY `IDX_FU_CREDENTIAL_RU` (`REALM_ID`,`USER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,4 +56,4 @@ CREATE TABLE `FED_USER_CREDENTIAL` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:23
+-- Dump completed on 2022-01-09 14:39:06

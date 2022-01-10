@@ -49,7 +49,9 @@
               </td>
               <td class="text-right pr-0">
                 <b-button
-                    v-if="item.completionStatus === completionStatuses.NOT_STARTED"
+                  v-if="
+                    item.completionStatus === completionStatuses.NOT_STARTED
+                  "
                   :to="'/lessons/' + item.id"
                   variant="light-success"
                   size="sm"
@@ -57,18 +59,18 @@
                   Start
                 </b-button>
                 <b-button
-                    v-if="item.completionStatus === completionStatuses.STARTED"
-                    :to="'/lessons/' + item.id"
-                    variant="light-warning"
-                    size="sm"
+                  v-if="item.completionStatus === completionStatuses.STARTED"
+                  :to="'/lessons/' + item.id"
+                  variant="light-warning"
+                  size="sm"
                 >
                   Continue
                 </b-button>
                 <b-button
-                    v-if="item.completionStatus === completionStatuses.FINISHED"
-                    :to="'/lessons/' + item.id"
-                    variant="light-danger"
-                    size="sm"
+                  v-if="item.completionStatus === completionStatuses.FINISHED"
+                  :to="'/lessons/' + item.id"
+                  variant="light-danger"
+                  size="sm"
                 >
                   Re-Watch
                 </b-button>
@@ -164,6 +166,12 @@ export default {
   components: {
     Dropdown2
   },
+  computed: {
+    ...mapGetters(['layoutConfig', 'activeTraining'])
+  },
+  created() {
+    //this.getLessons();
+  },
   methods: {
     lastElement(i) {
       if (i === this.list.length - 1) {
@@ -171,10 +179,18 @@ export default {
       } else {
         return true;
       }
+    },
+    async getLessons() {
+      try {
+        const trainingId = this.activeTraining.id;
+        const { data } = await this.axios.get(
+          `/training/offlineLesson/getAllLessons/${trainingId}`
+        );
+        this.list = data.data;
+      } catch (e) {
+        console.log(e);
+      }
     }
-  },
-  computed: {
-    ...mapGetters(['layoutConfig'])
   }
 };
 </script>

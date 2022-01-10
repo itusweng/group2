@@ -23,15 +23,15 @@ DROP TABLE IF EXISTS `BROKER_LINK`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `BROKER_LINK` (
-  `IDENTITY_PROVIDER` varchar(255) NOT NULL,
-  `STORAGE_PROVIDER_ID` varchar(255) DEFAULT NULL,
-  `REALM_ID` varchar(36) NOT NULL,
-  `BROKER_USER_ID` varchar(255) DEFAULT NULL,
-  `BROKER_USERNAME` varchar(255) DEFAULT NULL,
-  `TOKEN` text,
-  `USER_ID` varchar(255) NOT NULL,
+  `IDENTITY_PROVIDER` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `STORAGE_PROVIDER_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `BROKER_USER_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `BROKER_USERNAME` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `TOKEN` text COLLATE utf8mb4_general_ci,
+  `USER_ID` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`IDENTITY_PROVIDER`,`USER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,4 +50,4 @@ CREATE TABLE `BROKER_LINK` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:20
+-- Dump completed on 2022-01-09 14:39:04

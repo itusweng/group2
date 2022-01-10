@@ -3,7 +3,10 @@ package com.trainingplatform.userservice.service;
 import com.trainingplatform.userservice.exception.UserNotCreatedException;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
+import com.trainingplatform.userservice.model.mapper.UserMapper;
+import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.repository.UserRepository;
+import com.trainingplatform.userservice.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -26,9 +27,11 @@ public class UserService {
     private final UserRepository userRepo;
     private final KeycloakService keycloakService;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+    private final UserRoleRepository userRoleRepo;
 
     public Map<String, Object> getAllUsers(Integer page, Integer size) {
-        Map<String, Object> returnMap=new HashMap<>();
+        Map<String, Object> returnMap = new HashMap<>();
         List<User> userList = userRepo.findAll(PageRequest.of(page, size)).getContent();
         long userCount = userRepo.countAllUsers();
 
@@ -70,7 +73,9 @@ public class UserService {
         User user = getUserByUsername(userCredentials.getUsername());
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
-        response.put("user", user);
+        UserResponseDTO userDTO = userMapper.mapToDto(user);
+        userDTO.setRole_name(getUserRoleNameByUserRoleId(user.getRole_id()));
+        response.put("user", userDTO);
         return response;
     }
 
@@ -81,5 +86,29 @@ public class UserService {
 
     public boolean checkUserExistsByUserId(Long id) {
         return userRepo.existsById(id);
+    }
+
+    public Long getManagerGroupIdByUserId(Long userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException());
+        return user.getManager_group_id();
+    }
+
+    public String getUserRoleNameByUserRoleId(Long userId) {
+        return userRoleRepo.findByRoleId(userId).getRoleName();
+    }
+
+    public Set<User> getAllUsersByUserRoleId(Long userRoleId) {
+        Set<User> userSet = userRepo.findAllByByRole_id(userRoleId);
+        return userSet;
+    }
+
+    public User updateUser(User updatedUser) {
+        User existingUser = userRepo
+                .findById(updatedUser.getId())
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No user found by id %d", updatedUser.getId())));
+        userMapper.updateFields(existingUser, updatedUser);
+
+        userRepo.save(existingUser);
+        return existingUser;
     }
 }

@@ -63,7 +63,7 @@
               v-bind="attrs"
               v-on="listeners"
               class="form-control form-control-lg form-control-solid"
-              v-model="form.meetingDate"
+              v-model="form.meeting_date"
             />
           </form-group>
         </div>
@@ -71,11 +71,11 @@
           <label class="col-xl-3 col-lg-3 col-form-label">Zoom Link</label>
           <form-group name="zoomLink" lg="9" xl="6" no-label no-margin>
             <b-input
-                slot-scope="{ attrs, listeners }"
-                v-bind="attrs"
-                v-on="listeners"
-                class="form-control form-control-lg form-control-solid"
-                v-model="form.zoomLink"
+              slot-scope="{ attrs, listeners }"
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.zoom_link"
             />
           </form-group>
         </div>
@@ -87,14 +87,15 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
 export default {
   validations: {
     form: {
       title: { required },
       description: {},
-      meetingDate: {},
-      zoomLink: { required }
+      meeting_date: {},
+      zoom_link: { required }
     }
   },
   data() {
@@ -102,21 +103,35 @@ export default {
       form: {
         title: '',
         description: '',
-        meetingDate: new Date(),
-        zoomLink: ''
+        meeting_date: new Date(),
+        zoom_link: ''
       }
     };
   },
   methods: {
-    save() {
+    async save() {
       try {
-        Swal.fire({
+        await this.axios.post('/training/onlineLesson/', {
+          ...this.form,
+          meeting_date: moment(this.form.meeting_date).format('DD-MM-YYYY'),
+          training_id: this.$route.params.id
+        });
+
+        await Swal.fire({
           icon: 'success',
           title: 'Online lesson created successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
+
+        this.$router.back();
       } catch (e) {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Online lesson cannot created!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        });
         console.log(e);
       }
     },

@@ -8,7 +8,11 @@
           <!--begin: Pic-->
           <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
             <img
-              src="https://picsum.photos/600/300/?image=22"
+              :src="
+                training.thumbnail
+                  ? training.thumbnail
+                  : '/media/other/no-img.jpeg'
+              "
               alt="image"
               style="max-width: 300px"
             />
@@ -28,12 +32,17 @@
                     mr-3
                   "
                 >
-                  İş Sağlığı ve Güvenliği-UE/001-20
+                  {{ training.title }}
                 </a>
               </div>
 
               <div class="my-lg-0 my-3">
-                <b-button variant="light-primary">Update</b-button>
+                <b-button
+                  :to="'/admin/trainings/' + training.id + '/update'"
+                  variant="light-primary"
+                >
+                  Update
+                </b-button>
               </div>
             </div>
             <!--end::Title-->
@@ -52,21 +61,21 @@
                     "
                   >
                     <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>
-                    Trainer: Dickerson
+                    Trainer: {{ training.instructor.first_name }}
+                    {{ training.instructor.last_name }}
                   </a>
                   <a
                     href="#"
                     class="text-dark-50 text-hover-primary font-weight-bold"
                   >
                     <i class="flaticon2-edit mr-2 font-size-lg"></i>
-                    Created By: Macdonald
+                    Created By: {{ training.user_created.first_name }}
+                    {{ training.user_created.last_name }}
                   </a>
                 </div>
 
                 <span class="font-weight-bold text-dark-50">
-                  I distinguish three main text objectives could be merely to
-                  inform people. A second could be persuade people. You want
-                  people to bay objective
+                  {{ training.description }}
                 </span>
               </div>
             </div>
@@ -94,7 +103,9 @@
             </span>
             <div class="d-flex flex-column text-dark-75">
               <span class="font-weight-bolder font-size-sm">Type</span>
-              <span class="font-weight-bolder font-size-h5">Online</span>
+              <span class="font-weight-bolder font-size-h5">
+                {{ training.is_online ? 'Online' : 'Offline' }}
+              </span>
             </div>
           </div>
           <!--end::Item-->
@@ -123,7 +134,9 @@
             </span>
             <div class="d-flex flex-column text-dark-75">
               <span class="font-weight-bolder font-size-sm">Lesson</span>
-              <span class="font-weight-bolder font-size-h5">12</span>
+              <span class="font-weight-bolder font-size-h5">
+                {{ lessons.length }}
+              </span>
             </div>
           </div>
 
@@ -140,35 +153,35 @@
                 data-toggle="tooltip"
                 title="Mark Stone"
               >
-                <img alt="Pic" src="media/users/300_25.jpg" />
+                <img alt="Pic" src="/media/users/300_25.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Charlie Stone"
               >
-                <img alt="Pic" src="media/users/300_19.jpg" />
+                <img alt="Pic" src="/media/users/300_19.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Luca Doncic"
               >
-                <img alt="Pic" src="media/users/300_22.jpg" />
+                <img alt="Pic" src="/media/users/300_22.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Nick Mana"
               >
-                <img alt="Pic" src="media/users/300_23.jpg" />
+                <img alt="Pic" src="/media/users/300_23.jpg" />
               </div>
               <div
                 class="symbol symbol-30 symbol-circle"
                 data-toggle="tooltip"
                 title="Teresa Fox"
               >
-                <img alt="Pic" src="media/users/300_18.jpg" />
+                <img alt="Pic" src="/media/users/300_18.jpg" />
               </div>
               <div class="symbol symbol-30 symbol-circle symbol-light">
                 <span class="symbol-label font-weight-bold">5+</span>
@@ -197,7 +210,22 @@
               </span>
             </h3>
             <div class="card-toolbar">
-              <b-button to="/admin/onlineLessons/create" variant="light-info">
+              <b-button
+                v-if="training.is_online"
+                :to="
+                  '/admin/trainings/' + training.id + '/onlineLessons/create'
+                "
+                variant="light-info"
+              >
+                Add Lesson
+              </b-button>
+              <b-button
+                v-else
+                :to="
+                  '/admin/trainings/' + training.id + '/offlineLessons/create'
+                "
+                variant="light-info"
+              >
                 Add Lesson
               </b-button>
             </div>
@@ -237,10 +265,19 @@
                         </span>
                       </td>
                       <td class="text-right pr-0">
-                        <b-button :to="'/admin/offlineLessons/'+item.id+'/update'" class="btn btn-icon btn-light btn-sm mx-3">
+                        <b-button
+                          :to="
+                            (training.is_online
+                              ? '/admin/onlineLessons/'
+                              : '/admin/offlineLessons/') +
+                            item.id +
+                            '/update'
+                          "
+                          class="btn btn-icon btn-light btn-sm mx-3"
+                        >
                           <span class="svg-icon svg-icon-md svg-icon-primary">
                             <inline-svg
-                              src="media/svg/icons/Communication/Write.svg"
+                              src="/media/svg/icons/Communication/Write.svg"
                             />
                           </span>
                         </b-button>
@@ -250,7 +287,7 @@
                         >
                           <span class="svg-icon svg-icon-md svg-icon-primary">
                             <inline-svg
-                              src="media/svg/icons/General/Trash.svg"
+                              src="/media/svg/icons/General/Trash.svg"
                             />
                           </span>
                         </b-button>
@@ -274,64 +311,63 @@
 export default {
   data() {
     return {
-      lessons: [
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'Yapikredi Mobil Uygulaması iOS/Android Aktarım-Giriş',
-          duration: '20 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483370f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '083450b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        },
-        {
-          id: '084970b3-6be2-4e73-aef7-ba34d483e70f',
-          title: 'iOS Architecture, Custom Components',
-          duration: '18 min'
-        }
-      ]
+      training: {
+        instructor: {},
+        user_created: {}
+      },
+      lessons: []
     };
   },
+  created() {
+    this.getTraining();
+  },
   methods: {
-    deleteLesson(lesson) {
-      this.confirmDelete();
-      console.log(lesson);
+    async getTraining() {
+      try {
+        const { data } = await this.axios.get(
+          '/training/getTraining/byId/' + this.$route.params.id
+        );
+
+        this.training = data.data;
+
+        this.getLessons();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getLessons() {
+      try {
+        const trainingId = this.$route.params.id;
+
+        let url;
+        if (this.training.is_online) {
+          url = `/training/onlineLesson/getAllLessons/${trainingId}`;
+        } else {
+          url = `/training/offlineLesson/getAllLessons/${trainingId}`;
+        }
+        const { data } = await this.axios.get(url);
+        this.lessons = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async deleteLesson(lesson) {
+      try {
+        const { isConfirmed } = await this.confirmDelete();
+        if (!isConfirmed) return;
+
+        let url;
+        if (this.training.is_online) {
+          url = `/training/onlineLesson/${lesson.id}`;
+        } else {
+          url = `/training/offlineLesson/${lesson.id}`;
+        }
+        await this.axios.delete(url);
+
+        this.getLessons();
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };

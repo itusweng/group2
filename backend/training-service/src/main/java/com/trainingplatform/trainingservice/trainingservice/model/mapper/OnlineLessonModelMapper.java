@@ -1,8 +1,8 @@
 package com.trainingplatform.trainingservice.trainingservice.model.mapper;
 
 import com.trainingplatform.trainingservice.trainingservice.model.entity.OnlineLessonModel;
-import com.trainingplatform.trainingservice.trainingservice.model.request.OnlineLessonRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.response.OnlineLessonResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.offlinelesson.OnlineLessonRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.onlinelesson.OnlineLessonResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -29,4 +29,10 @@ public interface OnlineLessonModelMapper {
     @Mapping(target = "meeting_date", source = "meeting_date")
     @Mapping(target = "zoom_link", source = "zoom_link")
     void updateFields(@MappingTarget OnlineLessonModel onlineLessonModel, OnlineLessonRequestDTO onlineLessonRequestDTO);
+
+    @Mapping(target = "title", source = "title")
+    @Mapping(target = "description", source = "description")
+    @Mapping(target = "meeting_date", source = "meeting_date")
+    @Mapping(target = "zoom_link", source = "zoom_link")
+    void updateFields(@MappingTarget OnlineLessonModel onlineLessonModel, OnlineLessonModel onlineLessonRequestDTO);
 }

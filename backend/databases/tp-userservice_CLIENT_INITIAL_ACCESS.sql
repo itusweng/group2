@@ -23,8 +23,8 @@ DROP TABLE IF EXISTS `CLIENT_INITIAL_ACCESS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `CLIENT_INITIAL_ACCESS` (
-  `ID` varchar(36) NOT NULL,
-  `REALM_ID` varchar(36) NOT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   `TIMESTAMP` int DEFAULT NULL,
   `EXPIRATION` int DEFAULT NULL,
   `COUNT` int DEFAULT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE `CLIENT_INITIAL_ACCESS` (
   PRIMARY KEY (`ID`),
   KEY `IDX_CLIENT_INIT_ACC_REALM` (`REALM_ID`),
   CONSTRAINT `FK_CLIENT_INIT_ACC_REALM` FOREIGN KEY (`REALM_ID`) REFERENCES `REALM` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,4 +51,4 @@ CREATE TABLE `CLIENT_INITIAL_ACCESS` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:18
+-- Dump completed on 2022-01-09 14:39:06

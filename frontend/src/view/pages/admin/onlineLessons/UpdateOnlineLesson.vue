@@ -63,7 +63,7 @@
               v-bind="attrs"
               v-on="listeners"
               class="form-control form-control-lg form-control-solid"
-              v-model="form.meetingDate"
+              v-model="form.meeting_date"
             />
           </form-group>
         </div>
@@ -75,7 +75,7 @@
               v-bind="attrs"
               v-on="listeners"
               class="form-control form-control-lg form-control-solid"
-              v-model="form.zoomLink"
+              v-model="form.zoom_link"
             />
           </form-group>
         </div>
@@ -87,38 +87,63 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
 export default {
   validations: {
     form: {
       title: { required },
       description: {},
-      meetingDate: {},
-      zoomLink: { required }
+      meeting_date: {},
+      zoom_link: { required }
     }
   },
   data() {
     return {
-      form: {
-        title: 'Yapikredi Mobil Uygulaması iOS/Android Aktarım-Giriş',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, necessitatibus!',
-        meetingDate: new Date(),
-        zoomLink:
-          'https://itu-edu-tr.zoom.us/j/96625427230?pwd=VW56L29lVmFEZ0wzajRhdEFscVEwdz09'
-      }
+      form: {}
     };
   },
+  created() {
+    this.getLesson();
+  },
   methods: {
-    save() {
+    async getLesson() {
       try {
-        Swal.fire({
+        const { data } = await this.axios.get(
+          'training/onlineLesson/getLesson/byId/' + this.$route.params.id
+        );
+
+        this.form = {
+          ...data.data,
+          meeting_date: moment(data.data.meeting_date, 'DD-MM-YYYY').toDate()
+        };
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async save() {
+      try {
+        await this.axios.post(
+          '/training/onlineLesson/update/' + this.$route.params.id,
+          {
+            ...this.form,
+            meeting_date: moment(this.form.meeting_date).format('DD-MM-YYYY')
+          }
+        );
+
+        await Swal.fire({
           icon: 'success',
           title: 'Online lesson updated successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
       } catch (e) {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Online lesson cannot updated!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        });
         console.log(e);
       }
     },

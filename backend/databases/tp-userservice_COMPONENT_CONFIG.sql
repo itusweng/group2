@@ -23,14 +23,14 @@ DROP TABLE IF EXISTS `COMPONENT_CONFIG`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `COMPONENT_CONFIG` (
-  `ID` varchar(36) NOT NULL,
-  `COMPONENT_ID` varchar(36) NOT NULL,
-  `NAME` varchar(255) NOT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `COMPONENT_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `NAME` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `VALUE` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDX_COMPO_CONFIG_COMPO` (`COMPONENT_ID`),
   CONSTRAINT `FK_COMPONENT_CONFIG` FOREIGN KEY (`COMPONENT_ID`) REFERENCES `COMPONENT` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,4 +50,4 @@ INSERT INTO `COMPONENT_CONFIG` VALUES ('01e2cc3d-4590-44ea-a6cc-2faecf32d4dc','e
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:11
+-- Dump completed on 2022-01-09 14:39:11

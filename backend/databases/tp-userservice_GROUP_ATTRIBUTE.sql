@@ -23,14 +23,14 @@ DROP TABLE IF EXISTS `GROUP_ATTRIBUTE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `GROUP_ATTRIBUTE` (
-  `ID` varchar(36) NOT NULL DEFAULT 'sybase-needs-something-here',
-  `NAME` varchar(255) NOT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'sybase-needs-something-here',
+  `NAME` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `VALUE` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `GROUP_ID` varchar(36) NOT NULL,
+  `GROUP_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDX_GROUP_ATTR_GROUP` (`GROUP_ID`),
   CONSTRAINT `FK_GROUP_ATTRIBUTE_GROUP` FOREIGN KEY (`GROUP_ID`) REFERENCES `KEYCLOAK_GROUP` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,4 +49,4 @@ CREATE TABLE `GROUP_ATTRIBUTE` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:18
+-- Dump completed on 2022-01-09 14:39:09

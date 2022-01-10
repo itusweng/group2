@@ -23,14 +23,14 @@ DROP TABLE IF EXISTS `FED_USER_ROLE_MAPPING`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `FED_USER_ROLE_MAPPING` (
-  `ROLE_ID` varchar(36) NOT NULL,
-  `USER_ID` varchar(255) NOT NULL,
-  `REALM_ID` varchar(36) NOT NULL,
-  `STORAGE_PROVIDER_ID` varchar(36) DEFAULT NULL,
+  `ROLE_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `USER_ID` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `STORAGE_PROVIDER_ID` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ROLE_ID`,`USER_ID`),
   KEY `IDX_FU_ROLE_MAPPING` (`USER_ID`,`ROLE_ID`),
   KEY `IDX_FU_ROLE_MAPPING_RU` (`REALM_ID`,`USER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,4 +49,4 @@ CREATE TABLE `FED_USER_ROLE_MAPPING` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:09
+-- Dump completed on 2022-01-09 14:39:11

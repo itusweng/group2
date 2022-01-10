@@ -3,7 +3,7 @@
     <div id="kt_quick_actions_toggle">
       <a href="#" class="btn btn-icon btn-sm btn-clean btn-text-dark-75">
         <span class="svg-icon svg-icon-lg">
-          <inline-svg src="media/svg/icons/Layout/Layout-4-blocks.svg" />
+          <inline-svg src="/media/svg/icons/Layout/Layout-4-blocks.svg" />
         </span>
       </a>
     </div>
@@ -54,7 +54,7 @@
             >
               <span class="svg-icon svg-icon-3x svg-icon-primary m-0">
                 <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Euro.svg-->
-                <inline-svg src="media/svg/icons/Shopping/Euro.svg" />
+                <inline-svg src="/media/svg/icons/Shopping/Euro.svg" />
                 <!--end::Svg Icon-->
               </span>
               <span class="d-block font-weight-bold font-size-h6 mt-2"
@@ -77,7 +77,7 @@
               <span class="svg-icon svg-icon-3x svg-icon-primary m-0">
                 <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Mail-attachment.svg-->
                 <inline-svg
-                  src="media/svg/icons/Communication/Mail-attachment.svg"
+                  src="/media/svg/icons/Communication/Mail-attachment.svg"
                 />
                 <!--end::Svg Icon-->
               </span>
@@ -102,7 +102,7 @@
             >
               <span class="svg-icon svg-icon-3x svg-icon-primary m-0">
                 <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Box2.svg-->
-                <inline-svg src="media/svg/icons/Shopping/Box2.svg" />
+                <inline-svg src="/media/svg/icons/Shopping/Box2.svg" />
                 <!--end::Svg Icon-->
               </span>
               <span class="d-block font-weight-bold font-size-h6 mt-2"
@@ -124,7 +124,7 @@
             >
               <span class="svg-icon svg-icon-3x svg-icon-primary m-0">
                 <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
-                <inline-svg src="media/svg/icons/Communication/Group.svg" />
+                <inline-svg src="/media/svg/icons/Communication/Group.svg" />
                 <!--end::Svg Icon-->
               </span>
               <span class="d-block font-weight-bold font-size-h6 mt-2"
@@ -148,7 +148,7 @@
             >
               <span class="svg-icon svg-icon-3x svg-icon-primary m-0">
                 <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Chart-bar1.svg-->
-                <inline-svg src="media/svg/icons/Shopping/Chart-bar1.svg" />
+                <inline-svg src="/media/svg/icons/Shopping/Chart-bar1.svg" />
                 <!--end::Svg Icon-->
               </span>
               <span class="d-block font-weight-bold font-size-h6 mt-2"
@@ -170,7 +170,7 @@
             >
               <span class="svg-icon svg-icon-3x svg-icon-primary m-0">
                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Color-profile.svg-->
-                <inline-svg src="media/svg/icons/Design/Color-profile.svg" />
+                <inline-svg src="/media/svg/icons/Design/Color-profile.svg" />
                 <!--end::Svg Icon-->
               </span>
               <span class="d-block font-weight-bold font-size-h6 mt-2"
@@ -194,7 +194,7 @@
             >
               <span class="svg-icon svg-icon-3x svg-icon-primary m-0">
                 <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Euro.svg-->
-                <inline-svg src="media/svg/icons/Shopping/Euro.svg" />
+                <inline-svg src="/media/svg/icons/Shopping/Euro.svg" />
                 <!--end::Svg Icon-->
               </span>
               <span class="d-block font-weight-bold font-size-h6 mt-2"

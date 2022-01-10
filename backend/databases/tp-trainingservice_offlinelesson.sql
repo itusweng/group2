@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
 --
 -- Host: localhost    Database: tp-trainingservice
 -- ------------------------------------------------------
@@ -24,14 +24,14 @@ DROP TABLE IF EXISTS `offlinelesson`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `offlinelesson` (
   `id` bigint NOT NULL,
-  `description` mediumtext NOT NULL,
-  `files` mediumtext,
-  `title` char(50) NOT NULL,
+  `description` mediumtext COLLATE utf8mb4_general_ci NOT NULL,
+  `files` mediumtext COLLATE utf8mb4_general_ci,
+  `title` char(50) COLLATE utf8mb4_general_ci NOT NULL,
   `training_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FKa2yqfitw6xqd2rbtpjt0opjsj` (`training_id`),
   CONSTRAINT `FKa2yqfitw6xqd2rbtpjt0opjsj` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `offlinelesson` (
 --
 
 /*!40000 ALTER TABLE `offlinelesson` DISABLE KEYS */;
-INSERT INTO `offlinelesson` VALUES (2,'description1046','files750','title1216',1),(3,'description1046','files750','title1218',1),(4,'description1046','files750','title1221',1),(6,'description1046','files750','title1228',1);
+INSERT INTO `offlinelesson` VALUES (2,'description1046','files750','title1216',1),(3,'description1046','files750','title1218',1),(4,'description1046','files750','title1221',1),(6,'description1046','files750','title1228',1),(7,'description1046','files750','title1228',1),(8,'description1046','files750','title1228',1);
 /*!40000 ALTER TABLE `offlinelesson` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ INSERT INTO `offlinelesson` VALUES (2,'description1046','files750','title1216',1
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03  0:35:59
+-- Dump completed on 2022-01-09 14:39:15

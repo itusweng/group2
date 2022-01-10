@@ -2,11 +2,12 @@ package com.trainingplatform.trainingservice.trainingservice.service;
 
 import com.trainingplatform.trainingservice.trainingservice.model.entity.OnlineLessonModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.OnlineLessonModelMapper;
-import com.trainingplatform.trainingservice.trainingservice.model.response.OnlineLessonResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.onlinelesson.OnlineLessonResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.repository.OnlineLessonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,5 +39,18 @@ public class OnlineLessonService {
     public void deleteOnlineLesson(Long offlineLessonId) {
         //TODO CATCH EXCEPTION
         onlineLessonRepo.deleteById(offlineLessonId);
+    }
+
+    public OnlineLessonModel getOnlineLessonById(Long lessonId) {
+        return onlineLessonRepo.findById(lessonId)
+                .orElseThrow(()-> new EntityNotFoundException(String.format("No online lesson found by id %d", lessonId)));
+    }
+
+    public void updateOnlineLesson(OnlineLessonModel onlineLesson) {
+        OnlineLessonModel existingOnlineLesson = onlineLessonRepo.findById(onlineLesson.getId())
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No online lesson found by id %d", onlineLesson.getId())));
+
+        onlineLessonModelMapper.updateFields(existingOnlineLesson, onlineLesson);
+        onlineLessonRepo.save(existingOnlineLesson);
     }
 }

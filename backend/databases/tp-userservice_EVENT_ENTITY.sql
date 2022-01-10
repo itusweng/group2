@@ -23,19 +23,19 @@ DROP TABLE IF EXISTS `EVENT_ENTITY`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `EVENT_ENTITY` (
-  `ID` varchar(36) NOT NULL,
-  `CLIENT_ID` varchar(255) DEFAULT NULL,
-  `DETAILS_JSON` text,
-  `ERROR` varchar(255) DEFAULT NULL,
-  `IP_ADDRESS` varchar(255) DEFAULT NULL,
-  `REALM_ID` varchar(255) DEFAULT NULL,
-  `SESSION_ID` varchar(255) DEFAULT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `CLIENT_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `DETAILS_JSON` text COLLATE utf8mb4_general_ci,
+  `ERROR` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `IP_ADDRESS` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `REALM_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `SESSION_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `EVENT_TIME` bigint DEFAULT NULL,
-  `TYPE` varchar(255) DEFAULT NULL,
-  `USER_ID` varchar(255) DEFAULT NULL,
+  `TYPE` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `USER_ID` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDX_EVENT_TIME` (`REALM_ID`,`EVENT_TIME`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,4 +54,4 @@ CREATE TABLE `EVENT_ENTITY` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:22
+-- Dump completed on 2022-01-09 14:39:08

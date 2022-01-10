@@ -1,5 +1,6 @@
 package com.trainingplatform.trainingservice.trainingservice.config;
 
+import com.trainingplatform.trainingservice.trainingservice.constants.QueueDefinitions;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -21,6 +22,21 @@ public class RabbitMQMessagingConfig {
     public static final String ROUTING_KEY_DELETE = "OfflineLessonDeleteRoutingKey";
     public static final String ROUTING_KEY_UPLOAD_TRAINING_THUMBNAIL = "TrainingThumbnailUploadRoutingKey";
     public static final String ROUTING_KEY_DELETE_TRAINING_THUMBNAIL = "TrainingThumbnailDeleteRoutingKey";
+
+    @Bean
+    public Queue queueSendTrainingParticipationNotification(){
+        return new Queue(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getQueueName());
+    }
+
+    @Bean
+    public TopicExchange exchangeSendTrainingParticipationNotification(){
+        return new TopicExchange(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getExchange());
+    }
+
+    @Bean
+    public Binding bindingSendTrainingParticipationNotification(@Qualifier("queueSendTrainingParticipationNotification") Queue queue, @Qualifier("exchangeSendTrainingParticipationNotification") TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getRoutingKey());
+    }
 
     @Bean
     public Queue queueUpload() {

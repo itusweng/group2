@@ -23,17 +23,17 @@ DROP TABLE IF EXISTS `AUTHENTICATION_FLOW`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `AUTHENTICATION_FLOW` (
-  `ID` varchar(36) NOT NULL,
-  `ALIAS` varchar(255) DEFAULT NULL,
+  `ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `ALIAS` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `DESCRIPTION` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `REALM_ID` varchar(36) DEFAULT NULL,
-  `PROVIDER_ID` varchar(36) NOT NULL DEFAULT 'basic-flow',
+  `REALM_ID` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `PROVIDER_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'basic-flow',
   `TOP_LEVEL` bit(1) NOT NULL DEFAULT b'0',
   `BUILT_IN` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`ID`),
   KEY `IDX_AUTH_FLOW_REALM` (`REALM_ID`),
   CONSTRAINT `FK_AUTH_FLOW_REALM` FOREIGN KEY (`REALM_ID`) REFERENCES `REALM` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,4 +53,4 @@ INSERT INTO `AUTHENTICATION_FLOW` VALUES ('085faa6f-be3b-4e63-85f8-e32ed1456995'
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:17
+-- Dump completed on 2022-01-09 14:39:05

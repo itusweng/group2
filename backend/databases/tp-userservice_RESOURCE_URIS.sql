@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `RESOURCE_URIS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RESOURCE_URIS` (
-  `RESOURCE_ID` varchar(36) NOT NULL,
-  `VALUE` varchar(255) NOT NULL,
+  `RESOURCE_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `VALUE` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`RESOURCE_ID`,`VALUE`),
   CONSTRAINT `FK_RESOURCE_SERVER_URIS` FOREIGN KEY (`RESOURCE_ID`) REFERENCES `RESOURCE_SERVER_RESOURCE` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,4 +47,4 @@ INSERT INTO `RESOURCE_URIS` VALUES ('4a822414-ae85-46b9-8570-2d3d4d77f061','/*')
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:21
+-- Dump completed on 2022-01-09 14:39:14

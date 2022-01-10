@@ -9,14 +9,14 @@
         <b-row>
           <b-col md="3">
             <img
-                src="https://picsum.photos/600/300/?image=56"
-                class="w-100"
-                alt=""
+              src="https://picsum.photos/600/300/?image=56"
+              class="w-100"
+              alt=""
             />
           </b-col>
-          <b-col md="3"
-          >Yapı Kredi Mobil Uygulaması iOS-Android Aktarım-UE/001-21</b-col
-          >
+          <b-col md="3">
+            {{ activeTraining.title }}
+          </b-col>
           <b-col md="3">
             <div>Start Date: 16 EYL 2021 00:00</div>
             <div>End Date: 31 ARA 2021 00:00</div>
@@ -36,6 +36,7 @@
 <script>
 import Widget13 from '@/view/components/training/TrainingProgress';
 import LessonList from '@/view/components/training/LessonList';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'dashboard',
@@ -44,7 +45,13 @@ export default {
     LessonList
   },
   data() {
-    return {};
+    return {
+      lessons: []
+    };
   },
+
+  computed: {
+    ...mapGetters(['activeTraining'])
+  }
 };
 </script>

@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
 --
 -- Host: localhost    Database: tp-trainingservice
 -- ------------------------------------------------------
@@ -26,15 +26,15 @@ CREATE TABLE `training` (
   `id` bigint NOT NULL,
   `capacity` int NOT NULL,
   `created_date` datetime(6) DEFAULT NULL,
-  `description` text NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci NOT NULL,
   `instructor_id` bigint NOT NULL,
   `is_online` tinyint(1) NOT NULL,
-  `thumbnail` text,
-  `title` char(50) NOT NULL,
+  `thumbnail` text COLLATE utf8mb4_general_ci,
+  `title` char(50) COLLATE utf8mb4_general_ci NOT NULL,
   `updated_date` datetime(6) DEFAULT NULL,
   `user_created_id` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,4 +54,4 @@ INSERT INTO `training` VALUES (1,100,NULL,'Guzel bir aciklama',2,1,'https://imag
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03  0:35:59
+-- Dump completed on 2022-01-09 14:39:15

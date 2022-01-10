@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `CLIENT_NODE_REGISTRATIONS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `CLIENT_NODE_REGISTRATIONS` (
-  `CLIENT_ID` varchar(36) NOT NULL,
+  `CLIENT_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   `VALUE` int DEFAULT NULL,
-  `NAME` varchar(255) NOT NULL,
+  `NAME` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`CLIENT_ID`,`NAME`),
   CONSTRAINT `FK4129723BA992F594` FOREIGN KEY (`CLIENT_ID`) REFERENCES `CLIENT` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,4 +47,4 @@ CREATE TABLE `CLIENT_NODE_REGISTRATIONS` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:13
+-- Dump completed on 2022-01-09 14:39:12

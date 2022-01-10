@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
 --
 -- Host: localhost    Database: tp-trainingservice
 -- ------------------------------------------------------
@@ -24,15 +24,15 @@ DROP TABLE IF EXISTS `onlinelesson`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `onlinelesson` (
   `id` bigint NOT NULL,
-  `description` text NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci NOT NULL,
   `meeting_date` date NOT NULL,
-  `title` char(50) NOT NULL,
-  `zoom_link` mediumtext NOT NULL,
+  `title` char(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `zoom_link` mediumtext COLLATE utf8mb4_general_ci NOT NULL,
   `training_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK3u13as5iw6v9smitjj5h83dfn` (`training_id`),
   CONSTRAINT `FK3u13as5iw6v9smitjj5h83dfn` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,4 +51,4 @@ CREATE TABLE `onlinelesson` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03  0:35:59
+-- Dump completed on 2022-01-09 14:39:15

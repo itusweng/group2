@@ -134,16 +134,43 @@ export default {
       }
     };
   },
+  created() {
+    this.getTraining();
+  },
   methods: {
-    save() {
+    async getTraining() {
       try {
-        Swal.fire({
+        const { data } = await this.axios.get(
+          'training/offlineLesson/getLesson/byId/' + this.$route.params.id
+        );
+
+        this.form = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async save() {
+      try {
+        await this.axios.post(
+          '/training/offlineLesson/update/' + this.$route.params.id,
+          {
+            ...this.form
+          }
+        );
+
+        await Swal.fire({
           icon: 'success',
           title: 'Offline lesson updated successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
       } catch (e) {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Offline lesson cannot updated!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        });
         console.log(e);
       }
     },

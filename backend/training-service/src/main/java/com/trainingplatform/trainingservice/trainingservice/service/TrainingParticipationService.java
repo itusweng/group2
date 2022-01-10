@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.trainingplatform.trainingservice.trainingservice.communication.UserClient;
 import com.trainingplatform.trainingservice.trainingservice.constants.Constants;
+import com.trainingplatform.trainingservice.trainingservice.constants.QueueDefinitions;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingParticipationException;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingUserNotFoundException;
@@ -11,18 +12,30 @@ import com.trainingplatform.trainingservice.trainingservice.model.entity.Trainin
 import com.trainingplatform.trainingservice.trainingservice.model.entity.User_ParticipatedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.entity.User_RequestedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
-import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationApproveRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationPendingRequestsListAllRequestDTO;
-import com.trainingplatform.trainingservice.trainingservice.model.request.ParticipationRejectRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.trainingparticipation.ParticipationApproveRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.trainingparticipation.ParticipationPendingRequestsListAllRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.trainingparticipation.ParticipationRejectRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.notification.UserParticipatedNotificationRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.*;
+import com.trainingplatform.trainingservice.trainingservice.model.response.trainingparticipation.ParticipationApproveResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.trainingparticipation.ParticipationRejectResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.trainingparticipation.PendingParticipationResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_ParticipatedTrainingRepo;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_RequestedTrainingRepo;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.cloud.client.loadbalancer.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transaction;
+import javax.transaction.Transactional;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +45,9 @@ public class TrainingParticipationService {
     private final User_RequestedTrainingRepo trainingRequestedRepo;
     private final UserClient userClient;
     private final TrainingRepository trainingRepo;
-    private final TrainingService trainingService;
     private final TrainingModelMapper trainingMapper;
     private final ObjectMapper objectMapper;
+    private final RabbitTemplate rabbitTemplate;
 
     public Map<Long, Boolean> addParticipantsToTraining(Long trainingId, List<Long> participantIdList) throws TrainingCrudException {
         // TODO: CHECK TRAINING QUOTA BEFORE ADDING!
@@ -59,6 +72,8 @@ public class TrainingParticipationService {
                         .build();
 
                 trainingParticipatedRepo.save(trainingParticipatedUser);
+                sendParticipationNotificationToParticipant(trainingId, userId);
+
                 isUserAddedToTrainingMap.put(userId, true);
             } catch (FeignException.NotFound e) {
                 isUserAddedToTrainingMap.put(userId, false);
@@ -69,23 +84,23 @@ public class TrainingParticipationService {
         return isUserAddedToTrainingMap;
     }
 
-    public void requestParticipation(Long trainingId, Long userId) throws TrainingCrudException {
+    public void requestParticipation(Long trainingId, Long userId) {
         // TODO: CHECK QUOTA IS FULL OR NOT
 
-        TrainingModel training = trainingService.getTrainingById(trainingId);
-        Long instructorId = training.getInstructor_id();
+        Map<String, Object> managerGroupResponse = userClient.getManagerGroupId(userId).getBody();
+        ManagerGroupResponseDTO managerGroupResponseDTO = objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS).convertValue(managerGroupResponse.get("data"), ManagerGroupResponseDTO.class);
         User_RequestedTrainingModel requestedTrainingUserModel = User_RequestedTrainingModel.builder()
                 .userId(userId)
                 .trainingId(trainingId)
-                .managerId(instructorId)
+                .managerGroupId(managerGroupResponseDTO.getManagerGroupId())
                 .createdDate(new Date())
                 .status(Constants.Training.Participation.RequestType.PENDING).build();
 
         trainingRequestedRepo.save(requestedTrainingUserModel);
     }
 
-    public List<PendingParticipationResponseDTO> listAllPendingRequests(ParticipationPendingRequestsListAllRequestDTO requestDTO) {
-        List<User_RequestedTrainingModel> requestedList = trainingRequestedRepo.findByManagerIdAndStatusEquals(requestDTO.getManagerId(),
+    public List<PendingParticipationResponseDTO> listAllPendingRequests(ParticipationPendingRequestsListAllRequestDTO requestDTO) throws TrainingUserNotFoundException {
+        List<User_RequestedTrainingModel> requestedList = trainingRequestedRepo.findByManagerGroupIdAndStatusEquals(requestDTO.getManagerGroupId(),
                 Constants.Training.Participation.RequestType.PENDING);
 
         List<PendingParticipationResponseDTO> pendingRequests = new ArrayList<>();
@@ -93,8 +108,8 @@ public class TrainingParticipationService {
 
             Long trainingId = participationRequest.getTrainingId();
             Long userId = participationRequest.getUserId();
-
             Map<String, String> userModelMap = (Map<String, String>) userClient.getUserByID(userId).getBody().get("data");
+
             UserResponseDTO userModelDTO = objectMapper
                     .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
                     .convertValue(userModelMap, UserResponseDTO.class);
@@ -163,6 +178,7 @@ public class TrainingParticipationService {
 
                 // Add participant to db
                 addSingleParticipantToTraining(trainingId, userId);
+                sendParticipationNotificationToParticipant(trainingId, userId);
 
                 // Set response dto opStatus as success
                 responseDTO.setOpStatus(Constants.Training.Participation.OpStatus.SUCCESS);
@@ -176,6 +192,38 @@ public class TrainingParticipationService {
         });
 
         return approveResponseDTOList;
+    }
+
+
+    @Transactional
+    public void approveParticipationRequestsByUserRoleId(Long userRoleId) throws Exception {
+        try {
+            Map<String, Object> usersResponseMap = userClient.getAllUsersByUserRoleId(userRoleId).getBody();
+            Set<Long> userIdSet = (Set<Long>) ((List)usersResponseMap.get("data")).stream()
+                    .map(user -> objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                                .convertValue(user, UserResponseDTO.class ).getId())
+                    .collect(Collectors.toSet());
+
+            List<User_RequestedTrainingModel> pendingRequests = trainingRequestedRepo.findAllIfContainsRoleId(userIdSet);
+            pendingRequests.forEach(request -> {
+                request.setRespondedDate(new Date());
+                request.setStatus(Constants.Training.Participation.RequestType.APPROVED);
+                sendParticipationNotificationToParticipant(request.getTrainingId(), request.getUserId());
+            });
+
+        } catch (Exception e) {
+            // if an error is occured, rollback the changes
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new Exception();
+        }
+    }
+
+    private void sendParticipationNotificationToParticipant(Long trainingId, Long userId) {
+        TrainingModel training = trainingRepo.findById(trainingId).orElseThrow(() -> new EntityNotFoundException("Training not found!"));
+        UserParticipatedNotificationRequestDTO notificationDTO = new UserParticipatedNotificationRequestDTO(training.getTitle(), userId);
+        rabbitTemplate.convertAndSend(QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getExchange(),
+                QueueDefinitions.UserParticipation_SendTrainingNotificationQueue.getRoutingKey(), notificationDTO);
+
     }
 
     public List<ParticipationRejectResponseDTO> rejectParticipation(List<ParticipationRejectRequestDTO> requestDTOs) {

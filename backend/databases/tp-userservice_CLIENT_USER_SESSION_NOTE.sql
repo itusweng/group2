@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `CLIENT_USER_SESSION_NOTE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `CLIENT_USER_SESSION_NOTE` (
-  `NAME` varchar(255) NOT NULL,
-  `VALUE` text,
-  `CLIENT_SESSION` varchar(36) NOT NULL,
+  `NAME` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `VALUE` text COLLATE utf8mb4_general_ci,
+  `CLIENT_SESSION` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`CLIENT_SESSION`,`NAME`),
   CONSTRAINT `FK_CL_USR_SES_NOTE` FOREIGN KEY (`CLIENT_SESSION`) REFERENCES `CLIENT_SESSION` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,4 +47,4 @@ CREATE TABLE `CLIENT_USER_SESSION_NOTE` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:10
+-- Dump completed on 2022-01-09 14:39:10

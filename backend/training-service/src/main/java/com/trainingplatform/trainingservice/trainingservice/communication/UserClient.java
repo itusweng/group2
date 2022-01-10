@@ -21,4 +21,10 @@ public interface UserClient {
     @GetMapping("/api/user/isExists/byId/{userId}")
     ResponseEntity<Map<String, Object>> checkUserExistsByUserId(@PathVariable Long userId);
 
+    @GetMapping("/api/user/getManagerGroupId/byId/{userId}")
+    ResponseEntity<Map<String, Object>> getManagerGroupId(@PathVariable Long userId);
+
+    @GetMapping("/api/user/getAllUsers/byUserRoleId/{userRoleId}")
+    ResponseEntity<Map<String, Object>> getAllUsersByUserRoleId(@PathVariable Long userRoleId);
+
 }

@@ -16,9 +16,11 @@ public class UserResponseDTO extends BaseResponseDTO {
 
     private String last_name;
 
-    private String role;
+    private Long role_id;
+
+    private String role_name;
 
     private String profile_photo;
 
-    private String job_title;
+    private String email;
 }

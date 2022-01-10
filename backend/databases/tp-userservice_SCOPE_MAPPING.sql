@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `SCOPE_MAPPING`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `SCOPE_MAPPING` (
-  `CLIENT_ID` varchar(36) NOT NULL,
-  `ROLE_ID` varchar(36) NOT NULL,
+  `CLIENT_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
+  `ROLE_ID` varchar(36) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`CLIENT_ID`,`ROLE_ID`),
   KEY `IDX_SCOPE_MAPPING_ROLE` (`ROLE_ID`),
   CONSTRAINT `FK_OUSE064PLMLR732LXJCN1Q5F1` FOREIGN KEY (`CLIENT_ID`) REFERENCES `CLIENT` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,4 +48,4 @@ INSERT INTO `SCOPE_MAPPING` VALUES ('bf730706-6231-4f83-ac31-aaf9646a826e','0d3f
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-02 23:18:19
+-- Dump completed on 2022-01-09 14:39:13

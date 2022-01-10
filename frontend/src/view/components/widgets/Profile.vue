@@ -25,16 +25,21 @@
             <i class="symbol-badge symbol-badge-bottom bg-success"></i>
           </div>
 
-          <h4 class="font-weight-bold my-2">James Jones</h4>
-          <div class="text-muted mb-2">Application Developer</div>
+          <h4 class="font-weight-bold my-2">
+            {{ currentUser.first_name }} {{ currentUser.last_name }}
+          </h4>
+          <div class="text-muted mb-2">
+            {{ currentUser.role_name }}
+          </div>
           <span
             class="
               label label-light-warning label-inline
               font-weight-bold
               label-lg
             "
-            >Active</span
           >
+            Active
+          </span>
         </div>
       </div>
     </div>
@@ -46,8 +51,11 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'widget-1',
+  created() {
+    console.log(this.currentUser);
+  },
   computed: {
-    ...mapGetters(['currentUserPhoto'])
+    ...mapGetters(['currentUserPhoto', 'currentUser'])
   }
 };
 </script>
