@@ -2,9 +2,11 @@
   <div class="card card-custom">
     <div class="card-header py-3">
       <div class="card-title align-items-start flex-column">
-        <h3 class="card-label font-weight-bolder text-dark">Update User</h3>
+        <h3 class="card-label font-weight-bolder text-dark">
+          Update a New User
+        </h3>
         <span class="text-muted font-weight-bold font-size-sm mt-1">
-          You can update users in this page.
+          You can update user in this page.
         </span>
       </div>
       <div class="card-toolbar">
@@ -31,45 +33,63 @@
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">First Name</label>
-          <form-group name="title" lg="9" xl="6" no-label no-margin>
+          <form-group name="first_name" lg="9" xl="6" no-label no-margin>
             <b-input
-                slot-scope="{ attrs, listeners }"
-                v-bind="attrs"
-                v-on="listeners"
-                class="form-control form-control-lg form-control-solid"
-                v-model="form.firstName"
+              slot-scope="{ attrs, listeners }"
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.first_name"
             />
           </form-group>
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Last Name</label>
-          <form-group name="trainer" lg="9" xl="6" no-label no-margin>
+          <form-group name="last_name" lg="9" xl="6" no-label no-margin>
             <b-input
-                slot-scope="{ attrs, listeners }"
-                v-bind="attrs"
-                v-on="listeners"
-                class="form-control form-control-lg form-control-solid"
-                v-model="form.lastName"
+              slot-scope="{ attrs, listeners }"
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.last_name"
             />
           </form-group>
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Email Address</label>
-          <form-group name="description" lg="9" xl="6" no-label no-margin>
-            <b-form-textarea
-                slot-scope="{ attrs, listeners }"
-                v-bind="attrs"
-                v-on="listeners"
-                class="form-control form-control-lg form-control-solid"
-                v-model="form.email"
+          <form-group name="email" lg="9" xl="6" no-label no-margin>
+            <b-form-input
+              slot-scope="{ attrs, listeners }"
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.email"
+            />
+          </form-group>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Profile Photo</label>
+          <form-group name="profile_photo" lg="9" xl="6" no-label no-margin>
+            <b-form-input
+              slot-scope="{ attrs, listeners }"
+              v-bind="attrs"
+              v-on="listeners"
+              class="form-control form-control-lg form-control-solid"
+              v-model="form.profile_photo"
             />
           </form-group>
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Role</label>
-          <div>
-            <b-form-select v-model="role_id" :options="options"></b-form-select>
-          </div>
+
+          <b-col name="role_id" lg="9" xl="6">
+            <b-form-select
+              v-model="form.role_id"
+              :options="roles"
+              value-field="id"
+              text-field="roleName"
+            ></b-form-select>
+          </b-col>
         </div>
       </div>
     </form-wrapper>
@@ -77,15 +97,18 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators';
+import { required, email, minLength } from 'vuelidate/lib/validators';
 import Swal from 'sweetalert2';
 
 export default {
   validations: {
     form: {
-      firstName: { required },
-      lastName: { required },
-      email: { required },
+      first_name: { required, minLength: minLength(3) },
+      last_name: { required },
+      username: {},
+      password: {},
+      email: { required, email },
+      profile_photo: {},
       role_id: { required },
       description: {}
     }
@@ -93,36 +116,76 @@ export default {
   data() {
     return {
       form: {
-        firstName: '',
-        lastName: '',
+        first_name: '',
+        last_name: '',
         email: '',
-        Role: ''
+        profile_photo: '',
+        role_id: ''
       },
-      role_id: null,
-      options: [
-        { value: null, text: 'Please select a role' },
-        { value: '1', text: 'HR' },
-        { value: '2', text: 'R&D' },
-        { value: '3', text: 'Manager' },
-      ]
-
+      roles: []
     };
   },
+  created() {
+    this.getUser();
+    this.getRoles();
+  },
   methods: {
-    save() {
+    async getUser() {
       try {
-        Swal.fire({
+        const { data } = await this.axios.get(
+          '/user/byId/' + this.$route.params.id
+        );
+
+        this.form = {
+          ...this.form,
+          ...data.data
+        };
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getRoles() {
+      try {
+        const { data } = await this.axios.get(
+          '/user/getAllUserRoles/byManagerGroupId/' +
+            this.$store.getters.currentUser.manager_group_id
+        );
+        this.roles = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async save() {
+      try {
+        this.$v.$touch();
+
+        if (this.$v.$anyError) return;
+
+        await this.axios.post('/user/update', {
+          ...this.form,
+          manager_group_id: this.$store.getters.currentUser.manager_group_id
+        });
+
+        await Swal.fire({
           icon: 'success',
           title: 'User updated successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
+
+        this.$router.back();
       } catch (e) {
+        Swal.fire({
+          icon: 'error',
+          title: 'User cannot updated!',
+          reverseButtons: true,
+          confirmButtonText: 'OK'
+        });
         console.log(e);
       }
     },
     cancel() {
-      this.$router.push('/admin/users/list');
+      this.$router.back();
     }
   }
 };
