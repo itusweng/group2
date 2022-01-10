@@ -35,9 +35,11 @@ CREATE TABLE `REALM_EVENTS_LISTENERS` (
 -- Dumping data for table `REALM_EVENTS_LISTENERS`
 --
 
+LOCK TABLES `REALM_EVENTS_LISTENERS` WRITE;
 /*!40000 ALTER TABLE `REALM_EVENTS_LISTENERS` DISABLE KEYS */;
-INSERT INTO `REALM_EVENTS_LISTENERS` VALUES ('master','jboss-logging'),('training-platform-realm','jboss-logging');
+INSERT INTO `REALM_EVENTS_LISTENERS` VALUES ('fdgdg','jboss-logging'),('master','jboss-logging'),('training-platform-realm','jboss-logging');
 /*!40000 ALTER TABLE `REALM_EVENTS_LISTENERS` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -48,4 +50,4 @@ INSERT INTO `REALM_EVENTS_LISTENERS` VALUES ('master','jboss-logging'),('trainin
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09 14:39:04
+-- Dump completed on 2022-01-10 22:30:58

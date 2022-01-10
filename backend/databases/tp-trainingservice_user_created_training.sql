@@ -33,9 +33,11 @@ CREATE TABLE `user_created_training` (
 -- Dumping data for table `user_created_training`
 --
 
+LOCK TABLES `user_created_training` WRITE;
 /*!40000 ALTER TABLE `user_created_training` DISABLE KEYS */;
-INSERT INTO `user_created_training` VALUES (1,1);
+INSERT INTO `user_created_training` VALUES (1,1),(20,1),(21,1),(22,1),(23,1),(24,1),(25,1),(26,1),(27,1),(28,1);
 /*!40000 ALTER TABLE `user_created_training` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -46,4 +48,4 @@ INSERT INTO `user_created_training` VALUES (1,1);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09 14:39:15
+-- Dump completed on 2022-01-10 22:31:03

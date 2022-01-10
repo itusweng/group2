@@ -33,9 +33,11 @@ CREATE TABLE `manager_manager_group` (
 -- Dumping data for table `manager_manager_group`
 --
 
+LOCK TABLES `manager_manager_group` WRITE;
 /*!40000 ALTER TABLE `manager_manager_group` DISABLE KEYS */;
 INSERT INTO `manager_manager_group` VALUES (1,5),(2,1);
 /*!40000 ALTER TABLE `manager_manager_group` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -46,4 +48,4 @@ INSERT INTO `manager_manager_group` VALUES (1,5),(2,1);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-09 14:39:11
+-- Dump completed on 2022-01-10 22:30:56
