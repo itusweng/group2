@@ -23,4 +23,6 @@ public class UserResponseDTO extends BaseResponseDTO {
     private String profile_photo;
 
     private String email;
+
+    private Long manager_group_id;
 }

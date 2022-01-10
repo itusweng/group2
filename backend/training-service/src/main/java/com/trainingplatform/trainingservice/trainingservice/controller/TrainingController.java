@@ -97,7 +97,6 @@ public class TrainingController extends BaseController {
         }
     }
 
-
     @PostMapping("/")
     public ResponseEntity<HashMap<String, Object>> createTraining(@ModelAttribute TrainingRequestDTO trainingRequestDTO) {
         try {
