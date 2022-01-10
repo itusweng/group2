@@ -2,6 +2,7 @@ package com.trainingplatform.trainingservice.trainingservice.controller;
 
 import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
+import com.trainingplatform.trainingservice.trainingservice.model.request.TrainingRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.service.TrainingService;
@@ -88,10 +89,10 @@ public class TrainingController extends BaseController {
 
 
     @PostMapping("/")
-    public ResponseEntity<HashMap<String, Object>> createTraining(@RequestBody TrainingModel training) {
+    public ResponseEntity<HashMap<String, Object>> createTraining(@ModelAttribute TrainingRequestDTO trainingRequestDTO) {
         try {
             // TODO: test error cases
-            TrainingResponseDTO new_training = trainingService.createTraining(training);
+            TrainingResponseDTO new_training = trainingService.createTraining(trainingRequestDTO);
             return ResponseEntity.ok(createReturnObj("Training created successfully!", new_training));
         } catch (Exception e) {
             return exceptionHandler(e);

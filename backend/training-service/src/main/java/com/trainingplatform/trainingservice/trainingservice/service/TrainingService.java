@@ -1,11 +1,15 @@
 package com.trainingplatform.trainingservice.trainingservice.service;
 
 import com.trainingplatform.trainingservice.trainingservice.communication.UserClient;
+import com.trainingplatform.trainingservice.trainingservice.config.RabbitMQMessagingConfig;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
 import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.entity.User_CreatedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.entity.User_ParticipatedTrainingModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
+import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingRequestMapper;
+import com.trainingplatform.trainingservice.trainingservice.model.request.TrainingRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.TrainingThumbnailUploadRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
 
@@ -13,9 +17,11 @@ import com.trainingplatform.trainingservice.trainingservice.repository.TrainingR
 import com.trainingplatform.trainingservice.trainingservice.repository.User_CreatedTrainingRepo;
 import com.trainingplatform.trainingservice.trainingservice.repository.User_ParticipatedTrainingRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,6 +34,8 @@ public class TrainingService {
     private final User_ParticipatedTrainingRepo trainingParticipatedUserRepo;
     private final UserClient userClient;
     private final TrainingModelMapper trainingModelMapper;
+    private final TrainingRequestMapper trainingRequestMapper;
+    private final RabbitTemplate rabbitTemplate;
 
     public List<TrainingModel> getAllTrainings() {
         List<TrainingModel> trainingModels = trainingRepo.findAll();
@@ -39,8 +47,9 @@ public class TrainingService {
                 .orElseThrow(() -> new TrainingCrudException("Training is not found by id: " + trainingId));
     }
 
-    public TrainingResponseDTO createTraining(TrainingModel tm) {
+    public TrainingResponseDTO createTraining(TrainingRequestDTO trainingRequestDTO) throws IOException {
         // TODO: refactor
+        TrainingModel tm = trainingRequestMapper.mapToEntity(trainingRequestDTO);
 
         // Create training
         TrainingModel savedTraining = trainingRepo.save(tm);
@@ -66,6 +75,10 @@ public class TrainingService {
         // Set instructor and created users of training response dto
         trainingResponseDTO.setUser_created(createdUserResponseMap.get(tm.getId()));
         trainingResponseDTO.setInstructor(userInstructorResponseMap.get(tm.getId()));
+
+        TrainingThumbnailUploadRequestDTO trainingThumbnailUploadRequestDTO = new TrainingThumbnailUploadRequestDTO(savedTraining.getId(), trainingRequestDTO.getThumbnail().getBytes());
+        rabbitTemplate.convertAndSend(RabbitMQMessagingConfig.EXCHANGE, RabbitMQMessagingConfig.ROUTING_KEY_UPLOAD_TRAINING_THUMBNAIL, trainingThumbnailUploadRequestDTO);
+
         return trainingResponseDTO;
     }
 
