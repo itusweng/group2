@@ -26,6 +26,12 @@
       <b-row class="mt-5">
         <b-col md="12">
           <b-table :fields="tableFields" :items="trainings">
+            <template v-slot:cell(instructor)="{ item }">
+              {{item.instructor.first_name}} {{item.instructor.last_name}}
+            </template>
+            <template v-slot:cell(createdBy)="{ item }">
+              {{item.user_created.first_name}} {{item.user_created.last_name}}
+            </template>
             <template v-slot:cell(actions)="{ item }">
               <b-button
                 @click="goToDetails(item)"
@@ -73,10 +79,12 @@ export default {
           sortable: true
         },
         {
-          key: 'trainer'
+          key: 'instructor',
+          label: 'Instructor'
         },
         {
-          key: 'createdBy'
+          key: 'createdBy',
+          label: 'Created By'
         },
         {
           key: 'actions'
@@ -89,7 +97,7 @@ export default {
   },
   methods: {
     goToDetails(item) {
-      this.$store.commit('setTraining', item)
+      this.$store.commit('setTraining', item);
       this.$router.push('/admin/trainings/' + item.id + '/details');
     },
     async getTrainings() {
