@@ -140,7 +140,7 @@ export default {
       try {
         formData.set('title', this.form.title);
         formData.set('description', this.form.description);
-        formData.set('training_id', this.$store.getters.activeTraining.id);
+        formData.set('training_id', this.$route.params.id);
         formData.set('videoFile', this.form.videoFile);
 
         await this.axios.post('/training/offlineLesson/', formData, {

@@ -104,7 +104,7 @@
             <div class="d-flex flex-column text-dark-75">
               <span class="font-weight-bolder font-size-sm">Type</span>
               <span class="font-weight-bolder font-size-h5">
-                {{ training.isOnline ? 'Online' : 'Offline' }}
+                {{ training.is_online ? 'Online' : 'Offline' }}
               </span>
             </div>
           </div>
@@ -211,15 +211,19 @@
             </h3>
             <div class="card-toolbar">
               <b-button
-                v-if="training.isOnline"
-                to="/admin/onlineLessons/create"
+                v-if="training.is_online"
+                :to="
+                  '/admin/trainings/' + training.id + '/onlineLessons/create'
+                "
                 variant="light-info"
               >
                 Add Lesson
               </b-button>
               <b-button
                 v-else
-                to="/admin/offlineLessons/create"
+                :to="
+                  '/admin/trainings/' + training.id + '/offlineLessons/create'
+                "
                 variant="light-info"
               >
                 Add Lesson
@@ -262,7 +266,13 @@
                       </td>
                       <td class="text-right pr-0">
                         <b-button
-                          :to="'/admin/offlineLessons/' + item.id + '/update'"
+                          :to="
+                            (training.is_online
+                              ? '/admin/onlineLessons/'
+                              : '/admin/offlineLessons/') +
+                            item.id +
+                            '/update'
+                          "
                           class="btn btn-icon btn-light btn-sm mx-3"
                         >
                           <span class="svg-icon svg-icon-md svg-icon-primary">
