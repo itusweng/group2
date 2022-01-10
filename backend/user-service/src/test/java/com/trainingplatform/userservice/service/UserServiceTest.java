@@ -3,7 +3,11 @@ package com.trainingplatform.userservice.service;
 import com.trainingplatform.userservice.exception.UserNotCreatedException;
 import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
+import com.trainingplatform.userservice.model.entity.UserRole;
+import com.trainingplatform.userservice.model.mapper.UserMapper;
+import com.trainingplatform.userservice.model.response.UserResponseDTO;
 import com.trainingplatform.userservice.repository.UserRepository;
+import com.trainingplatform.userservice.repository.UserRoleRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,15 +24,11 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -39,6 +39,8 @@ class UserServiceTest {
     @Mock  private UserRepository userRepo;
     @Mock  private KeycloakService keycloakService;
     @Mock  private PasswordEncoder passwordEncoder;
+    @Mock  private UserMapper userMapper;
+    @Mock  private UserRoleRepository userRoleRepo;
 
     @Test
     void it_should_return_user_when_user_found() {
@@ -93,10 +95,33 @@ class UserServiceTest {
         when(user.getId()).thenReturn(1L);
         when(userRepo.findById(1L)).thenReturn(Optional.of(user));
         //act
-        User userReturned = userService.getUserByID(1L);
-        Long managerGroupId = userReturned.getManager_group_id();
+        Long managerGroupId = userService.getManagerGroupIdByUserId(1L);
         //assert
         assertThat(managerGroupId).isEqualTo(2L);
+    }
+
+    @Test
+    void it_should_return_all_users_when_role_given(){
+        //arrange
+        User user = mock(User.class);
+        when(userRepo.findAllByByRole_id(1L)).thenReturn(Set.of(user));
+        //act
+        Set<User> allUsers = userService.getAllUsersByUserRoleId(1L);
+        //assert
+        assertThat(Set.of(user)).isEqualTo(allUsers);
+    }
+
+    @Test
+    void it_should_return_updated_user_when_update(){
+        User updatedUser = mock(User.class);
+        User existingUser = mock(User.class);
+        when(updatedUser.getId()).thenReturn(1L);
+        when(userRepo.findById(updatedUser.getId())).thenReturn(Optional.of(existingUser));
+        //act
+        User returnedUser = userService.updateUser(updatedUser);
+        //assert
+        verify(userMapper, times(1)).updateFields(existingUser, updatedUser);
+        verify(userRepo, times(1)).save(existingUser);
     }
 
     @Test
@@ -135,22 +160,25 @@ class UserServiceTest {
     void it_should_return_token_user_when_credentials_correct(){
         //arrange
         UserCredentials userCredentials = mock(UserCredentials.class);
+        User user = mock(User.class);
         when(userCredentials.getUsername()).thenReturn("darth vader");
+        when(userRepo.findByUsername("darth vader")).thenReturn(Optional.of(user));
         OAuth2AccessToken token = mock(OAuth2AccessToken.class);
         when(keycloakService.loginToKeycloak(userCredentials)).thenReturn(token);
-        User user = mock(User.class);
-        when(user.getUsername()).thenReturn("darth vader");
-        when(userRepo.findByUsername("darth vader")).thenReturn(Optional.of(user));
+        UserResponseDTO userResponseDTO = mock(UserResponseDTO.class);
+        when(userMapper.mapToDto(user)).thenReturn(userResponseDTO);
+        when(user.getRole_id()).thenReturn(11L);
+        UserRole userRole = mock(UserRole.class);
+        when(userRoleRepo.findByRoleId(user.getRole_id())).thenReturn(userRole);
+        when(userRole.getRoleName()).thenReturn("Mobil Backend Developer");
+        userResponseDTO.setRole_name(userService.getUserRoleNameByUserRoleId(user.getRole_id()));
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
-        response.put("user", user);
+        response.put("user", userResponseDTO);
         //act
         Map<String, Object> responseReturned = userService.login(userCredentials);
         //assert
-        Map<String, Object> assertResponse = new HashMap<>();
-        assertResponse.put("token", token);
-        assertResponse.put("user", user);
-        assertThat(responseReturned).isEqualTo(assertResponse);
+        assertThat(responseReturned).isEqualTo(response);
     }
 
     @Test
