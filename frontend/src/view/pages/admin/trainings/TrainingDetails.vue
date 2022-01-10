@@ -320,7 +320,6 @@ export default {
   },
   created() {
     this.getTraining();
-    this.getLessons();
   },
   methods: {
     async getTraining() {
@@ -330,6 +329,8 @@ export default {
         );
 
         this.training = data.data;
+
+        this.getLessons();
       } catch (e) {
         console.log(e);
       }
@@ -337,17 +338,36 @@ export default {
     async getLessons() {
       try {
         const trainingId = this.$route.params.id;
-        const { data } = await this.axios.get(
-          `/training/offlineLesson/getAllLessons/${trainingId}`
-        );
+
+        let url;
+        if (this.training.is_online) {
+          url = `/training/onlineLesson/getAllLessons/${trainingId}`;
+        } else {
+          url = `/training/offlineLesson/getAllLessons/${trainingId}`;
+        }
+        const { data } = await this.axios.get(url);
         this.lessons = data.data;
       } catch (e) {
         console.log(e);
       }
     },
-    deleteLesson(lesson) {
-      this.confirmDelete();
-      console.log(lesson);
+    async deleteLesson(lesson) {
+      try {
+        const { isConfirmed } = await this.confirmDelete();
+        if (!isConfirmed) return;
+
+        let url;
+        if (this.training.is_online) {
+          url = `/training/onlineLesson/${lesson.id}`;
+        } else {
+          url = `/training/offlineLesson/${lesson.id}`;
+        }
+        await this.axios.delete(url);
+
+        this.getLessons();
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };
