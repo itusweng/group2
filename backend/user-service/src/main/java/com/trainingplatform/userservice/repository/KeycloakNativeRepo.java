@@ -21,6 +21,7 @@ public class KeycloakNativeRepo {
         String sqlQuery = "SELECT r.user_id FROM USER_ROLE_MAPPING r where role_id = 'dbbd49f0-0eb4-4155-ae02-1ffb61e504cc'";
         Query query = session.createNativeQuery(sqlQuery);
         final List<String> resultList = query.getResultList();
+        session.close();
         return resultList;
     }
 
@@ -29,6 +30,7 @@ public class KeycloakNativeRepo {
         String sqlQuery = String.format("SELECT ue.username FROM USER_ENTITY ue where id = '%s'", instructorId);
         Query query = session.createNativeQuery(sqlQuery);
         String result = query.getResultList().get(0).toString();
+        session.close();
         return result;
     }
 }

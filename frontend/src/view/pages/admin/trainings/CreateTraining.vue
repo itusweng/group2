@@ -45,15 +45,17 @@
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Instructor</label>
-          <form-group name="trainer" lg="9" xl="6" no-label no-margin>
-            <b-input
-              slot-scope="{ attrs, listeners }"
-              v-bind="attrs"
-              v-on="listeners"
-              class="form-control form-control-lg form-control-solid"
-              v-model="form.instructor_id"
-            />
-          </form-group>
+          <b-col lg="9" xl="6">
+            <b-form-select v-model="form.instructor_id" class="mb-3">
+              <b-form-select-option
+                :value="instructor.id"
+                v-for="instructor in instructors"
+                :key="instructor.id"
+              >
+                {{ instructor.first_name }} {{ instructor.last_name }}
+              </b-form-select-option>
+            </b-form-select>
+          </b-col>
         </div>
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Description</label>
@@ -128,9 +130,10 @@ export default {
   },
   data() {
     return {
+      instructors: [],
       form: {
         title: '',
-        instructor_id: 2,
+        instructor_id: '',
         description: '',
         thumbnail: '',
         capacity: '100',
@@ -138,7 +141,18 @@ export default {
       }
     };
   },
+  created() {
+    this.getInstructors();
+  },
   methods: {
+    async getInstructors() {
+      try {
+        const { data } = await this.axios.get('/user/getAllInstructors');
+        this.instructors = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
     async save() {
       try {
         formData.set('title', this.form.title);

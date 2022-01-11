@@ -25,12 +25,13 @@
       </b-row>
       <b-row class="mt-5">
         <b-col md="12">
-          <b-table :fields="tableFields" :items="trainings">
+          <b-table :fields="tableFields" :items="trainings" :busy="loading">
             <template v-slot:cell(instructor)="{ item }">
-              {{item.instructor.first_name}} {{item.instructor.last_name}}
+              {{ item.instructor.first_name }} {{ item.instructor.last_name }}
             </template>
             <template v-slot:cell(createdBy)="{ item }">
-              {{item.user_created.first_name}} {{item.user_created.last_name}}
+              {{ item.user_created.first_name }}
+              {{ item.user_created.last_name }}
             </template>
             <template v-slot:cell(actions)="{ item }">
               <b-button
@@ -61,6 +62,11 @@
                 </span>
               </b-button>
             </template>
+            <template v-slot:table-busy>
+              <div class="text-center">
+                <b-spinner variant="primary" />
+              </div>
+            </template>
           </b-table>
         </b-col>
       </b-row>
@@ -89,7 +95,8 @@ export default {
         {
           key: 'actions'
         }
-      ]
+      ],
+      loading: false
     };
   },
   async created() {
@@ -102,10 +109,13 @@ export default {
     },
     async getTrainings() {
       try {
+        this.loading = true;
         const { data } = await this.axios.get('/training/getAllTrainings');
         this.trainings = data.data;
       } catch (e) {
         console.log(e);
+      } finally {
+        this.loading = false;
       }
     },
     async deleteTraining(training) {
