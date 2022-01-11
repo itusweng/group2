@@ -18,4 +18,7 @@ public interface OnlineLessonRepository extends JpaRepository<OnlineLessonModel,
 
     void deleteById(Long ID);
 
+    @Query("SELECT onlineLesson.id FROM OnlineLessonModel onlineLesson WHERE onlineLesson.training.id = ?1")
+    List<Long> findAllLessonIdsByTrainingId(Long trainingId);
+
 }
