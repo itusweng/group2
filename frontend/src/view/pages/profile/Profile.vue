@@ -68,26 +68,10 @@
                   btn-block
                 "
                 exact-active-class="active"
-                to="/profile/overview"
-              >
-                Profile Overview
-              </router-link>
-              <router-link
-                class="
-                  btn btn-hover-light-primary
-                  font-weight-bold
-                  py-3
-                  px-6
-                  mb-2
-                  text-center
-                  btn-block
-                "
-                exact-active-class="active"
                 to="/profile/personal-information"
               >
                 Personal info
               </router-link>
-
               <router-link
                 class="
                   btn btn-hover-light-primary
@@ -99,9 +83,9 @@
                   btn-block
                 "
                 exact-active-class="active"
-                to="/profile/account-info"
+                to="/profile/notifications"
               >
-                Account Info
+                Notifications
               </router-link>
               <router-link
                 class="
@@ -117,21 +101,6 @@
                 to="/profile/change-password"
               >
                 Change Password
-              </router-link>
-              <router-link
-                class="
-                  btn btn-hover-light-primary
-                  font-weight-bold
-                  py-3
-                  px-6
-                  mb-2
-                  text-center
-                  btn-block
-                "
-                exact-active-class="active"
-                to="/profile/email-settings"
-              >
-                Email Settings
               </router-link>
             </div>
           </div>

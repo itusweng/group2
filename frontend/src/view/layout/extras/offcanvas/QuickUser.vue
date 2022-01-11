@@ -88,7 +88,7 @@
         <div class="navi navi-spacer-x-0 p-0">
           <!--begin::Item-->
           <router-link
-            to="/profile/overview"
+            to="/profile/personal-information"
             @click.native="closeOffcanvas"
             class="navi-item"
           >
@@ -112,7 +112,7 @@
           <!--end:Item-->
           <!--begin::Item-->
           <router-link
-            to="/profile/personal-information"
+            to="/profile/notifications"
             @click.native="closeOffcanvas"
             class="navi-item"
           >
@@ -129,14 +129,14 @@
                 </div>
               </div>
               <div class="navi-text">
-                <div class="font-weight-bold">Personal Info</div>
+                <div class="font-weight-bold">Notifications</div>
               </div>
             </div>
           </router-link>
           <!--end:Item-->
           <!--begin::Item-->
           <router-link
-            to="/profile/account-info"
+            to="/profile/change-password"
             @click.native="closeOffcanvas"
             class="navi-item"
           >
@@ -153,7 +153,7 @@
                 </div>
               </div>
               <div class="navi-text">
-                <div class="font-weight-bold">Account Information</div>
+                <div class="font-weight-bold">Change Password</div>
               </div>
             </div>
           </router-link>
