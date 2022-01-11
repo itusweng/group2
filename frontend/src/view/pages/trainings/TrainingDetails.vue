@@ -36,7 +36,7 @@
     </div>
 
     <OnlineLessonList v-if="training.is_online" :lessons="lessons" />
-    <OfflineLessonList v-else :lessons="lessons" />
+    <OfflineLessonList v-else :lessons="mappedLessons" />
   </div>
 </template>
 
@@ -59,7 +59,9 @@ export default {
         instructor: {},
         user_created: {}
       },
-      lessons: []
+      lessons: [],
+      mappedLessons: [],
+      offlineLessonStatus: []
     };
   },
   created() {
@@ -91,6 +93,35 @@ export default {
         }
         const { data } = await this.axios.get(url);
         this.lessons = data.data;
+
+        if (!this.training.is_online) {
+          this.getOfflineLessonStatus();
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getOfflineLessonStatus() {
+      try {
+        const trainingId = this.$route.params.id;
+        const userId = this.$store.getters.currentUser.id;
+
+        const { data } = await this.axios.get(
+          `/training/${trainingId}/getLessonProgress/byUserId/${userId}`
+        );
+        this.offlineLessonStatus = data.data;
+
+        this.mappedLessons = this.lessons.map(lesson => {
+          const progress = this.offlineLessonStatus.find(
+            p => p.lessonId === lesson.id
+          );
+          if (progress) {
+            return {
+              ...progress,
+              ...lesson
+            };
+          }
+        });
       } catch (e) {
         console.log(e);
       }
@@ -111,7 +142,13 @@ export default {
         });
         return Math.floor((passed / this.lessons.length) * 100);
       } else {
-        return 50;
+        let passed = 0;
+        this.offlineLessonStatus.map(lesson => {
+          if (lesson.isCompleted) {
+            passed++;
+          }
+        });
+        return Math.floor((passed / this.lessons.length) * 100);
       }
     }
   }

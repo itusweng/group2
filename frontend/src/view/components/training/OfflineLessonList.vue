@@ -43,9 +43,7 @@
               </td>
               <td class="text-right pr-0">
                 <b-button
-                  v-if="
-                    item.completionStatus === completionStatuses.NOT_STARTED
-                  "
+                  v-if="!item.isStarted && !item.isCompleted"
                   :to="'/lessons/' + item.id"
                   variant="light-success"
                   size="sm"
@@ -53,7 +51,7 @@
                   Start
                 </b-button>
                 <b-button
-                  v-if="item.completionStatus === completionStatuses.STARTED"
+                  v-if="item.isStarted && !item.isCompleted"
                   :to="'/lessons/' + item.id"
                   variant="light-warning"
                   size="sm"
@@ -61,7 +59,7 @@
                   Continue
                 </b-button>
                 <b-button
-                  v-if="item.completionStatus === completionStatuses.FINISHED"
+                  v-if="item.isStarted && item.isCompleted"
                   :to="'/lessons/' + item.id"
                   variant="light-danger"
                   size="sm"
@@ -108,7 +106,7 @@ export default {
       } else {
         return true;
       }
-    },
+    }
   }
 };
 </script>
