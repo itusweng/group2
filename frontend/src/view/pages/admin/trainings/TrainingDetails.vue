@@ -39,6 +39,13 @@
 
               <div class="my-lg-0 my-3">
                 <b-button
+                  @click="exportReport"
+                  variant="light-info"
+                  class="mr-3"
+                >
+                  Export Report
+                </b-button>
+                <b-button
                   :to="'/admin/trainings/' + training.id + '/update'"
                   variant="light-primary"
                 >
@@ -348,6 +355,26 @@ export default {
         }
         const { data } = await this.axios.get(url);
         this.lessons = data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async exportReport() {
+      try {
+        const trainingId = this.$route.params.id;
+
+        const { data } = await this.axios.get(
+          `/reporting/training/${trainingId}/pdf/export/allParticipants`,
+          { responseType: 'blob' }
+        );
+
+        const url = window.URL.createObjectURL(new Blob([data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'Training Participants.pdf'); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+
       } catch (e) {
         console.log(e);
       }
