@@ -46,7 +46,7 @@
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Instructor</label>
           <b-col lg="9" xl="6">
-            <b-form-select v-model="selected" class="mb-3">
+            <b-form-select v-model="form.instructor_id" class="mb-3">
               <b-form-select-option
                 :value="instructor.id"
                 v-for="instructor in instructors"
@@ -133,7 +133,7 @@ export default {
       instructors: [],
       form: {
         title: '',
-        instructor_id: 2,
+        instructor_id: '',
         description: '',
         thumbnail: '',
         capacity: '100',

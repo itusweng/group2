@@ -42,6 +42,20 @@
           </form-group>
         </div>
         <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Instructor</label>
+          <b-col lg="9" xl="6">
+            <b-form-select v-model="form.instructor_id" class="mb-3">
+              <b-form-select-option
+                :value="instructor.id"
+                v-for="instructor in instructors"
+                :key="instructor.id"
+              >
+                {{ instructor.first_name }} {{ instructor.last_name }}
+              </b-form-select-option>
+            </b-form-select>
+          </b-col>
+        </div>
+        <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Description</label>
           <form-group name="description" lg="9" xl="6" no-label no-margin>
             <b-form-textarea
@@ -54,9 +68,9 @@
           </form-group>
         </div>
         <div class="form-group row">
-          <label class="col-xl-3 col-lg-3 col-form-label">Image URL</label>
+          <label class="col-xl-3 col-lg-3 col-form-label">Thumbnail</label>
           <form-group name="thumbnail" lg="9" xl="6" no-label no-margin>
-            <b-input
+            <b-form-file
               slot-scope="{ attrs, listeners }"
               v-bind="attrs"
               v-on="listeners"
@@ -112,6 +126,7 @@ export default {
   },
   data() {
     return {
+      instructors: [],
       form: {
         title: '',
         description: '',
@@ -124,6 +139,7 @@ export default {
   },
   created() {
     this.getTraining();
+    this.getInstructors();
   },
   methods: {
     async getTraining() {
@@ -134,8 +150,17 @@ export default {
 
         this.form = {
           ...data.data,
+          instructor_id: data.data.instructor.id,
           thumbnail: 'https://picsum.photos/600/300/?image=56'
         };
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getInstructors() {
+      try {
+        const { data } = await this.axios.get('/user/getAllInstructors');
+        this.instructors = data.data;
       } catch (e) {
         console.log(e);
       }
