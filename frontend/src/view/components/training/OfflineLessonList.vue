@@ -18,7 +18,6 @@
             <th class="p-0" style="width: 50px"></th>
             <th class="p-0" style="min-width: 150px"></th>
             <th class="p-0" style="min-width: 140px"></th>
-            <th class="p-0" style="min-width: 120px"></th>
             <th class="p-0" style="min-width: 40px"></th>
           </tr>
         </thead>
@@ -36,11 +35,6 @@
                 >
                   {{ item.title }}
                 </router-link>
-              </td>
-              <td class="text-right">
-                <span class="text-muted font-weight-bold">
-                  {{ item.duration }}
-                </span>
               </td>
               <td class="text-right">
                 <span class="text-muted font-weight-bold">
@@ -98,7 +92,7 @@ export default {
   props: ['lessons'],
   data() {
     return {
-      completionStatuses,
+      completionStatuses
     };
   },
   components: {

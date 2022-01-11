@@ -15,14 +15,20 @@
             />
           </b-col>
           <b-col md="3">
-            {{ training.title }}
+            <h4>{{ training.title }}</h4>
+
+            <br />
+            {{ training.description }}
           </b-col>
           <b-col md="3">
-            <div>Start Date: 16 EYL 2021 00:00</div>
-            <div>End Date: 31 ARA 2021 00:00</div>
+            <h4>Instructor:</h4>
+            <span>
+              {{ training.instructor.first_name }}
+              {{ training.instructor.last_name }}
+            </span>
           </b-col>
           <b-col md="3">
-            <h2>Progress</h2>
+            <h4>Progress</h4>
             <Widget13></Widget13>
           </b-col>
         </b-row>
