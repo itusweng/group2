@@ -100,8 +100,8 @@ export default {
     return {
       // Remove this dummy login info
       form: {
-        username: 'test1',
-        password: 'test1'
+        username: 'test5',
+        password: 'test5'
       },
       submitting: false
     };
