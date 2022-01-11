@@ -49,7 +49,7 @@
                   variant="light-success"
                   size="sm"
                 >
-                  Start
+                  Go to link
                 </b-button>
               </td>
             </tr>
