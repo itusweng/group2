@@ -151,5 +151,16 @@ public class TrainingController extends BaseController {
             return exceptionHandler(e);
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HashMap<String, Object>> getTrainingModelById(@PathVariable Long id){
+        try {
+            TrainingModel training = trainingService.getTrainingById(id);
+            TrainingResponseDTO trainingDTO = trainingMapper.mapToDto(training);
+            return ResponseEntity.ok(createReturnObj(String.format("Training fetched successfully by id %d!", id), trainingDTO));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
 }
 

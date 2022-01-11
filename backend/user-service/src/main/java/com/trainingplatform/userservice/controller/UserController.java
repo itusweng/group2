@@ -166,6 +166,27 @@ public class UserController extends BaseController {
             return exceptionHandler(e);
         }
     }
+
+    @PostMapping("/byIdList/getUserModels")
+    ResponseEntity<Map<String, Object>> getUserModelsByUserIdList(@RequestBody List<Long> userIds) {
+        try {
+            List<UserResponseDTO> userResponseDTOS = new ArrayList<>();
+            userIds.forEach(userId -> {
+                try {
+                    User userModel = userService.getUserByID(userId);
+                    UserResponseDTO userResponseDTO = userMapper.mapToDto(userModel);
+                    userResponseDTO.setRole_name(userRoleService.getUserRoleNameByRoleId(userModel.getRole_id()));
+                    userResponseDTOS.add(userResponseDTO);
+                } catch (Exception e) {
+                    // do nothing
+                }
+            });
+            return ResponseEntity.ok(createReturnObj("Users are fetched by id list!",userResponseDTOS));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
 }
 
 

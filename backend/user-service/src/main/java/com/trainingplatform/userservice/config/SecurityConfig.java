@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/user/createUserRole").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.GET, "/api/user/getAllUserRoles/byManagerGroupId/{managerGroupId}").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.GET, "/api/user/getAllUsers/byUserRoleId/{userRoleId}").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/user/byIdList/getUserModels").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic()

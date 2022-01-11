@@ -27,10 +27,9 @@ public class TrainingReportPDFController extends BaseController {
         try{
             List<UserResponseDTO> participants = participantService.getTrainingParticipants(id);
             TrainingResponseDTO training = participantService.getTrainingModel(id);
-            exporterProvider.setResponse(response, "denemeTraining.pdf");
+            exporterProvider.setResponse(response, "training_participants.pdf");
 
             pdfExporter.exportTrainingParticipants(response,participants, training);
-            //return ResponseEntity.ok(createReturnObj(String.format("Users are fetched successfully by training id: %d!", id), participants));
         }
         catch (Exception e){
             e.printStackTrace();

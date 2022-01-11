@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @ToString
+@NoArgsConstructor
 public class TrainingResponseDTO extends BaseResponseDTO {
 
     private Long id;

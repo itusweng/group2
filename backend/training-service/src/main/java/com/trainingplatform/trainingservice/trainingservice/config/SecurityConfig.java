@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/training/{id}").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/{id}/participant").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.GET, "/api/training/{trainingId}").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/training/update").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/training/participationRequest").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/training/byParticipantId/{participantId}/getAll").authenticated()
@@ -62,6 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/training/participation/approve").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.POST, "/api/training/participation/reject").hasAuthority("ROLE_MANAGER")
                 .antMatchers(HttpMethod.GET, "/api/training/participation/approve/byUserRoleId/{userRoleId}").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.POST, "/api/training/participation/training/{id}/participant").hasAuthority("ROLE_MANAGER")
+                .antMatchers(HttpMethod.GET, "/api/training/participation/{id}/participant/getIds").permitAll()
 
                 .anyRequest().denyAll()
                 .and()

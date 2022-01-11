@@ -33,6 +33,7 @@ public class TrainingParticipantService {
         // get participants models with user id list
         List<UserResponseDTO> participantList = new ArrayList<>();
         List participantsResponse = (List) userClient.getUserModelsByUserIdList(participantIds).getBody().get("data");
+
         participantsResponse.forEach(
                 participant -> participantList.add(objectMapper
                         .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
