@@ -29,7 +29,7 @@
           </b-col>
           <b-col md="3">
             <h4>Progress</h4>
-            <Widget13></Widget13>
+            <Widget13 :percentage="trainingProgress" />
           </b-col>
         </b-row>
       </div>
@@ -44,6 +44,7 @@
 import Widget13 from '@/view/components/training/TrainingProgress';
 import OfflineLessonList from '@/view/components/training/OfflineLessonList';
 import OnlineLessonList from '@/view/components/training/OnlineLessonList';
+import moment from 'moment';
 
 export default {
   name: 'dashboard',
@@ -92,6 +93,25 @@ export default {
         this.lessons = data.data;
       } catch (e) {
         console.log(e);
+      }
+    }
+  },
+  computed: {
+    trainingProgress() {
+      if (this.training.is_online) {
+        let passed = 0;
+        this.lessons.map(lesson => {
+          if (
+            moment(lesson.meeting_date + ' 18:00', 'DD-MM-YYYY HH:mm').isBefore(
+              moment()
+            )
+          ) {
+            passed++;
+          }
+        });
+        return Math.floor((passed / this.lessons.length) * 100);
+      } else {
+        return 50;
       }
     }
   }

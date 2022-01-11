@@ -2,7 +2,7 @@
   <!--begin::Mixed Widget 14-->
   <apexchart
     :options="chartOptions"
-    :series="series"
+    :series="[percentage]"
     type="radialBar"
   ></apexchart>
   <!--end::Mixed Widget 14-->
@@ -12,7 +12,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'widget-7',
+  props: ['percentage'],
   data() {
     return {
       chartOptions: {},
