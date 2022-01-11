@@ -62,7 +62,7 @@
           ]"
         >
           <a :href="href" class="menu-link" @click="navigate">
-            <i class="menu-icon flaticon2-list-3"></i>
+            <i class="menu-icon flaticon2-line-chart"></i>
             <span class="menu-text">Trainings</span>
           </a>
         </li>
@@ -81,7 +81,7 @@
           ]"
         >
           <a :href="href" class="menu-link" @click="navigate">
-            <i class="menu-icon flaticon2-list-3"></i>
+            <i class="menu-icon flaticon2-avatar"></i>
             <span class="menu-text">Users</span>
           </a>
         </li>
@@ -100,7 +100,7 @@
           ]"
         >
           <a :href="href" class="menu-link" @click="navigate">
-            <i class="menu-icon flaticon2-list-3"></i>
+            <i class="menu-icon flaticon2-notepad"></i>
             <span class="menu-text">Requests</span>
           </a>
         </li>
