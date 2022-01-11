@@ -128,6 +128,7 @@ export default {
   },
   data() {
     return {
+      instructors: [],
       form: {
         title: '',
         instructor_id: 2,
@@ -139,6 +140,17 @@ export default {
     };
   },
   methods: {
+    async getInstructors() {
+      try {
+        this.loading = true;
+        const { data } = await this.axios.get('/user/getAllInstructors');
+        this.instructors = data.data;
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.loading = false;
+      }
+    },
     async save() {
       try {
         formData.set('title', this.form.title);
