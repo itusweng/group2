@@ -58,6 +58,7 @@ public class TrainingParticipationController extends BaseController {
     public ResponseEntity<Map<String, Object>> approveParticipationRequest(@RequestBody List<ParticipationApproveRequestDTO> requestDTOs){
         try {
             List<ParticipationApproveResponseDTO> responseDTOs = participationService.approveParticipation(requestDTOs);
+
             return ResponseEntity.ok(createReturnObj("Check data to which requests are approved!", responseDTOs));
         } catch (Exception e) {
             return exceptionHandler(e);
@@ -73,8 +74,6 @@ public class TrainingParticipationController extends BaseController {
             return exceptionHandler(e);
         }
     }
-
-
 
     @PostMapping("/participation/reject")
     public ResponseEntity<Map<String, Object>> rejectParticipationRequest(@RequestBody List<ParticipationRejectRequestDTO> requestDTOs){

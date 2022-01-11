@@ -18,4 +18,5 @@ public class OfflineLessonResponseDTO {
     private String description;
 
     private Long training_id;
+
 }

@@ -18,4 +18,7 @@ public interface OfflineLessonRepository extends JpaRepository<OfflineLessonMode
 
     void deleteById(Long ID);
 
+    @Query("SELECT offlinelesson.id FROM OfflineLessonModel offlinelesson WHERE offlinelesson.training.id = ?1")
+    List<Long> findAllLessonIdsByTrainingId(Long trainingId);
+
 }

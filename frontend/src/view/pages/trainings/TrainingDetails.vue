@@ -15,43 +15,142 @@
             />
           </b-col>
           <b-col md="3">
-            {{ activeTraining.title }}
+            <h4>{{ training.title }}</h4>
+
+            <br />
+            {{ training.description }}
           </b-col>
           <b-col md="3">
-            <div>Start Date: 16 EYL 2021 00:00</div>
-            <div>End Date: 31 ARA 2021 00:00</div>
+            <h4>Instructor:</h4>
+            <span>
+              {{ training.instructor.first_name }}
+              {{ training.instructor.last_name }}
+            </span>
           </b-col>
           <b-col md="3">
-            <h2>Progress</h2>
-            <Widget13></Widget13>
+            <h4>Progress</h4>
+            <Widget13 :percentage="trainingProgress" />
           </b-col>
         </b-row>
       </div>
     </div>
 
-    <LessonList></LessonList>
+    <OnlineLessonList v-if="training.is_online" :lessons="lessons" :training="training" />
+    <OfflineLessonList v-else :lessons="mappedLessons" :training="training" />
   </div>
 </template>
 
 <script>
 import Widget13 from '@/view/components/training/TrainingProgress';
-import LessonList from '@/view/components/training/LessonList';
-import { mapGetters } from 'vuex';
+import OfflineLessonList from '@/view/components/training/OfflineLessonList';
+import OnlineLessonList from '@/view/components/training/OnlineLessonList';
+import moment from 'moment';
 
 export default {
   name: 'dashboard',
   components: {
     Widget13,
-    LessonList
+    OfflineLessonList,
+    OnlineLessonList
   },
   data() {
     return {
-      lessons: []
+      training: {
+        instructor: {},
+        user_created: {}
+      },
+      lessons: [],
+      mappedLessons: [],
+      offlineLessonStatus: []
     };
   },
+  created() {
+    this.getTraining();
+  },
+  methods: {
+    async getTraining() {
+      try {
+        const { data } = await this.axios.get(
+          '/training/getTraining/byId/' + this.$route.params.id
+        );
 
+        this.training = data.data;
+
+        this.getLessons();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getLessons() {
+      try {
+        const trainingId = this.$route.params.id;
+
+        let url;
+        if (this.training.is_online) {
+          url = `/training/onlineLesson/getAllLessons/${trainingId}`;
+        } else {
+          url = `/training/offlineLesson/getAllLessons/${trainingId}`;
+        }
+        const { data } = await this.axios.get(url);
+        this.lessons = data.data;
+
+        if (!this.training.is_online) {
+          this.getOfflineLessonStatus();
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getOfflineLessonStatus() {
+      try {
+        const trainingId = this.$route.params.id;
+        const userId = this.$store.getters.currentUser.id;
+
+        const { data } = await this.axios.get(
+          `/training/${trainingId}/getLessonProgress/byUserId/${userId}`
+        );
+        this.offlineLessonStatus = data.data;
+
+        this.mappedLessons = this.lessons.map(lesson => {
+          const progress = this.offlineLessonStatus.find(
+            p => p.lessonId === lesson.id
+          );
+          if (progress) {
+            return {
+              ...progress,
+              ...lesson
+            };
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  },
   computed: {
-    ...mapGetters(['activeTraining'])
+    trainingProgress() {
+      if (this.training.is_online) {
+        let passed = 0;
+        this.lessons.map(lesson => {
+          if (
+            moment(lesson.meeting_date + ' 18:00', 'DD-MM-YYYY HH:mm').isBefore(
+              moment()
+            )
+          ) {
+            passed++;
+          }
+        });
+        return Math.floor((passed / this.lessons.length) * 100);
+      } else {
+        let passed = 0;
+        this.offlineLessonStatus.map(lesson => {
+          if (lesson.isCompleted) {
+            passed++;
+          }
+        });
+        return Math.floor((passed / this.lessons.length) * 100);
+      }
+    }
   }
 };
 </script>

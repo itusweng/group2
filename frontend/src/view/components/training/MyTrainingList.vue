@@ -1,10 +1,22 @@
 <template>
   <div>
     <b-row>
+      <b-col md="12">
+        <b-input-group class="mb-2">
+          <b-input-group-prepend is-text>
+            <span class="svg-icon svg-icon-primary">
+              <inline-svg src="media/svg/icons/General/Search.svg" />
+            </span>
+          </b-input-group-prepend>
+          <b-input placeholder="Search" v-model="search" />
+        </b-input-group>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col md="12" v-if="trainingList.length === 0" class="text-center">
         You have no training.
       </b-col>
-      <b-col md="4" v-for="(training, index) in trainingList" :key="index">
+      <b-col md="4" v-for="(training, index) in filteredList" :key="index">
         <b-card
           :title="training.title"
           :img-src="'https://picsum.photos/600/300/?image=' + (index + 76)"
@@ -30,6 +42,7 @@
 export default {
   data() {
     return {
+      search: '',
       trainingList: []
     };
   },
@@ -46,8 +59,16 @@ export default {
   },
   methods: {
     goToDetails(item) {
-      this.$store.commit('setTraining', item);
       this.$router.push('/trainings/' + item.id);
+    }
+  },
+  computed: {
+    filteredList() {
+      if (!this.search) return this.trainingList;
+      return this.trainingList.filter(
+        training =>
+          training.title.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
+      );
     }
   }
 };

@@ -135,7 +135,7 @@ export default new Router({
           component: () => import('@/view/pages/trainings/TrainingDetails')
         },
         {
-          path: '/lessons/:id',
+          path: '/trainings/:trainingId/lessons/:lessonId',
           component: () => import('@/view/pages/trainings/LessonDetails')
         },
         {
@@ -397,14 +397,10 @@ export default new Router({
         {
           path: '/profile',
           name: 'profile',
-          redirect: '/profile/overview',
+          redirect: '/profile/personal-information',
           component: () => import('@/view/pages/profile/Profile.vue'),
           children: [
-            {
-              path: 'overview',
-              name: 'profile-overview',
-              component: () => import('@/view/pages/profile/Overview')
-            },
+
             {
               path: 'personal-information',
               name: 'profile-personal-information',
@@ -412,19 +408,14 @@ export default new Router({
                 import('@/view/pages/profile/PersonalInformation')
             },
             {
-              path: 'account-info',
-              name: 'profile-account-info',
-              component: () => import('@/view/pages/profile/AccountInformation')
+              path: 'notifications',
+              name: 'profile-notifications',
+              component: () => import('@/view/pages/profile/Notifications')
             },
             {
               path: 'change-password',
               name: 'profile-change-password',
               component: () => import('@/view/pages/profile/ChangePassword')
-            },
-            {
-              path: 'email-settings',
-              name: 'profile-email-settings',
-              component: () => import('@/view/pages/profile/EmailSettings')
             }
           ]
         }

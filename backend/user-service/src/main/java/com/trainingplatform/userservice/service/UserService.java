@@ -5,6 +5,7 @@ import com.trainingplatform.userservice.model.entity.User;
 import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.model.mapper.UserMapper;
 import com.trainingplatform.userservice.model.response.UserResponseDTO;
+import com.trainingplatform.userservice.repository.KeycloakNativeRepo;
 import com.trainingplatform.userservice.repository.UserRepository;
 import com.trainingplatform.userservice.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final UserRoleRepository userRoleRepo;
+    private final KeycloakNativeRepo keycloakNativeRepo;
+
 
     public Map<String, Object> getAllUsers(Integer page, Integer size) {
         Map<String, Object> returnMap = new HashMap<>();
@@ -109,5 +112,15 @@ public class UserService {
 
         userRepo.save(existingUser);
         return existingUser;
+    }
+
+    public List<User> getAllInstructors() {
+        List<User> userList = new ArrayList<>();
+        List<String> instructorIds = keycloakNativeRepo.getInstructorUserIds();
+        for(String instructorId: instructorIds){
+            String username = keycloakNativeRepo.getUsernameByInstructorId(instructorId);
+            userList.add(userRepo.findByUsername(username).orElseThrow(() -> new EntityNotFoundException()));
+        }
+        return userList;
     }
 }

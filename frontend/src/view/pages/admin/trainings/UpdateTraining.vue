@@ -132,7 +132,10 @@ export default {
           '/training/getTraining/byId/' + this.$route.params.id
         );
 
-        this.form = data.data;
+        this.form = {
+          ...data.data,
+          thumbnail: 'https://picsum.photos/600/300/?image=56'
+        };
       } catch (e) {
         console.log(e);
       }

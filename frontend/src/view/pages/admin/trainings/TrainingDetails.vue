@@ -121,7 +121,7 @@
               <span class="font-weight-bolder font-size-sm">
                 Registered User
               </span>
-              <span class="font-weight-bolder font-size-h5">175</span>
+              <span class="font-weight-bolder font-size-h5">2</span>
             </div>
           </div>
           <!--end::Item-->

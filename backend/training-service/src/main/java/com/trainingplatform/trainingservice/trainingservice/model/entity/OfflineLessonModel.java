@@ -17,7 +17,7 @@ import java.io.Serializable;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property  = "id",
         scope     = Long.class)
-public class OfflineLessonModel implements Serializable {
+public class OfflineLessonModel implements Serializable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
