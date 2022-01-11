@@ -9,10 +9,11 @@
           <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
             <img
               :src="
-                training.thumbnail
-                  ? training.thumbnail
-                  : '/media/other/no-img.jpeg'
+                'https://swetrainingplatform.s3.eu-central-1.amazonaws.com/trainingThumbnails/' +
+                training.id +
+                '.jpeg'
               "
+              onerror="if (this.src != 'error.jpg') this.src = '/media/other/no-img.jpeg';"
               alt="image"
               style="max-width: 300px"
             />

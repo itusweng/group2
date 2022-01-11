@@ -9,7 +9,12 @@
         <b-row>
           <b-col md="3">
             <img
-              src="https://picsum.photos/600/300/?image=56"
+              :src="
+                'https://swetrainingplatform.s3.eu-central-1.amazonaws.com/trainingThumbnails/' +
+                training.id +
+                '.jpeg'
+              "
+              onerror="if (this.src != 'error.jpg') this.src = '/media/other/no-img.jpeg';"
               class="w-100"
               alt=""
             />
@@ -35,7 +40,11 @@
       </div>
     </div>
 
-    <OnlineLessonList v-if="training.is_online" :lessons="lessons" :training="training" />
+    <OnlineLessonList
+      v-if="training.is_online"
+      :lessons="lessons"
+      :training="training"
+    />
     <OfflineLessonList v-else :lessons="mappedLessons" :training="training" />
   </div>
 </template>

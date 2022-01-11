@@ -68,9 +68,9 @@
           </form-group>
         </div>
         <div class="form-group row">
-          <label class="col-xl-3 col-lg-3 col-form-label">Image URL</label>
+          <label class="col-xl-3 col-lg-3 col-form-label">Thumbnail</label>
           <form-group name="thumbnail" lg="9" xl="6" no-label no-margin>
-            <b-input
+            <b-form-file
               slot-scope="{ attrs, listeners }"
               v-bind="attrs"
               v-on="listeners"
@@ -94,10 +94,7 @@
         <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Is Online</label>
           <form-group name="is_online" lg="9" xl="6" no-label no-margin>
-            <span
-              slot-scope="{ attrs, listeners }"
-              class="switch switch-sm"
-            >
+            <span slot-scope="{ attrs, listeners }" class="switch switch-sm">
               <label>
                 <input
                   type="checkbox"
@@ -119,6 +116,8 @@
 import { required } from 'vuelidate/lib/validators';
 import Swal from 'sweetalert2';
 
+const formData = new FormData();
+
 export default {
   validations: {
     form: {
@@ -134,7 +133,7 @@ export default {
         instructor_id: 2,
         description: '',
         thumbnail: '',
-        capacity: '',
+        capacity: '100',
         is_online: false
       }
     };
@@ -142,10 +141,19 @@ export default {
   methods: {
     async save() {
       try {
-        await this.axios.post('/training/', {
-          ...this.form,
-          capacity: 100,
-          user_created_id: this.$store.getters.currentUser.id
+        formData.set('title', this.form.title);
+        formData.set('instructor_id', this.form.instructor_id);
+        formData.set('user_created_id', this.$store.getters.currentUser.id);
+        formData.set('description', this.form.description);
+        formData.set('capacity', this.form.capacity);
+        formData.set('is_online', this.form.is_online);
+        formData.set('thumbnail', this.form.thumbnail);
+
+        await this.axios.post('/training/', formData, {
+          headers: {
+            accept: 'application/json',
+            'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
+          }
         });
 
         await Swal.fire({
