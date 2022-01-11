@@ -327,4 +327,12 @@ public class TrainingParticipationService {
                     "by training id: " + trainingId +
                     "and user id: \n" + userId);
     }
+
+
+    public List<Long> getAllParticipantIdsByTrainingId(Long trainingId) {
+        List<User_ParticipatedTrainingModel> participantModels = trainingParticipatedRepo.findByTrainingId(trainingId);
+        List<Long> userIds = participantModels.stream().map(User_ParticipatedTrainingModel::getUserId).collect(Collectors.toList());
+
+        return userIds;
+    }
 }

@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/user/getAllInstructors").authenticated()
 
 
+                .antMatchers(HttpMethod.POST, "/api/user/byIdList/getUserModels").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic()
