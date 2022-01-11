@@ -14,20 +14,23 @@
     </b-row>
     <b-row>
       <b-col md="4" v-for="(training, index) in filteredList" :key="index">
-        <b-card
-          :title="training.title"
-          :img-src="
-            training.thumbnail ? training.thumbnail : '/media/other/no-img.jpeg'
-          "
-          img-alt="Image"
-          img-top
-          tag="article"
-          class="mb-2 mt-2"
-        >
-          <p>{{ training.description }}</p>
-          <b-button @click="register(training)" variant="primary">
-            Register
-          </b-button>
+        <b-card class="mb-2 mt-2" no-body>
+          <b-card-img
+            :src="
+              'https://swetrainingplatform.s3.eu-central-1.amazonaws.com/trainingThumbnails/' +
+              training.id +
+              '.jpeg'
+            "
+            onerror="if (this.src != 'error.jpg') this.src = '/media/other/no-img.jpeg';"
+            top
+          />
+          <b-card-body>
+            <b-card-title>{{ training.title }}</b-card-title>
+            <b-card-text>{{ training.description }}</b-card-text>
+            <b-button @click="register(training)" variant="primary">
+              Register
+            </b-button>
+          </b-card-body>
         </b-card>
       </b-col>
 
