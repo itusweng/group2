@@ -205,13 +205,14 @@ export default {
           ...this.form
         });
 
+        this.$store.commit('setUser', this.form);
+
         await Swal.fire({
           icon: 'success',
           title: 'Profile updated successfully!',
           reverseButtons: true,
           confirmButtonText: 'OK'
         });
-
       } catch (e) {
         Swal.fire({
           icon: 'error',

@@ -103,6 +103,16 @@ const mutations = {
     JwtService.saveToken(data.token.access_token);
     ApiService.setToken();
   },
+  setUser(state, user) {
+    const newUser = {
+      ...state.user,
+      ...user
+    };
+    state.user = newUser;
+    state.errors = {};
+
+    UserService.saveUser(newUser);
+  },
   [SET_PASSWORD](state, password) {
     state.user.password = password;
   },
