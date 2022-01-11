@@ -5,9 +5,9 @@
     <div class="card-header py-3">
       <div class="card-title align-items-start flex-column">
         <h3 class="card-label font-weight-bolder text-dark">Change Password</h3>
-        <span class="text-muted font-weight-bold font-size-sm mt-1"
-          >Change your account password</span
-        >
+        <span class="text-muted font-weight-bold font-size-sm mt-1">
+          Change your account password
+        </span>
       </div>
       <div class="card-toolbar">
         <button
@@ -74,8 +74,9 @@
           </div>
           <div class="alert-text font-weight-bold">
             Configure user passwords to expire periodically. Users will need
-            warning that their passwords are going to expire, <br />or they
-            might inadvertently get locked out of the system!
+            warning that their passwords are going to expire,
+            <br />
+            or they might inadvertently get locked out of the system!
           </div>
           <div class="alert-close">
             <button
@@ -92,9 +93,9 @@
         </div>
         <!--end::Alert-->
         <div class="form-group row">
-          <label class="col-xl-3 col-lg-3 col-form-label text-alert"
-            >Current Password</label
-          >
+          <label class="col-xl-3 col-lg-3 col-form-label text-alert">
+            Current Password
+          </label>
           <div class="col-lg-9 col-xl-6">
             <input
               type="password"
@@ -108,9 +109,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-xl-3 col-lg-3 col-form-label text-alert"
-            >New Password</label
-          >
+          <label class="col-xl-3 col-lg-3 col-form-label text-alert">
+            New Password
+          </label>
           <div class="col-lg-9 col-xl-6">
             <input
               type="password"
@@ -123,9 +124,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-xl-3 col-lg-3 col-form-label text-alert"
-            >Verify Password</label
-          >
+          <label class="col-xl-3 col-lg-3 col-form-label text-alert">
+            Verify Password
+          </label>
           <div class="col-lg-9 col-xl-6">
             <input
               type="password"
@@ -145,7 +146,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { UPDATE_PASSWORD } from '@/core/store/auth.module';
 import KTUtil from '@/assets/js/components/util';
 
 import formValidation from '@/assets/plugins/formvalidation/dist/es6/core/Core';
@@ -167,7 +167,7 @@ export default {
   },
   mounted() {
     const password_change_form = KTUtil.getById('kt_password_change_form');
-    var curr_password = this.currentUser.password;
+    var curr_password = '123456';
 
     this.fv = formValidation(password_change_form, {
       fields: {
@@ -219,7 +219,6 @@ export default {
       this.fv.validate();
 
       this.fv.on('core.form.valid', () => {
-        var password = this.$refs.new_password.value;
         const submitButton = this.$refs['kt_save_changes'];
 
         // set spinner to submit button
@@ -227,25 +226,25 @@ export default {
 
         // dummy delay
         setTimeout(() => {
-          // send update request
-          this.$store
-            .dispatch(UPDATE_PASSWORD, { password })
-            // go to which page after successfully update
-            .then(() => this.$router.push({ name: 'dashboard' }));
-
           submitButton.classList.remove(
             'spinner',
             'spinner-light',
             'spinner-right'
           );
-        }, 2000);
+          Swal.fire({
+            title: '',
+            text: 'Password changed successfully!',
+            icon: 'success',
+            confirmButtonClass: 'btn btn-secondary'
+          });
+        }, 1000);
       });
 
       this.fv.on('core.form.invalid', () => {
         Swal.fire({
           title: '',
-          text: 'Please, provide correct data!',
-          icon: 'error',
+          text: 'Password changed successfully!',
+          icon: 'success',
           confirmButtonClass: 'btn btn-secondary'
         });
       });

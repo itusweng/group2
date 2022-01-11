@@ -8,5 +8,7 @@ export const formatDate = (date, mode = 1) => {
       return moment(date).format('D MMMM YYYY');
     case 3:
       return moment(date).format('D/M/YY HH:mm');
+    case 4:
+      return moment(date).format('D MMMM YYYY HH:mm');
   }
 };
