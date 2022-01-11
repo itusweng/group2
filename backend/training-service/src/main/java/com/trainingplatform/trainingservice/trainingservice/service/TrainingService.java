@@ -5,19 +5,16 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.trainingplatform.trainingservice.trainingservice.communication.UserClient;
 import com.trainingplatform.trainingservice.trainingservice.config.RabbitMQMessagingConfig;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
-import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
-import com.trainingplatform.trainingservice.trainingservice.model.entity.User_CreatedTrainingModel;
-import com.trainingplatform.trainingservice.trainingservice.model.entity.User_ParticipatedTrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.*;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingRequestMapper;
+import com.trainingplatform.trainingservice.trainingservice.model.mapper.UserLessonProgressModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.request.TrainingRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.request.TrainingThumbnailUploadRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
 
-import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
-import com.trainingplatform.trainingservice.trainingservice.repository.User_CreatedTrainingRepo;
-import com.trainingplatform.trainingservice.trainingservice.repository.User_ParticipatedTrainingRepo;
+import com.trainingplatform.trainingservice.trainingservice.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -41,6 +38,10 @@ public class TrainingService {
     private final TrainingRequestMapper trainingRequestMapper;
     private final RabbitTemplate rabbitTemplate;
     private final ObjectMapper objectMapper;
+    private final OnlineLessonRepository onlineLessonRepo;
+    private final OfflineLessonRepository offlineLessonRepo;
+    private final User_LessonProgressRepo userLessonProgressRepo;
+    private final UserLessonProgressModelMapper userLessonProgressModelMapper;
 
     public List<TrainingModel> getAllTrainings() {
         List<TrainingModel> trainingModels = trainingRepo.findAll();
@@ -128,5 +129,33 @@ public class TrainingService {
         existingTraining.setUpdated_date(new Date());
 
         trainingRepo.save(existingTraining);
+    }
+
+    public List<User_LessonProgressModel> getLessonProgressByTrainingAndUserId(Long trainingId, Long userId) {
+        TrainingModel trainingModel = trainingRepo.findById(trainingId).orElseThrow(() -> new EntityNotFoundException());
+        List<User_LessonProgressModel> progressList = new ArrayList<>();
+
+        if(trainingModel.getIs_online()){
+            List<Long> onlineLessonIds = onlineLessonRepo.findAllLessonIdsByTrainingId(trainingId);
+            for (Long onlineLessonId : onlineLessonIds) {
+                User_LessonProgressModel progress = userLessonProgressRepo.findByLessonIdAndUserId(onlineLessonId, userId);
+                progressList.add(progress);
+            }
+        }
+        else{
+            List<Long> offlineLessonIds = offlineLessonRepo.findAllLessonIdsByTrainingId(trainingId);
+            for (Long onlineLessonId : offlineLessonIds) {
+                User_LessonProgressModel progress = userLessonProgressRepo.findByLessonIdAndUserId(onlineLessonId, userId);
+                progressList.add(progress);
+            }
+        }
+        return progressList;
+    }
+
+    public void updateLessonProgress(User_LessonProgressModel userLessonProgressModel) {
+        User_LessonProgressModel existingProgress = userLessonProgressRepo.findByLessonIdAndUserId(userLessonProgressModel.getLessonId(), userLessonProgressModel.getUserId());
+        userLessonProgressModelMapper.updateFields(existingProgress, userLessonProgressModel);
+
+        userLessonProgressRepo.save(existingProgress);
     }
 }
