@@ -1,9 +1,13 @@
 package com.trainingplatform.trainingservice.trainingservice.controller;
 
 import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.User_LessonProgressModel;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
+import com.trainingplatform.trainingservice.trainingservice.model.mapper.UserLessonProgressModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.request.TrainingRequestDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.request.UserLessonProgressRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.TrainingResponseDTO;
+import com.trainingplatform.trainingservice.trainingservice.model.response.UserLessonProgressResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.UserResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.service.TrainingService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,7 @@ public class TrainingController extends BaseController {
 
     private final TrainingService trainingService;
     private final TrainingModelMapper trainingMapper;
+    private final UserLessonProgressModelMapper userLessonProgressMapper;
 
     @GetMapping("/getAllTrainings")
     public ResponseEntity<HashMap<String, Object>> getAllTrainings() {
@@ -158,6 +163,31 @@ public class TrainingController extends BaseController {
             TrainingModel training = trainingService.getTrainingById(id);
             TrainingResponseDTO trainingDTO = trainingMapper.mapToDto(training);
             return ResponseEntity.ok(createReturnObj(String.format("Training fetched successfully by id %d!", id), trainingDTO));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @GetMapping("/{trainingId}/getLessonProgress/byUserId/{userId}")
+    public ResponseEntity<HashMap<String, Object>> getLessonProgressByTrainingAndUserId(@PathVariable Long trainingId, @PathVariable Long userId) {
+        try {
+            List<User_LessonProgressModel> lessonProgressList = trainingService.getLessonProgressByTrainingAndUserId(trainingId, userId);
+            List<UserLessonProgressResponseDTO> responseDTOs = userLessonProgressMapper.mapToDto(lessonProgressList);
+            return ResponseEntity.ok(
+                    createReturnObj("Lesson progresses are fetched successfully!", responseDTOs));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
+
+    @PostMapping("/updateLessonProgress")
+    public ResponseEntity<HashMap<String, Object>> updateLessonProgressByLessonAndUserId(@RequestBody UserLessonProgressRequestDTO requestDTO) {
+        try {
+            User_LessonProgressModel userLessonProgressModel = userLessonProgressMapper.mapToEntity(requestDTO);
+            trainingService.updateLessonProgress(userLessonProgressModel);
+
+            return ResponseEntity.ok(
+                    createReturnObj("Lesson progress is updated successfully!", null));
         } catch (Exception e) {
             return exceptionHandler(e);
         }

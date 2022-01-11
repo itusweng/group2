@@ -187,6 +187,16 @@ public class UserController extends BaseController {
         }
     }
 
+    @GetMapping("/getAllInstructors")
+    public ResponseEntity<Map<String, Object>> getAllInstructors() {
+        try {
+            List<User> userList = userService.getAllInstructors();
+            List<UserResponseDTO> userResponseDTOS = userMapper.mapToDto(userList);
+            return ResponseEntity.ok(createReturnObj("All instructors are fetched!", userResponseDTOS));
+        } catch (Exception e) {
+            return exceptionHandler(e);
+        }
+    }
 }
 
 
