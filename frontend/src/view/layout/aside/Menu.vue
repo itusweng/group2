@@ -19,7 +19,7 @@
         </a>
       </li>
     </router-link>
-<!--
+    <!--
 
     <router-link
       to="/builder"
@@ -42,68 +42,72 @@
     </router-link>
 -->
 
-    <li class="menu-section">
-      <h4 class="menu-text">Administration</h4>
-      <i class="menu-icon flaticon-more-v2"></i>
-    </li>
+    <template v-if="$store.getters.currentUser.isManager">
+      <li class="menu-section">
+        <h4 class="menu-text">Administration</h4>
+        <i class="menu-icon flaticon-more-v2"></i>
+      </li>
 
-    <router-link
-      to="/admin/trainings/list"
-      v-slot="{ href, navigate, isActive, isExactActive }"
-    >
-      <li
-        aria-haspopup="true"
-        data-menu-toggle="hover"
-        class="menu-item"
-        :class="[
-          isActive && 'menu-item-active',
-          isExactActive && 'menu-item-active'
-        ]"
+      <router-link
+        to="/admin/trainings/list"
+        v-slot="{ href, navigate, isActive, isExactActive }"
       >
-        <a :href="href" class="menu-link" @click="navigate">
-          <i class="menu-icon flaticon2-list-3"></i>
-          <span class="menu-text">Trainings</span>
-        </a>
-      </li>
-    </router-link>
-    <router-link
-      to="/admin/users/list"
-      v-slot="{ href, navigate, isActive, isExactActive }"
-    >
-      <li
-        aria-haspopup="true"
-        data-menu-toggle="hover"
-        class="menu-item"
-        :class="[
-          isActive && 'menu-item-active',
-          isExactActive && 'menu-item-active'
-        ]"
+        <li
+          aria-haspopup="true"
+          data-menu-toggle="hover"
+          class="menu-item"
+          :class="[
+            isActive && 'menu-item-active',
+            isExactActive && 'menu-item-active'
+          ]"
+        >
+          <a :href="href" class="menu-link" @click="navigate">
+            <i class="menu-icon flaticon2-list-3"></i>
+            <span class="menu-text">Trainings</span>
+          </a>
+        </li>
+      </router-link>
+      <router-link
+        to="/admin/users/list"
+        v-slot="{ href, navigate, isActive, isExactActive }"
       >
-        <a :href="href" class="menu-link" @click="navigate">
-          <i class="menu-icon flaticon2-list-3"></i>
-          <span class="menu-text">Users</span>
-        </a>
-      </li>
-    </router-link>
-    <router-link
-      to="/admin/requests/list"
-      v-slot="{ href, navigate, isActive, isExactActive }"
-    >
-      <li
-        aria-haspopup="true"
-        data-menu-toggle="hover"
-        class="menu-item"
-        :class="[
-          isActive && 'menu-item-active',
-          isExactActive && 'menu-item-active'
-        ]"
+        <li
+          aria-haspopup="true"
+          data-menu-toggle="hover"
+          class="menu-item"
+          :class="[
+            isActive && 'menu-item-active',
+            isExactActive && 'menu-item-active'
+          ]"
+        >
+          <a :href="href" class="menu-link" @click="navigate">
+            <i class="menu-icon flaticon2-list-3"></i>
+            <span class="menu-text">Users</span>
+          </a>
+        </li>
+      </router-link>
+      <router-link
+        to="/admin/requests/list"
+        v-slot="{ href, navigate, isActive, isExactActive }"
       >
-        <a :href="href" class="menu-link" @click="navigate">
-          <i class="menu-icon flaticon2-list-3"></i>
-          <span class="menu-text">Requests</span>
-        </a>
-      </li>
-    </router-link>
+        <li
+          aria-haspopup="true"
+          data-menu-toggle="hover"
+          class="menu-item"
+          :class="[
+            isActive && 'menu-item-active',
+            isExactActive && 'menu-item-active'
+          ]"
+        >
+          <a :href="href" class="menu-link" @click="navigate">
+            <i class="menu-icon flaticon2-list-3"></i>
+            <span class="menu-text">Requests</span>
+          </a>
+        </li>
+      </router-link>
+    </template>
+
+    <!--
     <li class="menu-section">
       <h4 class="menu-text">Components</h4>
       <i class="menu-icon flaticon-more-v2"></i>
@@ -2072,7 +2076,7 @@
           </router-link>
         </ul>
       </div>
-    </li>
+    </li>-->
   </ul>
 </template>
 

@@ -50,10 +50,6 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'widget-1',
-  created() {
-    console.log(this.currentUser);
-  },
   computed: {
     ...mapGetters(['currentUserPhoto', 'currentUser'])
   }

@@ -1,6 +1,7 @@
 import ApiService from '@/core/services/api.service';
 import JwtService from '@/core/services/jwt.service';
 import UserService from '@/core/services/user.service';
+import jwt from 'jsonwebtoken';
 
 // action types
 export const VERIFY_AUTH = 'verifyAuth';
@@ -33,22 +34,14 @@ const getters = {
 const actions = {
   [LOGIN](context, credentials) {
     return new Promise((resolve, reject) => {
-      // const data = {
-      //   token: 'fsdf',
-      //   ...credentials
-      // }
-      // context.commit(SET_AUTH, data);
-      // resolve(data);
-
       ApiService.post('user/login', credentials)
         .then(({ data }) => {
           // console.log("Here what post returns", data);
           context.commit(SET_AUTH, data);
           resolve(data);
         })
-        .catch(({ response }) => {
-          context.commit(SET_ERROR, response.data.errors);
-          reject();
+        .catch(e => {
+          reject(e);
         });
     });
   },
@@ -97,9 +90,16 @@ const mutations = {
   },
   [SET_AUTH](state, data) {
     state.isAuthenticated = true;
-    state.user = data.user;
+    const decoded = jwt.decode(data.token.access_token);
+
+    const newUser = {
+      ...data.user,
+      isManager: decoded.realm_access.roles.includes('MANAGER')
+    };
+    state.user = newUser;
     state.errors = {};
-    UserService.saveUser(state.user);
+
+    UserService.saveUser(newUser);
     JwtService.saveToken(data.token.access_token);
     ApiService.setToken();
   },

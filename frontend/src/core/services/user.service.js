@@ -5,6 +5,7 @@ export const getUser = () => {
 };
 
 export const saveUser = (user) => {
+  console.log(user);
   window.localStorage.setItem(ID_KEY, JSON.stringify(user));
 };
 
