@@ -135,7 +135,7 @@ export default new Router({
           component: () => import('@/view/pages/trainings/TrainingDetails')
         },
         {
-          path: '/lessons/:id',
+          path: '/trainings/:trainingId/lessons/:lessonId',
           component: () => import('@/view/pages/trainings/LessonDetails')
         },
         {

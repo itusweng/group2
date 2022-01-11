@@ -29,7 +29,7 @@
               </td>
               <td class="pl-0">
                 <router-link
-                  :to="'/lessons/' + item.id"
+                  :to="'/trainings/' + training.id + '/lessons/' + item.id"
                   tag="a"
                   class="text-dark text-hover-primary mb-1 font-size-lg"
                 >
@@ -44,7 +44,7 @@
               <td class="text-right pr-0">
                 <b-button
                   v-if="!item.isStarted && !item.isCompleted"
-                  :to="'/lessons/' + item.id"
+                  :to="'/trainings/' + training.id + '/lessons/' + item.id"
                   variant="light-success"
                   size="sm"
                 >
@@ -52,7 +52,7 @@
                 </b-button>
                 <b-button
                   v-if="item.isStarted && !item.isCompleted"
-                  :to="'/lessons/' + item.id"
+                  :to="'/trainings/' + training.id + '/lessons/' + item.id"
                   variant="light-warning"
                   size="sm"
                 >
@@ -60,7 +60,7 @@
                 </b-button>
                 <b-button
                   v-if="item.isStarted && item.isCompleted"
-                  :to="'/lessons/' + item.id"
+                  :to="'/trainings/' + training.id + '/lessons/' + item.id"
                   variant="light-danger"
                   size="sm"
                 >
@@ -87,7 +87,7 @@ const completionStatuses = {
 };
 
 export default {
-  props: ['lessons'],
+  props: ['lessons', 'training'],
   data() {
     return {
       completionStatuses

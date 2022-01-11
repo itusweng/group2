@@ -35,8 +35,8 @@
       </div>
     </div>
 
-    <OnlineLessonList v-if="training.is_online" :lessons="lessons" />
-    <OfflineLessonList v-else :lessons="mappedLessons" />
+    <OnlineLessonList v-if="training.is_online" :lessons="lessons" :training="training" />
+    <OfflineLessonList v-else :lessons="mappedLessons" :training="training" />
   </div>
 </template>
 
