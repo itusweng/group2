@@ -158,30 +158,6 @@
             </div>
           </router-link>
           <!--end:Item-->
-          <!--begin::Item-->
-          <router-link
-            to="/profile/email-settings"
-            @click.native="closeOffcanvas"
-            class="navi-item"
-          >
-            <div class="navi-link">
-              <div class="symbol symbol-40 bg-light mr-3">
-                <div class="symbol-label">
-                  <span class="svg-icon svg-icon-md svg-icon-primary">
-                    <!--begin::Svg Icon-->
-                    <inline-svg
-                      src="/media/svg/icons/Communication/Mail-opened.svg"
-                    />
-                    <!--end::Svg Icon-->
-                  </span>
-                </div>
-              </div>
-              <div class="navi-text">
-                <div class="font-weight-bold">Email Settings</div>
-              </div>
-            </div>
-          </router-link>
-          <!--end:Item-->
         </div>
         <!--end::Nav-->
         <div class="separator separator-dashed my-7"></div>
