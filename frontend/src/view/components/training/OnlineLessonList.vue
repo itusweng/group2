@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="(item, i) in lessons">
+          <template v-for="(item, i) in newLessons">
             <tr v-bind:key="i">
               <td class="pl-0 py-5 font-weight-bolder">
                 {{ i + 1 }}
@@ -38,35 +38,18 @@
               </td>
               <td class="text-right">
                 <span class="text-muted font-weight-bold">
-                  {{ item.completionStatus }}
+                  {{ item.date | formatDate(4) }}
                 </span>
               </td>
               <td class="text-right pr-0">
                 <b-button
-                  v-if="
-                    item.completionStatus === completionStatuses.NOT_STARTED
-                  "
-                  :to="'/lessons/' + item.id"
+                  v-if="moment(item.date).isAfter(moment())"
+                  :href="item.zoom_link"
+                  target="_blank"
                   variant="light-success"
                   size="sm"
                 >
                   Start
-                </b-button>
-                <b-button
-                  v-if="item.completionStatus === completionStatuses.STARTED"
-                  :to="'/lessons/' + item.id"
-                  variant="light-warning"
-                  size="sm"
-                >
-                  Continue
-                </b-button>
-                <b-button
-                  v-if="item.completionStatus === completionStatuses.FINISHED"
-                  :to="'/lessons/' + item.id"
-                  variant="light-danger"
-                  size="sm"
-                >
-                  Re-Watch
                 </b-button>
               </td>
             </tr>
@@ -81,34 +64,38 @@
 <script>
 import Dropdown2 from '@/view/components/dropdown/Dropdown2.vue';
 import { mapGetters } from 'vuex';
-
-const completionStatuses = {
-  NOT_STARTED: 'not_started',
-  STARTED: 'started',
-  FINISHED: 'finished'
-};
+import moment from 'moment';
 
 export default {
   props: ['lessons'],
   data() {
-    return {
-      completionStatuses
-    };
+    return {};
   },
   components: {
     Dropdown2
   },
   computed: {
+    newLessons() {
+      return this.lessons.map(lesson => ({
+        ...lesson,
+        date: moment(
+          lesson.meeting_date + ' 18:00',
+          'DD-MM-YYYY HH:mm'
+        ).toDate()
+      }));
+    },
     ...mapGetters(['layoutConfig'])
   },
+  created() {},
   methods: {
+    moment,
     lastElement(i) {
       if (i === this.list.length - 1) {
         return false;
       } else {
         return true;
       }
-    },
+    }
   }
 };
 </script>

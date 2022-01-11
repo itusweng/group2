@@ -35,19 +35,22 @@
       </div>
     </div>
 
-    <OfflineLessonList :lessons="lessons" />
+    <OnlineLessonList v-if="training.is_online" :lessons="lessons" />
+    <OfflineLessonList v-else :lessons="lessons" />
   </div>
 </template>
 
 <script>
 import Widget13 from '@/view/components/training/TrainingProgress';
 import OfflineLessonList from '@/view/components/training/OfflineLessonList';
+import OnlineLessonList from '@/view/components/training/OnlineLessonList';
 
 export default {
   name: 'dashboard',
   components: {
     Widget13,
-    OfflineLessonList
+    OfflineLessonList,
+    OnlineLessonList
   },
   data() {
     return {
