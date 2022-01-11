@@ -8,9 +8,7 @@ import com.trainingplatform.trainingservice.trainingservice.constants.QueueDefin
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingCrudException;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingParticipationException;
 import com.trainingplatform.trainingservice.trainingservice.exception.TrainingUserNotFoundException;
-import com.trainingplatform.trainingservice.trainingservice.model.entity.TrainingModel;
-import com.trainingplatform.trainingservice.trainingservice.model.entity.User_ParticipatedTrainingModel;
-import com.trainingplatform.trainingservice.trainingservice.model.entity.User_RequestedTrainingModel;
+import com.trainingplatform.trainingservice.trainingservice.model.entity.*;
 import com.trainingplatform.trainingservice.trainingservice.model.mapper.TrainingModelMapper;
 import com.trainingplatform.trainingservice.trainingservice.model.request.trainingparticipation.ParticipationApproveRequestDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.request.trainingparticipation.ParticipationPendingRequestsListAllRequestDTO;
@@ -20,9 +18,7 @@ import com.trainingplatform.trainingservice.trainingservice.model.response.*;
 import com.trainingplatform.trainingservice.trainingservice.model.response.trainingparticipation.ParticipationApproveResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.trainingparticipation.ParticipationRejectResponseDTO;
 import com.trainingplatform.trainingservice.trainingservice.model.response.trainingparticipation.PendingParticipationResponseDTO;
-import com.trainingplatform.trainingservice.trainingservice.repository.TrainingRepository;
-import com.trainingplatform.trainingservice.trainingservice.repository.User_ParticipatedTrainingRepo;
-import com.trainingplatform.trainingservice.trainingservice.repository.User_RequestedTrainingRepo;
+import com.trainingplatform.trainingservice.trainingservice.repository.*;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -32,8 +28,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transaction;
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -48,6 +44,9 @@ public class TrainingParticipationService {
     private final TrainingModelMapper trainingMapper;
     private final ObjectMapper objectMapper;
     private final RabbitTemplate rabbitTemplate;
+    private final OfflineLessonRepository offlineLessonRepo;
+    private final OnlineLessonRepository onlineLessonRepo;
+    private final User_LessonProgressRepo lessonProgressRepo;
 
     public Map<Long, Boolean> addParticipantsToTraining(Long trainingId, List<Long> participantIdList) throws TrainingCrudException {
         // TODO: CHECK TRAINING QUOTA BEFORE ADDING!
@@ -72,6 +71,7 @@ public class TrainingParticipationService {
                         .build();
 
                 trainingParticipatedRepo.save(trainingParticipatedUser);
+                assignTrainingLessonsToUser(trainingId, userId);
                 sendParticipationNotificationToParticipant(trainingId, userId);
 
                 isUserAddedToTrainingMap.put(userId, true);
@@ -143,6 +143,7 @@ public class TrainingParticipationService {
                 .participatedDate(new Date())
                 .build();
 
+        assignTrainingLessonsToUser(trainingId, userId);
         trainingParticipatedRepo.save(participatedTrainingModel);
     }
 
@@ -179,7 +180,9 @@ public class TrainingParticipationService {
 
                 // Add participant to db
                 addSingleParticipantToTraining(trainingId, userId);
+                assignTrainingLessonsToUser(trainingId, userId);
                 sendParticipationNotificationToParticipant(trainingId, userId);
+
 
                 // Set response dto opStatus as success
                 responseDTO.setOpStatus(Constants.Training.Participation.OpStatus.SUCCESS);
@@ -195,20 +198,60 @@ public class TrainingParticipationService {
         return approveResponseDTOList;
     }
 
+    private void assignTrainingLessonsToUser(Long trainingId, Long userId) {
+        TrainingModel trainingModel = trainingRepo.findById(trainingId).orElseThrow(() -> new EntityNotFoundException());
+
+        List<OnlineLessonModel> onlineLessons = onlineLessonRepo.findAllByTrainingID(trainingId);
+        List<OfflineLessonModel> offlineLessons = offlineLessonRepo.findAllByTrainingID(trainingId);
+
+        if (trainingModel.getIs_online()) {
+            // Assign online lessons to user
+            onlineLessons.forEach(lesson -> {
+                User_LessonProgressModel model = User_LessonProgressModel
+                        .builder()
+                        .lessonId(lesson.getId())
+                        .userId(userId)
+                        .isStarted(false)
+                        .isCompleted(false)
+                        .lastWatchedMinute(new Timestamp(0))
+                        .build();
+
+                lessonProgressRepo.save(model);
+            });
+        } else {
+            // Assign offline lessons to user
+            offlineLessons.forEach(lesson -> {
+                User_LessonProgressModel model = User_LessonProgressModel
+                        .builder()
+                        .lessonId(lesson.getId())
+                        .userId(userId)
+                        .isStarted(false)
+                        .isCompleted(false)
+                        .lastWatchedMinute(new Timestamp(0))
+                        .build();
+
+                lessonProgressRepo.save(model);
+            });
+        }
+
+    }
+
 
     @Transactional
     public void approveParticipationRequestsByUserRoleId(Long userRoleId) throws Exception {
         try {
             Map<String, Object> usersResponseMap = userClient.getAllUsersByUserRoleId(userRoleId).getBody();
-            Set<Long> userIdSet = (Set<Long>) ((List)usersResponseMap.get("data")).stream()
+            Set<Long> userIdSet = (Set<Long>) ((List) usersResponseMap.get("data")).stream()
                     .map(user -> objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
-                                .convertValue(user, UserResponseDTO.class ).getId())
+                            .convertValue(user, UserResponseDTO.class).getId())
                     .collect(Collectors.toSet());
 
             List<User_RequestedTrainingModel> pendingRequests = trainingRequestedRepo.findAllIfContainsRoleId(userIdSet);
             pendingRequests.forEach(request -> {
                 request.setRespondedDate(new Date());
                 request.setStatus(Constants.Training.Participation.RequestType.APPROVED);
+
+                assignTrainingLessonsToUser(request.getTrainingId(), request.getUserId());
                 sendParticipationNotificationToParticipant(request.getTrainingId(), request.getUserId());
             });
 
