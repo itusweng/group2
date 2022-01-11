@@ -212,7 +212,6 @@ export default {
           confirmButtonText: 'OK'
         });
 
-        this.$router.back();
       } catch (e) {
         Swal.fire({
           icon: 'error',
