@@ -117,4 +117,15 @@ public class OfflineLessonServiceTest {
         verify(offlineLessonRepo,times(1)).save(any(OfflineLessonModel.class));
     }
 
+    @Test
+    public void it_should_return_offlinelesson_when_lesson_found(){
+        //arrange
+        OfflineLessonModel offlineLessonModel = mock(OfflineLessonModel.class);
+        when(offlineLessonRepo.findById(1L)).thenReturn(Optional.of(offlineLessonModel));
+        //act
+        OfflineLessonModel offlineLessonModel1 = offlineLessonService.getOfflineLessonById(1L);
+        //assert
+        assertThat(offlineLessonModel).isEqualTo(offlineLessonModel1);
+    }
+
 }
