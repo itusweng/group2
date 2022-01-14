@@ -16,6 +16,7 @@ import org.mockito.quality.Strictness;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -68,5 +69,30 @@ public class OnlineLessonServiceTest {
         onlineLessonService.deleteOnlineLesson(1L);
         //arrange
         verify(onlineLessonRepo, times(1)).deleteById(any(Long.class));
+    }
+
+    @Test
+    public void it_should_return_onlinelesson_when_lesson_found(){
+        //arrange
+        OnlineLessonModel onlineLessonModel = mock(OnlineLessonModel.class);
+        when(onlineLessonRepo.findById(1L)).thenReturn(Optional.of(onlineLessonModel));
+        //act
+        OnlineLessonModel onlineLessonModel1 = onlineLessonService.getOnlineLessonById(1L);
+        //assert
+        assertThat(onlineLessonModel).isEqualTo(onlineLessonModel1);
+    }
+
+    @Test
+    public void test_updateOnlineLesson(){
+        //arrange
+        OnlineLessonModel existingLesson = mock(OnlineLessonModel.class);
+        OnlineLessonModel updatedLesson = mock(OnlineLessonModel.class);
+        when(updatedLesson.getId()).thenReturn(1L);
+        when(onlineLessonRepo.findById(1L)).thenReturn(Optional.of(existingLesson));
+        //act
+        onlineLessonService.updateOnlineLesson(updatedLesson);
+        //assert
+        verify(onlineLessonModelMapper, times(1)).updateFields(any(OnlineLessonModel.class), any(OnlineLessonModel.class));
+        verify(onlineLessonRepo, times(1)).save(any(OnlineLessonModel.class));
     }
 }
