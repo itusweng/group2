@@ -6,6 +6,7 @@ import com.trainingplatform.userservice.model.entity.UserCredentials;
 import com.trainingplatform.userservice.model.entity.UserRole;
 import com.trainingplatform.userservice.model.mapper.UserMapper;
 import com.trainingplatform.userservice.model.response.UserResponseDTO;
+import com.trainingplatform.userservice.repository.KeycloakNativeRepo;
 import com.trainingplatform.userservice.repository.UserRepository;
 import com.trainingplatform.userservice.repository.UserRoleRepository;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,7 @@ class UserServiceTest {
     @Mock  private PasswordEncoder passwordEncoder;
     @Mock  private UserMapper userMapper;
     @Mock  private UserRoleRepository userRoleRepo;
+    @Mock  private  KeycloakNativeRepo keycloakNativeRepo;
 
     @Test
     void it_should_return_user_when_user_found() {
@@ -272,5 +274,20 @@ class UserServiceTest {
         Map<String, Object> returnMap1 = userService.getAllUsers(1,2);
         //assert
         assertThat(returnMap).isEqualTo(returnMap1);
+    }
+
+    @Test
+    public void it_should_return_all_instructors_list(){
+        //arrange
+        User user = mock(User.class);
+        List<User> userList = new ArrayList<>();
+        when(keycloakNativeRepo.getInstructorUserIds()).thenReturn(List.of("1"));
+        when(keycloakNativeRepo.getUsernameByInstructorId("1")).thenReturn("instructor1");
+        when(userRepo.findByUsername("instructor1")).thenReturn(Optional.of(user));
+        userList.add(user);
+        //act
+        List<User> instructors = userService.getAllInstructors();
+        //assert
+        assertThat(instructors).isEqualTo(userList);
     }
 }
