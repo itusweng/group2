@@ -30,7 +30,7 @@ public class UserRoleServiceTest {
     @Mock private UserRoleRepository userRoleRepo;
     @Mock private ManagerGroupRepo managerGroupRepo;
 
-   /* @Test
+    @Test
     public void void_create_new_user_role(){
         String roleName = "roleName";
         Long managerGroupId = 1L;
@@ -38,8 +38,8 @@ public class UserRoleServiceTest {
         when(userRole.getRoleName()).thenReturn("roleName");
         when(userRole.getManagerGroupId()).thenReturn(1L);
         userRoleService.createNewUserRole(roleName, managerGroupId);
-        verify(userRoleRepo, times(1)).save(userRole);
-    }*/
+        verify(userRoleRepo, times(1)).save(any(UserRole.class));
+    }
 
     @Test
     public void it_should_return_all_user_roles_when_manager_group_given(){
